@@ -19,16 +19,15 @@ public class Idea {
     private String referencia;
     private Date fechaCreacion;
     private Date fechaPublicacion;
-    
-    // Una idea es asesorada a un usuario (Asesor)
-    private Usuario usuarioAsesor;
-    
+    // Una idea puede tener un estado
+    private TipoEstadoIdea tipoEstado;    
+
     // Una idea es creada por un usuario (Estudiante)
     private Usuario usuarioEstudiante;
-    
-    // Una idea puede tener un estado
-    private TipoEstadoIdea tipoEstado;
-    
+
+    // Una idea es asesorada a un usuario (Asesor)
+    private Usuario usuarioAsesor;
+        
     // Una idea puede generar una o muchas reuniones
     private ArrayList<Reunion> reuniones;
 
@@ -103,7 +102,7 @@ public class Idea {
     public TipoEstadoIdea getTipoEstado() {
         return tipoEstado;
     }
-
+    
     public void setTipoEstado(TipoEstadoIdea tipoEstado) {
         this.tipoEstado = tipoEstado;
     }
