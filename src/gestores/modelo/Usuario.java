@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gestores.modelo;
 
 import java.util.ArrayList;
@@ -12,34 +8,32 @@ import java.util.ArrayList;
  */
 public class Usuario {
     
-    private int idUsuario;
+    private int coUsuario;
     private String nombre;
     private String apellidoPaterno;
     private String apellidoMaterno;
     private String sexo;
+    private String cotipodocumento;
     private String numeroDocumento;
-    private String numeroCelular;
     private String email;
+    private String numeroCelular;
+    private String contrasena;
+    private String cotipousuario;
+    private String cocentroformacion;
     
     // Un usuario puede tener una o muchas ideas
     private ArrayList<Idea> ideas;
-    
-    // Un usuario puede tener un tipo de documento
-    private TipoDocumento tipoDocumento;
-    
-    // Un usuario puede tener un tipo de usuario
-    private TipoUsuario tipoUsuario;
-    
+  
     // Un usuario puede pertenecer a un centro de formacion
     private CentroFormacion centroFormacion;
 
     // Getters / Setters
-    public int getIdUsuario() {
-        return idUsuario;
+    public int getCoUsuario() {
+        return coUsuario;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setCoUsuario(int coUsuario) {
+        this.coUsuario = coUsuario;
     }
 
     public String getNombre() {
@@ -106,14 +100,6 @@ public class Usuario {
         this.ideas = ideas;
     }
 
-    public TipoDocumento getTipoDocumento() {
-        return tipoDocumento;
-    }
-
-    public void setTipoDocumento(TipoDocumento tipoDocumento) {
-        this.tipoDocumento = tipoDocumento;
-    }
-
     public CentroFormacion getCentroFormacion() {
         return centroFormacion;
     }
@@ -121,5 +107,37 @@ public class Usuario {
     public void setCentroFormacion(CentroFormacion centroFormacion) {
         this.centroFormacion = centroFormacion;
     }
+
+	public String getCotipodocumento() {
+		return cotipodocumento;
+	}
+
+	public void setCotipodocumento(String cotipodocumento) {
+		this.cotipodocumento = cotipodocumento;
+	}
+
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+	public String getCotipousuario() {
+		return cotipousuario;
+	}
+
+	public void setCotipousuario(String cotipousuario) {
+		this.cotipousuario = cotipousuario;
+	}
+
+	public String getCocentroformacion() {
+		return cocentroformacion;
+	}
+
+	public void setCocentroformacion(String cocentroformacion) {
+		this.cocentroformacion = cocentroformacion;
+	}
     
 }

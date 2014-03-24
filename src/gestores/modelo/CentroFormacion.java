@@ -17,7 +17,6 @@ public class CentroFormacion {
     private String urlCentroFormacion;
     private String urlLogo;
     
-    private TipoCentroFormacion tipoCentroFormacion;
     
     private ArrayList<Factura> facturas;
 
@@ -52,14 +51,6 @@ public class CentroFormacion {
 
     public void setUrlLogo(String urlLogo) {
         this.urlLogo = urlLogo;
-    }
-
-    public TipoCentroFormacion getTipoCentroFormacion() {
-        return tipoCentroFormacion;
-    }
-
-    public void setTipoCentroFormacion(TipoCentroFormacion tipoCentroFormacion) {
-        this.tipoCentroFormacion = tipoCentroFormacion;
     }
 
     public ArrayList<Factura> getFacturas() {

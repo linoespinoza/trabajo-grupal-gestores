@@ -1,33 +1,29 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package gestores.modelo;
 
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author Lino Espinoza
- */
 public class Idea {
     
-    private int idIdea;
+    private int coIdea;
     private String titulo;
     private String descripcion;
-    private String referencia;
+    private String palabras;
+    private String archivo;
+    private int coEstudiante;
+    private String coEstado;
     private Date fechaCreacion;
     private Date fechaPublicacion;
-    // Una idea puede tener un estado
-    private TipoEstadoIdea tipoEstado;    
+    private int coAsesor; 
+   
 
-    // Una idea es creada por un usuario (Estudiante)
+/*    // Una idea es creada por un usuario (Estudiante)
     private Usuario usuarioEstudiante;
 
     // Una idea es asesorada a un usuario (Asesor)
     private Usuario usuarioAsesor;
-        
+*/       
     // Una idea puede generar una o muchas reuniones
     private ArrayList<Reunion> reuniones;
 
@@ -35,12 +31,12 @@ public class Idea {
     
     // Getters / Setters
     
-    public int getIdIdea() {
-        return idIdea;
+    public int getCoIdea() {
+        return coIdea;
     }
 
-    public void setIdIdea(int idIdea) {
-        this.idIdea = idIdea;
+    public void setCoIdea(int coIdea) {
+        this.coIdea = coIdea;
     }
 
     public String getTitulo() {
@@ -59,14 +55,22 @@ public class Idea {
         this.descripcion = descripcion;
     }
 
-    public String getReferencia() {
-        return referencia;
+    public String getPalabras() {
+        return palabras;
     }
 
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
+    public void setPalabras(String palabras) {
+        this.palabras = palabras;
     }
 
+    public String getArchivo() {
+        return archivo;
+    }
+
+    public void setArchivo(String archivo) {
+        this.archivo = archivo;
+    }
+    
     public Date getFechaCreacion() {
         return fechaCreacion;
     }
@@ -82,7 +86,7 @@ public class Idea {
     public void setFechaPublicacion(Date fechaPublicacion) {
         this.fechaPublicacion = fechaPublicacion;
     }
-
+/*
     public Usuario getUsuarioAsesor() {
         return usuarioAsesor;
     }
@@ -98,15 +102,7 @@ public class Idea {
     public void setUsuarioEstudiante(Usuario usuarioEstudiante) {
         this.usuarioEstudiante = usuarioEstudiante;
     }
-
-    public TipoEstadoIdea getTipoEstado() {
-        return tipoEstado;
-    }
-    
-    public void setTipoEstado(TipoEstadoIdea tipoEstado) {
-        this.tipoEstado = tipoEstado;
-    }
-
+*/
     public ArrayList<Reunion> getReuniones() {
         return reuniones;
     }
@@ -114,6 +110,29 @@ public class Idea {
     public void setReuniones(ArrayList<Reunion> reuniones) {
         this.reuniones = reuniones;
     }
-    
-    
+
+	public String getCoEstado() {
+		return coEstado;
+	}
+
+	public void setCoEstado(String coEstado) {
+		this.coEstado = coEstado;
+	}
+
+	public int getCoEstudiante() {
+		return coEstudiante;
+	}
+
+	public void setCoEstudiante(int coEstudiante) {
+		this.coEstudiante = coEstudiante;
+	}
+
+	public int getCoAsesor() {
+		return coAsesor;
+	}
+
+	public void setCoAsesor(int coAsesor) {
+		this.coAsesor = coAsesor;
+	}
+
 }
