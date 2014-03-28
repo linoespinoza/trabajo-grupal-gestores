@@ -50,8 +50,8 @@ public class ReunionDAO extends BaseDAO {
 			stmt.setInt(1, reunion.getIdea().getAsesor().getCodigo());
 
 			if (fechaInicio != null && fechaFin != null) {
-				stmt.setDate(2, FechaUtil.convertirSqlDate(fechaInicio));
-				stmt.setDate(3, FechaUtil.convertirSqlDate(fechaFin));
+				stmt.setTimestamp(2, FechaUtil.convertirSqlDate(fechaInicio));
+				stmt.setTimestamp(3, FechaUtil.convertirSqlDate(fechaFin));
 				indiceParametro = 4;
 			}
 			if (reunion.getTipoCalificacion() != null) {
@@ -102,7 +102,7 @@ public class ReunionDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, vo.getIdea().getCodigo());
-			stmt.setDate(2, FechaUtil.convertirSqlDate(vo.getFechaReunion()));
+			stmt.setTimestamp(2, FechaUtil.convertirSqlDate(vo.getFechaReunion()));
 			stmt.setString(3, vo.getObservacion());
 			stmt.setString(4, vo.getTipoCalificacion().getCodigo());
 
@@ -135,7 +135,7 @@ public class ReunionDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, reunion.getIdea().getAsesor().getCodigo());
-			stmt.setDate(2,
+			stmt.setTimestamp(2,
 					FechaUtil.convertirSqlDate(reunion.getFechaReunion()));
 			rs = stmt.executeQuery();
 

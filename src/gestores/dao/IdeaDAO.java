@@ -3,6 +3,7 @@ package gestores.dao;
 import gestores.bean.Puntaje;
 import gestores.enums.EstadoIdea;
 import gestores.exception.DAOExcepcion;
+import gestores.modelo.CentroFormacion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
 import gestores.util.ConexionBD;
@@ -320,4 +321,31 @@ public class IdeaDAO extends BaseDAO {
 		}
 		return lista;
 	}
+
+	public int ObtenerNroIdeasporCentroFormacion(CentroFormacion centroformacion) throws DAOExcepcion{
+		int tot_ideas = 0;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT count(*) FROM idea id3 inner join usuario us3 on id3.Co_Estudiante = us3.Co_Usuario "
+							+ "where us3.Co_Centro_Formacion = ? "
+							+ "group by us3.Co_Centro_Formacion";
+			
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1,  centroformacion.getCodigo());
+			rs= stmt.executeQuery();
+			tot_ideas = rs.getInt(1);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return tot_ideas;
+	}
+	
 }

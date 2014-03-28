@@ -1,5 +1,6 @@
 package gestores.util;
 
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,7 +45,7 @@ public class FechaUtil {
 		return Integer.parseInt(dateFormat.format(fecha));
 	}
 
-	public static java.sql.Date convertirSqlDate(Date fecha) {
-		return new java.sql.Date(fecha.getTime());
+	public static Timestamp convertirSqlDate(Date fecha) {
+		return new Timestamp(fecha.getTime());
 	}
 }

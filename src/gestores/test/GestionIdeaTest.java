@@ -4,19 +4,19 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import gestores.enums.EstadoIdea;
 import gestores.modelo.Idea;
+import gestores.modelo.Reunion;
+import gestores.negocio.GestionReunion;
 import gestores.util.FechaUtil;
 
 import java.util.Calendar;
 import java.util.Date;
-
-import org.junit.Test;
 
 /**
  * @author Lino Espinoza.
  */
 public class GestionIdeaTest {
 
-	@Test
+	//@Test
 	public void ideaDebeCrearseConLosDatosIndicados() {
 		Idea idea = new Idea();
 
