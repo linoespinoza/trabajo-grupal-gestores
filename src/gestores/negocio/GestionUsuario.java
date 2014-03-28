@@ -3,6 +3,7 @@ package gestores.negocio;
 import gestores.dao.UsuarioDAO;
 import gestores.enums.FiltroBusquedaUsuario;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.LoginExcepcion;
 import gestores.modelo.Usuario;
 
 import java.util.List;
@@ -38,8 +39,9 @@ public class GestionUsuario {
 		return dao.actualizar(usuario);
 	}
 
-	public boolean esAutenticado(Usuario usuario) throws DAOExcepcion {
+	public Usuario autenticar(String email, String contrasenia)
+			throws DAOExcepcion, LoginExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
-		return dao.esAutenticado(usuario);
+		return dao.autenticar(email, contrasenia);
 	}
 }
