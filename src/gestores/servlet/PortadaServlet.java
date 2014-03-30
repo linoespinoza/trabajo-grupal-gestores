@@ -26,15 +26,15 @@ public class PortadaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		procesar(request, response);
+		this.processRequest(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		procesar(request, response);
+		this.processRequest(request, response);
 	}
 
-	private void procesar(HttpServletRequest request,
+	protected void processRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
@@ -45,8 +45,8 @@ public class PortadaServlet extends HttpServlet {
 			return;
 		}
 
-		RequestDispatcher requestDispatcher = request
+		RequestDispatcher rd = request
 				.getRequestDispatcher("/jsp/principal.jsp");
-		requestDispatcher.forward(request, response);
+		rd.forward(request, response);
 	}
 }

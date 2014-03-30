@@ -5,22 +5,16 @@ package gestores.enums;
  */
 public enum TipoCentroFormacion {
 
-	UNIVERSIDAD("UNI", "Universidad"), INSTITUTO("INS", "Instituto");
+	Universidad("UNI"), Instituto("INS");
 
 	private String codigo;
-	private String nombre;
 
-	private TipoCentroFormacion(String codigo, String nombre) {
+	private TipoCentroFormacion(String codigo) {
 		this.codigo = codigo;
-		this.nombre = nombre;
 	}
 
 	public String getCodigo() {
 		return codigo;
-	}
-
-	public String getNombre() {
-		return nombre;
 	}
 
 	public static TipoCentroFormacion getTipoCentroFormacion(String codigo) {

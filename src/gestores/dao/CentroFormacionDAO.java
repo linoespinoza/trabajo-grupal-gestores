@@ -13,8 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * @author Harry Bravo.
  */
@@ -168,25 +166,17 @@ public class CentroFormacionDAO extends BaseDAO {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			String campo = "";
-			int indice = 5;
-			if (StringUtils.isNotBlank(vo.getLogo())) {
-				campo = ", Tx_Logo = ?";
-			}
-			String query = "UPDATE CENTRO_FORMACION SET No_Centro_Formacion = ?, Co_Tipo_Centro_Formacion = ?, Tx_Url = ?, Co_Plan_Tarifario = ?"
-					+ campo + " WHERE Co_Centro_Formacion = ?";
+			String query = "UPDATE CENTRO_FORMACION SET No_Centro_Formacion = ?, Co_Tipo_Centro_Formacion = ?, Tx_Url = ?, Tx_Logo = ?, Co_Plan_Tarifario = ? "
+					+ "WHERE Co_Centro_Formacion = ?";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, vo.getNombre());
 			stmt.setString(2, vo.getTipoCentroFormacion().getCodigo());
 			stmt.setString(3, vo.getUrl());
-			stmt.setInt(4, vo.getPlanTarifario().getCodigo());
-			if (StringUtils.isNotBlank(vo.getLogo())) {
-				stmt.setString(5, vo.getLogo());
-				indice = 6;
-			}
-			stmt.setString(indice, vo.getCodigo());
+			stmt.setString(4, vo.getLogo());
+			stmt.setInt(5, vo.getPlanTarifario().getCodigo());
+			stmt.setString(6, vo.getCodigo());
 
 			int i = stmt.executeUpdate();
 			if (i != 1) {

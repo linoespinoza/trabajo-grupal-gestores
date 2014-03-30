@@ -35,7 +35,7 @@ public class GestionReunionTest {
 			reunion.setFechaReunion(FechaUtil.establecerFechaHora(19, 3, 2014,
 					12, 30, 0));
 			reunion.setObservacion("El proyecto es muy interesante y va por buen camino");
-			reunion.setTipoCalificacion(TipoCalificacion.BUENO);
+			reunion.setTipoCalificacion(TipoCalificacion.Bueno);
 
 			Reunion vo = negocio.insertar(reunion);
 			System.out.println("Se insertó la reunión de la idea "
@@ -70,7 +70,7 @@ public class GestionReunionTest {
 			for (Reunion vo : listado) {
 				System.out.println("Reunión: " + vo.getCodigo() + ", Idea: "
 						+ vo.getIdea().getTitulo() + ", Calificación: "
-						+ vo.getTipoCalificacion().getNombre());
+						+ vo.getTipoCalificacion().toString());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {

@@ -118,18 +118,18 @@ public class Usuario {
 	}
 
 	public boolean isAdministrador() {
-		return tipoUsuario.equals(TipoUsuario.ADMINISTRADOR);
+		return tipoUsuario.equals(TipoUsuario.Administrador);
 	}
 
 	public boolean isEvaluador() {
-		return tipoUsuario.equals(TipoUsuario.EVALUADOR);
+		return tipoUsuario.equals(TipoUsuario.Evaluador);
 	}
 
 	public boolean isDocente() {
-		return tipoUsuario.equals(TipoUsuario.DOCENTE);
+		return tipoUsuario.equals(TipoUsuario.Docente);
 	}
 
 	public boolean isEstudiante() {
-		return tipoUsuario.equals(TipoUsuario.ESTUDIANTE);
+		return tipoUsuario.equals(TipoUsuario.Estudiante);
 	}
 }

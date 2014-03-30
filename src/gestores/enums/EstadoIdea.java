@@ -5,23 +5,16 @@ package gestores.enums;
  */
 public enum EstadoIdea {
 
-	CREADA("CRE", "Creada"), PUBLICADA("PUB", "Publicada"), APROBADA("APR",
-			"Aprobada"), RECHAZADA("REC", "Rechazada");
+	Creada("CRE"), Publicada("PUB"), Aprobada("APR"), Rechazada("REC");
 
 	private String codigo;
-	private String nombre;
 
-	private EstadoIdea(String codigo, String nombre) {
+	private EstadoIdea(String codigo) {
 		this.codigo = codigo;
-		this.nombre = nombre;
 	}
 
 	public String getCodigo() {
 		return codigo;
-	}
-
-	public String getNombre() {
-		return nombre;
 	}
 
 	public static EstadoIdea getEstadoIdea(String codigo) {
