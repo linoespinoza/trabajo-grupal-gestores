@@ -4,6 +4,7 @@ import gestores.enums.FiltroBusquedaUsuario;
 import gestores.enums.TipoDocumento;
 import gestores.enums.TipoUsuario;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.LoginExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.Usuario;
 import gestores.negocio.GestionUsuario;
@@ -199,14 +200,12 @@ public class GestionUsuarioTest {
 	public void autenticarTest() {
 		GestionUsuario negocio = new GestionUsuario();
 		try {
-			Usuario usuario = new Usuario();
-			usuario.setEmail("hbravocoronel@gmail.com");
-			usuario.setContrasenia("admin");
-
-			boolean autenticadoFlag = negocio.esAutenticado(usuario);
-
-			System.out.println("Es Autenticado: " + autenticadoFlag);
-			Assert.assertTrue(autenticadoFlag);
+			String email = "hbravocoronel@gmail.com";
+			String contrasenia = "admin";
+			Usuario usuario = negocio.autenticar(email, contrasenia);
+			Assert.assertNotNull(usuario);
+		} catch (LoginExcepcion e) {
+			Assert.fail("Falló la autenticación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la autenticación: " + e.getMessage());
 		}
