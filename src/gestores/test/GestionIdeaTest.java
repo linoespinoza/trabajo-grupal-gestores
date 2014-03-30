@@ -37,7 +37,7 @@ public class GestionIdeaTest {
 		idea.setDescripcion(descripcionIdea);
 		idea.setPalabrasClave(palabrasClave);
 		idea.setFechaCreacion(fechaCreacion);
-		idea.setEstadoIdea(EstadoIdea.Creada); // Creada
+		idea.setEstadoIdea(EstadoIdea.CREADA); // Creada
 
 		assertNotNull(idea);
 		assertEquals(tituloIdea, idea.getTitulo());
@@ -45,6 +45,6 @@ public class GestionIdeaTest {
 		assertEquals(palabrasClave, idea.getPalabrasClave());
 		assertEquals(terceraPalabra, palabraClaveArray[2]);
 		assertEquals(fechaCreacion, idea.getFechaCreacion());
-		assertEquals(EstadoIdea.Creada, idea.getEstadoIdea());
+		assertEquals(EstadoIdea.CREADA, idea.getEstadoIdea());
 	}
 }
