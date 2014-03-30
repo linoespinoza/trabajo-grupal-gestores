@@ -32,7 +32,7 @@ public class EvaluacionIdeaTest {
 		try {
 			Idea idea = new Idea();
 			idea.setCodigo(2);
-			idea.setEstadoIdea(EstadoIdea.Aprobada);
+			idea.setEstadoIdea(EstadoIdea.APROBADA);
 
 			Idea vo = negocio.actualizarEstado(idea);
 			System.out.println("Se aprobó el id: " + vo.getCodigo());
@@ -47,7 +47,7 @@ public class EvaluacionIdeaTest {
 		try {
 			Idea idea = new Idea();
 			idea.setCodigo(2);
-			idea.setEstadoIdea(EstadoIdea.Rechazada);
+			idea.setEstadoIdea(EstadoIdea.RECHAZADA);
 
 			Idea vo = negocio.actualizarEstado(idea);
 			System.out.println("Se rechazó el id: " + vo.getCodigo());
@@ -92,7 +92,7 @@ public class EvaluacionIdeaTest {
 
 			for (Idea vo : listado) {
 				System.out.println(vo.getTitulo() + " - "
-						+ vo.getEstadoIdea().toString());
+						+ vo.getEstadoIdea().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
@@ -112,7 +112,7 @@ public class EvaluacionIdeaTest {
 
 			for (Idea vo : listado) {
 				System.out.println(vo.getTitulo() + " - "
-						+ vo.getEstadoIdea().toString());
+						+ vo.getEstadoIdea().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {

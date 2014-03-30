@@ -5,16 +5,22 @@ package gestores.enums;
  */
 public enum TipoUsuario {
 
-	Estudiante("EST"), Docente("DOC"), Evaluador("EVA"), Administrador("ADM");
+	ESTUDIANTE("EST", "Estudiante"), DOCENTE("DOC", "Docente"), EVALUADOR(
+			"EVA", "Evaluador"), ADMINISTRADOR("ADM", "Administrador");
 
 	private String codigo;
+	private String nombre;
 
-	private TipoUsuario(String codigo) {
+	private TipoUsuario(String codigo, String nombre) {
 		this.codigo = codigo;
 	}
 
 	public String getCodigo() {
 		return codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 
 	public static TipoUsuario getTipoUsuario(String codigo) {

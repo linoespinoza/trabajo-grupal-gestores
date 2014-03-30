@@ -47,11 +47,14 @@ public class LoginServlet extends HttpServlet {
 		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje",
 					"Hubo un error al procesar la operación: " + e.getMessage());
+			e.printStackTrace();
 		} catch (LoginExcepcion e) {
 			request.setAttribute("mensaje",
 					"Usuario y/o contraseña incorrectos");
+			e.printStackTrace();
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-		rd.forward(request, response);
+		RequestDispatcher requestDispatcher = request
+				.getRequestDispatcher("/index.jsp");
+		requestDispatcher.forward(request, response);
 	}
 }

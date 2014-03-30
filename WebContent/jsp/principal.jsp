@@ -1,95 +1,28 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath"
 	value="${pageContext.servletContext.contextPath}" />
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-<meta charset="utf-8">
+<meta charset="ISO-8859-1">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sistema de Gesti√≥n de Innovaci√≥n</title>
+<meta name="author" content="Harry Bravo">
+<meta name="description" content="Pagina principal">
+<title>Sistema de GestiÛn de InnovaciÛn</title>
 <link href="${contextPath}/css/bootstrap.css" rel="stylesheet"
 	media="screen">
 </head>
 <body>
-	<div class="navbar navbar-default navbar-static-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="${contextPath}/PortadaServlet">Sistema
-					de Gesti√≥n de Innovaci√≥n</a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="${contextPath}/PortadaServlet">Inicio</a></li>
-					<c:if
-						test="${usuarioActual.estudiante or usuarioActual.administrador}">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Mantenimiento</a>
-							<ul class="dropdown-menu">
-								<c:if test="${usuarioActual.estudiante}">
-									<li><a href="#">Ideas</a></li>
-								</c:if>
-								<c:if test="${usuarioActual.administrador}">
-									<li><a href="#">Centros de Formaci√≥n</a></li>
-									<li><a href="#">Usuarios</a></li>
-								</c:if>
-							</ul></li>
-					</c:if>
-					<c:if test="${not usuarioActual.administrador}">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Gesti√≥n</a>
-							<ul class="dropdown-menu">
-								<c:if
-									test="${usuarioActual.estudiante or usuarioActual.docente or usuarioActual.evaluador}">
-									<li><a href="#">Consulta de Ideas</a></li>
-								</c:if>
-								<c:if test="${usuarioActual.docente}">
-									<li><a href="#">Registro de Reuniones</a></li>
-								</c:if>
-								<c:if test="${usuarioActual.estudiante}">
-									<li><a href="#">Publicaci√≥n de Ideas</a></li>
-								</c:if>
-								<c:if
-									test="${usuarioActual.estudiante or usuarioActual.docente}">
-									<li><a href="#">Participaci√≥n de Ideas</a></li>
-								</c:if>
-								<c:if test="${usuarioActual.evaluador}">
-									<li><a href="#">Evaluaci√≥n de Ideas</a></li>
-								</c:if>
-							</ul></li>
-					</c:if>
-					<c:if
-						test="${usuarioActual.evaluador or usuarioActual.administrador}">
-						<li class="dropdown"><a href="#" class="dropdown-toggle"
-							data-toggle="dropdown">Reporte</a>
-							<ul class="dropdown-menu">
-								<c:if test="${usuarioActual.evaluador}">
-									<li><a href="#">Ideas</a></li>
-								</c:if>
-								<c:if test="${usuarioActual.administrador}">
-									<li><a href="#">Pagos de Centro de Formaci√≥n</a></li>
-								</c:if>
-							</ul></li>
-					</c:if>
-					<li><a href="${contextPath}/LogoutServlet">Salir</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	<jsp:include page="include/cabecera.jsp" flush="true" />
 	<div class="container">
 		<div class="jumbotron">
 			<h4>
-				Bienvenido <b>${sessionScope.usuarioActual.nombre}
-					${sessionScope.usuarioActual.apellidoPaterno}
-					${sessionScope.usuarioActual.apellidoMaterno}</b>
+				Bienvenido <b>${usuarioActual.nombre}
+					${usuarioActual.apellidoPaterno} ${usuarioActual.apellidoMaterno}</b>
 			</h4>
 		</div>
 		<c:if
@@ -98,29 +31,30 @@
 				<c:if test="${usuarioActual.estudiante}">
 					<div class="col-lg-4">
 						<h4>Mantenimiento de Ideas</h4>
-						<p>Desde esta opci√≥n usted podr√° crear, modificar, buscar y
+						<p>Desde esta opciÛn usted podr· crear, modificar, buscar y
 							eliminar las ideas.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${usuarioActual.administrador}">
 					<div class="col-lg-4">
-						<h4>Mantenimiento de Centros de Formaci√≥n</h4>
-						<p>Desde esta opci√≥n usted podr√° crear, modificar, buscar y
-							eliminar los centros de formaci√≥n.</p>
+						<h4>Mantenimiento de Centros de FormaciÛn</h4>
+						<p>Desde esta opciÛn usted podr· crear, modificar, buscar y
+							eliminar los centros de formaciÛn.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioCentroFormacionServlet"
+								class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 
 					<div class="col-lg-4">
 						<h4>Mantenimiento de Usuarios</h4>
-						<p>Desde esta opci√≥n usted podr√° crear, modificar, buscar y
+						<p>Desde esta opciÛn usted podr· crear, modificar, buscar y
 							eliminar los usuarios.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
@@ -132,45 +66,45 @@
 					test="${usuarioActual.estudiante or usuarioActual.docente or usuarioActual.evaluador}">
 					<div class="col-lg-4">
 						<h4>Consulta de Ideas</h4>
-						<p>Desde esta opci√≥n usted podr√° consultar las ideas.</p>
+						<p>Desde esta opciÛn usted podr· consultar las ideas.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${usuarioActual.docente}">
 					<div class="col-lg-4">
 						<h4>Registro de Reuniones</h4>
-						<p>Desde esta opci√≥n usted podr√° registrar las reuniones.</p>
+						<p>Desde esta opciÛn usted podr· registrar las reuniones.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${usuarioActual.estudiante}">
 					<div class="col-lg-4">
-						<h4>Publicaci√≥n de Ideas</h4>
-						<p>Desde esta opci√≥n usted podr√° publicar las ideas.</p>
+						<h4>PublicaciÛn de Ideas</h4>
+						<p>Desde esta opciÛn usted podr· publicar las ideas.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${usuarioActual.estudiante or usuarioActual.docente}">
 					<div class="col-lg-4">
-						<h4>Participaci√≥n de Ideas</h4>
-						<p>Desde esta opci√≥n usted podr√° participar de las ideas.</p>
+						<h4>ParticipaciÛn de Ideas</h4>
+						<p>Desde esta opciÛn usted podr· participar de las ideas.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${usuarioActual.evaluador}">
 					<div class="col-lg-4">
-						<h4>Evaluaci√≥n de Ideas</h4>
-						<p>Desde esta opci√≥n usted podr√° evaluar las ideas.</p>
+						<h4>EvaluaciÛn de Ideas</h4>
+						<p>Desde esta opciÛn usted podr· evaluar las ideas.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
@@ -181,30 +115,29 @@
 				<c:if test="${usuarioActual.evaluador}">
 					<div class="col-lg-4">
 						<h4>Reporte de Ideas</h4>
-						<p>Desde esta opci√≥n usted podr√° ver el reporte de las ideas.</p>
+						<p>Desde esta opciÛn usted podr· ver el reporte de las ideas.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${usuarioActual.administrador}">
 					<div class="col-lg-4">
-						<h4>Pagos de Centros de Formaci√≥n</h4>
-						<p>Desde esta opci√≥n usted podr√° consultar los pagos de los
-							centros de formaci√≥n.</p>
+						<h4>Pagos de Centros de FormaciÛn</h4>
+						<p>Desde esta opciÛn usted podr· consultar los pagos de los
+							centros de formaciÛn.</p>
 						<p>
-							<a class="btn btn-primary" href="#">Ver detalles &raquo;</a>
+							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
 			</div>
 		</c:if>
-		<div class="footer">
-			<p>&nbsp;</p>
-			<p>&copy; Gestores 2014</p>
-		</div>
+		<jsp:include page="include/pie.jsp" flush="true" />
 	</div>
-	<script src="${contextPath}/js/jquery-2.1.0.js"></script>
-	<script src="${contextPath}/js/bootstrap.js"></script>
+	<script src="${contextPath}/js/jquery-2.1.0.js" type="text/javascript"
+		charset="ISO-8859-1"></script>
+	<script src="${contextPath}/js/bootstrap.js" type="text/javascript"
+		charset="ISO-8859-1"></script>
 </body>
 </html>

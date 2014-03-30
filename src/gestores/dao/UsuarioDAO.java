@@ -80,13 +80,13 @@ public class UsuarioDAO extends BaseDAO {
 		ResultSet rs = null;
 		try {
 			String condicion = "";
-			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.Nombre)) {
+			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.NOMBRE)) {
 				condicion = "usu.No_Usuario LIKE ? ";
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoPaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_PATERNO)) {
 				condicion = "usu.No_Ape_Paterno LIKE ? ";
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoMaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_MATERNO)) {
 				condicion = "usu.No_Ape_Materno LIKE ? ";
 			}
 
@@ -101,13 +101,13 @@ public class UsuarioDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 
-			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.Nombre)) {
+			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.NOMBRE)) {
 				stmt.setString(1, "%" + usuario.getNombre() + "%");
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoPaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_MATERNO)) {
 				stmt.setString(1, "%" + usuario.getApellidoPaterno() + "%");
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoMaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_PATERNO)) {
 				stmt.setString(1, "%" + usuario.getApellidoMaterno() + "%");
 			}
 

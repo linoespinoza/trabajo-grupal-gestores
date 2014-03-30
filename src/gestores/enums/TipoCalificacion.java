@@ -5,16 +5,22 @@ package gestores.enums;
  */
 public enum TipoCalificacion {
 
-	Bueno("BUE"), Medio("MED"), Mejorar("MEJ");
+	BUENO("BUE", "Bueno"), MEDIO("MED", "Medio"), MEJORAR("MEJ", "Mejorar");
 
 	private String codigo;
+	private String nombre;
 
-	private TipoCalificacion(String codigo) {
+	private TipoCalificacion(String codigo, String nombre) {
 		this.codigo = codigo;
+		this.nombre = nombre;
 	}
 
 	public String getCodigo() {
 		return codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 
 	public static TipoCalificacion getTipoCalificacion(String codigo) {
