@@ -36,9 +36,9 @@ public class IdeaDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, "%" + idea.getTitulo() + "%");
-			stmt.setString(2, EstadoIdea.Publicada.getCodigo());
-			stmt.setString(3, EstadoIdea.Aprobada.getCodigo());
-			stmt.setString(4, EstadoIdea.Rechazada.getCodigo());
+			stmt.setString(2, EstadoIdea.PUBLICADA.getCodigo());
+			stmt.setString(3, EstadoIdea.APROBADA.getCodigo());
+			stmt.setString(4, EstadoIdea.RECHAZADA.getCodigo());
 
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -187,7 +187,7 @@ public class IdeaDAO extends BaseDAO {
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				flagPublicado = EstadoIdea.Publicada.getCodigo().equals(
+				flagPublicado = EstadoIdea.PUBLICADA.getCodigo().equals(
 						rs.getString(1));
 			}
 		} catch (SQLException e) {
@@ -215,7 +215,7 @@ public class IdeaDAO extends BaseDAO {
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
-				flagAprobado = EstadoIdea.Aprobada.getCodigo().equals(
+				flagAprobado = EstadoIdea.APROBADA.getCodigo().equals(
 						rs.getString(1));
 			}
 		} catch (SQLException e) {

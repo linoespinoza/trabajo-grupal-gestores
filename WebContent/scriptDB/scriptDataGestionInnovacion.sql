@@ -10,10 +10,10 @@ VALUES ('Plan Platinum', 300.00, 20.00);
 
 -- CENTRO DE FORMACION
 INSERT INTO CENTRO_FORMACION (Co_Centro_Formacion, No_Centro_Formacion, Co_Tipo_Centro_Formacion, Tx_Url, Tx_Logo, Co_Plan_Tarifario)
-VALUES ('10406048417', 'Universidad Peruana de Ciencias Aplicadas', 'UNI', 'http://www.upc.edu.pe', '/images/upload/logo/logoUpc.png', 1);
+VALUES ('10406048417', 'Universidad Peruana de Ciencias Aplicadas', 'UNI', 'http://www.upc.edu.pe', 'logoUpc.png', 1);
 
 INSERT INTO CENTRO_FORMACION (Co_Centro_Formacion, No_Centro_Formacion, Co_Tipo_Centro_Formacion, Tx_Url, Tx_Logo, Co_Plan_Tarifario)
-VALUES ('10334522659', 'Instituto Superior Tecnologico Cibertec', 'INS', 'http://www.cibertec.edu.pe', '/images/upload/logo/logoCibertec.png', 2);
+VALUES ('10334522659', 'Instituto Superior Tecnologico Cibertec', 'INS', 'http://www.cibertec.edu.pe', 'logoCibertec.png', 2);
 
 -- USUARIO
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)

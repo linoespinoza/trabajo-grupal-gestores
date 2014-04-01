@@ -21,12 +21,12 @@ public class GestionCentroFormacionTest {
 			planTarifario.setCodigo(2);
 
 			CentroFormacion centroFormacion = new CentroFormacion();
-			centroFormacion.setCodigo("10804050208");
-			centroFormacion.setNombre("Instituto Superior Tecnologico IDAT");
+			centroFormacion.setCodigo("10804050202");
+			centroFormacion.setNombre("Instituto Superior IDAT");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
-			centroFormacion.setUrl("http://www.idat.edu.pe");
-			centroFormacion.setLogo("/images/logo/logoIdat.png");
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
+			centroFormacion.setUrl("http://www.idat1.edu.pe");
+			centroFormacion.setLogo("logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
 
 			CentroFormacion vo = negocio.insertar(centroFormacion);
@@ -40,7 +40,7 @@ public class GestionCentroFormacionTest {
 	public void obtenerTest() {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
-			String codigo = "10804050208";
+			String codigo = "10804050202";
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
 		} catch (DAOExcepcion e) {
@@ -56,12 +56,12 @@ public class GestionCentroFormacionTest {
 			planTarifario.setCodigo(3);
 
 			CentroFormacion centroFormacion = new CentroFormacion();
-			centroFormacion.setCodigo("10804050208");
+			centroFormacion.setCodigo("10804050202");
 			centroFormacion.setNombre("Instituto IDAT");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
-			centroFormacion.setUrl("http://www.idat.edu.pe/index.jsp");
-			centroFormacion.setLogo("/images/logo/logoIdat.png");
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
+			centroFormacion.setUrl("http://www.idat1.edu.pe/index.jsp");
+			centroFormacion.setLogo("logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
 
 			CentroFormacion vo = negocio.actualizar(centroFormacion);
@@ -84,7 +84,7 @@ public class GestionCentroFormacionTest {
 
 			for (CentroFormacion vo : listado) {
 				System.out.println(vo.getNombre() + " - "
-						+ vo.getTipoCentroFormacion().toString());
+						+ vo.getTipoCentroFormacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
@@ -97,16 +97,16 @@ public class GestionCentroFormacionTest {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
 			CentroFormacion centroFormacion = new CentroFormacion();
-			centroFormacion.setNombre("Cibertec");
+			centroFormacion.setNombre("IDAT");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 
 			List<CentroFormacion> listado = negocio.listar(centroFormacion);
 			System.out.println("Total de registros: " + listado.size());
 
 			for (CentroFormacion vo : listado) {
 				System.out.println(vo.getNombre() + " - "
-						+ vo.getTipoCentroFormacion().toString());
+						+ vo.getTipoCentroFormacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
@@ -121,14 +121,14 @@ public class GestionCentroFormacionTest {
 			CentroFormacion centroFormacion = new CentroFormacion();
 			centroFormacion.setNombre("");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 
 			List<CentroFormacion> listado = negocio.listar(centroFormacion);
 			System.out.println("Total de registros: " + listado.size());
 
 			for (CentroFormacion vo : listado) {
 				System.out.println(vo.getNombre() + " - "
-						+ vo.getTipoCentroFormacion().toString());
+						+ vo.getTipoCentroFormacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
@@ -140,7 +140,7 @@ public class GestionCentroFormacionTest {
 	public void eliminarTest() {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
-			String codigo = "10804050208";
+			String codigo = "10804050202";
 			negocio.eliminar(codigo);
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNull(null, vo);

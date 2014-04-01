@@ -4,16 +4,22 @@ package gestores.enums;
  * @author Harry Bravo.
  */
 public enum FiltroBusquedaUsuario {
-	Nombre("Nombre"), ApellidoPaterno("Apellido Paterno"), ApellidoMaterno(
-			"Apellido Materno");
+	NOMBRE("NOM", "Nombre"), APELLIDO_PATERNO("APE_PAT", "Apellido Paterno"), APELLIDO_MATERNO(
+			"APE_MAT", "Apellido Materno");
 
-	private String valor;
+	private String codigo;
+	private String nombre;
 
-	private FiltroBusquedaUsuario(String valor) {
-		this.valor = valor;
+	private FiltroBusquedaUsuario(String codigo, String nombre) {
+		this.codigo = codigo;
+		this.nombre = nombre;
 	}
 
-	public String getValor() {
-		return valor;
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public String getNombre() {
+		return nombre;
 	}
 }
