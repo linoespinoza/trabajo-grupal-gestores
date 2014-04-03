@@ -30,7 +30,7 @@ public class ReunionDAO extends BaseDAO {
 		try {
 			String condicion = "";
 			if (fechaInicio != null && fechaFin != null) {
-				condicion = "AND DATE(reu.Fe_Reunion) BETWEEN DATE(?) AND DATE(?) ";
+				condicion = "AND DATE(reu.Fe_Reunion) BETWEEN ? AND ? ";
 			}
 			if (reunion.getTipoCalificacion() != null) {
 				condicion += "AND reu.Co_Tipo_Calificacion = ?";
@@ -50,8 +50,8 @@ public class ReunionDAO extends BaseDAO {
 			stmt.setInt(1, reunion.getIdea().getAsesor().getCodigo());
 
 			if (fechaInicio != null && fechaFin != null) {
-				stmt.setDate(2, FechaUtil.convertirSqlDate(fechaInicio));
-				stmt.setDate(3, FechaUtil.convertirSqlDate(fechaFin));
+				stmt.setTimestamp(2, FechaUtil.convertirTimestamp(fechaInicio));
+				stmt.setTimestamp(3, FechaUtil.convertirTimestamp(fechaFin));
 				indiceParametro = 4;
 			}
 			if (reunion.getTipoCalificacion() != null) {
@@ -102,7 +102,8 @@ public class ReunionDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, vo.getIdea().getCodigo());
-			stmt.setDate(2, FechaUtil.convertirSqlDate(vo.getFechaReunion()));
+			stmt.setTimestamp(2,
+					FechaUtil.convertirTimestamp(vo.getFechaReunion()));
 			stmt.setString(3, vo.getObservacion());
 			stmt.setString(4, vo.getTipoCalificacion().getCodigo());
 
@@ -130,13 +131,13 @@ public class ReunionDAO extends BaseDAO {
 			String query = "SELECT reu.Co_Reunion "
 					+ "FROM REUNION reu INNER JOIN IDEA ide "
 					+ "ON (reu.Co_Idea = ide.Co_Idea) "
-					+ "WHERE ide.Co_Asesor = ? AND DATE(reu.Fe_Reunion) = DATE(?)";
+					+ "WHERE ide.Co_Asesor = ? AND DATE(reu.Fe_Reunion) = ?";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, reunion.getIdea().getAsesor().getCodigo());
-			stmt.setDate(2,
-					FechaUtil.convertirSqlDate(reunion.getFechaReunion()));
+			stmt.setTimestamp(2,
+					FechaUtil.convertirTimestamp(reunion.getFechaReunion()));
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {

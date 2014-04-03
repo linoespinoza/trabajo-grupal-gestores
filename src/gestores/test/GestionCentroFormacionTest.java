@@ -30,9 +30,9 @@ public class GestionCentroFormacionTest {
 			centroFormacion.setPlanTarifario(planTarifario);
 
 			CentroFormacion vo = negocio.insertar(centroFormacion);
-			System.out.println("Se insertó el id: " + vo.getCodigo());
+			System.out.println("Se insert? el id: " + vo.getCodigo());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserción: " + e.getMessage());
+			Assert.fail("Fallo la inserci?n: " + e.getMessage());
 		}
 	}
 
@@ -44,7 +44,7 @@ public class GestionCentroFormacionTest {
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la obtención: " + e.getMessage());
+			Assert.fail("Fallo la obtenci?n: " + e.getMessage());
 		}
 	}
 
@@ -65,9 +65,9 @@ public class GestionCentroFormacionTest {
 			centroFormacion.setPlanTarifario(planTarifario);
 
 			CentroFormacion vo = negocio.actualizar(centroFormacion);
-			System.out.println("Se actualizó el id: " + vo.getCodigo());
+			System.out.println("Se actualiz? el id: " + vo.getCodigo());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la actualización: " + e.getMessage());
+			Assert.fail("Fall? la actualizaci?n: " + e.getMessage());
 		}
 	}
 
@@ -88,7 +88,7 @@ public class GestionCentroFormacionTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fall? la b?squeda: " + e.getMessage());
 		}
 	}
 
@@ -110,7 +110,7 @@ public class GestionCentroFormacionTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fall? la b?squeda: " + e.getMessage());
 		}
 	}
 
@@ -132,7 +132,7 @@ public class GestionCentroFormacionTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fall? la b?squeda: " + e.getMessage());
 		}
 	}
 
@@ -145,7 +145,7 @@ public class GestionCentroFormacionTest {
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNull(null, vo);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la eliminición: " + e.getMessage());
+			Assert.fail("Fall? la eliminici?n: " + e.getMessage());
 		}
 	}
 }

@@ -116,4 +116,20 @@ public class Usuario {
 	public void setCentroFormacion(CentroFormacion centroFormacion) {
 		this.centroFormacion = centroFormacion;
 	}
+
+	public boolean isAdministrador() {
+		return tipoUsuario.equals(TipoUsuario.ADMINISTRADOR);
+	}
+
+	public boolean isEvaluador() {
+		return tipoUsuario.equals(TipoUsuario.EVALUADOR);
+	}
+
+	public boolean isDocente() {
+		return tipoUsuario.equals(TipoUsuario.DOCENTE);
+	}
+
+	public boolean isEstudiante() {
+		return tipoUsuario.equals(TipoUsuario.ESTUDIANTE);
+	}
 }

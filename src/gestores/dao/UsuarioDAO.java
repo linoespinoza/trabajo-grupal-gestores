@@ -4,6 +4,7 @@ import gestores.enums.FiltroBusquedaUsuario;
 import gestores.enums.TipoDocumento;
 import gestores.enums.TipoUsuario;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.LoginExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.Usuario;
 import gestores.util.ConexionBD;
@@ -20,25 +21,46 @@ import java.util.List;
  */
 public class UsuarioDAO extends BaseDAO {
 
-	public boolean esAutenticado(Usuario usuario) throws DAOExcepcion {
-		boolean autenticadoFlag = false;
+	public Usuario autenticar(String email, String contrasenia)
+			throws DAOExcepcion, LoginExcepcion {
+		Usuario usuario = null;
+		CentroFormacion centroFormacion = null;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT Co_Usuario FROM USUARIO "
+			String query = "SELECT Co_Usuario, No_Usuario, No_Ape_Paterno, No_Ape_Materno, Tx_Email, Nu_Celular, Co_Tipo_Usuario, Co_Centro_Formacion "
+					+ "FROM USUARIO "
 					+ "WHERE Tx_Email = ? AND Tx_Contrasenia = ?";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 
-			stmt.setString(1, usuario.getEmail());
-			stmt.setString(2, usuario.getContrasenia());
+			stmt.setString(1, email);
+			stmt.setString(2, contrasenia);
 
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				autenticadoFlag = true;
+
+				usuario = new Usuario();
+				usuario.setCodigo(rs.getInt(1));
+				usuario.setNombre(rs.getString(2));
+				usuario.setApellidoPaterno(rs.getString(3));
+				usuario.setApellidoMaterno(rs.getString(4));
+				usuario.setEmail(rs.getString(5));
+				usuario.setNumeroCelular(rs.getString(6));
+				usuario.setTipoUsuario(TipoUsuario.getTipoUsuario(rs
+						.getString(7)));
+
+				centroFormacion = new CentroFormacion();
+				centroFormacion.setCodigo(rs.getString(8));
+				usuario.setCentroFormacion(centroFormacion);
+			} else {
+				throw new LoginExcepcion("No existe usuario");
 			}
+		} catch (LoginExcepcion e) {
+			System.err.println(e.getMessage());
+			throw new LoginExcepcion(e.getMessage());
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
@@ -47,7 +69,7 @@ public class UsuarioDAO extends BaseDAO {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return autenticadoFlag;
+		return usuario;
 	}
 
 	public List<Usuario> listar(FiltroBusquedaUsuario filtroBusquedaUsuario,
@@ -58,13 +80,13 @@ public class UsuarioDAO extends BaseDAO {
 		ResultSet rs = null;
 		try {
 			String condicion = "";
-			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.Nombre)) {
+			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.NOMBRE)) {
 				condicion = "usu.No_Usuario LIKE ? ";
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoPaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_PATERNO)) {
 				condicion = "usu.No_Ape_Paterno LIKE ? ";
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoMaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_MATERNO)) {
 				condicion = "usu.No_Ape_Materno LIKE ? ";
 			}
 
@@ -79,13 +101,13 @@ public class UsuarioDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 
-			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.Nombre)) {
+			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.NOMBRE)) {
 				stmt.setString(1, "%" + usuario.getNombre() + "%");
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoPaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_MATERNO)) {
 				stmt.setString(1, "%" + usuario.getApellidoPaterno() + "%");
 			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.ApellidoMaterno)) {
+					.equals(FiltroBusquedaUsuario.APELLIDO_PATERNO)) {
 				stmt.setString(1, "%" + usuario.getApellidoMaterno() + "%");
 			}
 
