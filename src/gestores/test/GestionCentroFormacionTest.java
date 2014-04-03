@@ -21,18 +21,18 @@ public class GestionCentroFormacionTest {
 			planTarifario.setCodigo(2);
 
 			CentroFormacion centroFormacion = new CentroFormacion();
-			centroFormacion.setCodigo("10804050208");
-			centroFormacion.setNombre("Instituto Superior Tecnologico IDAT");
+			centroFormacion.setCodigo("10804050202");
+			centroFormacion.setNombre("Instituto Superior IDAT");
 			centroFormacion
 					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
-			centroFormacion.setUrl("http://www.idat.edu.pe");
-			centroFormacion.setLogo("/images/logo/logoIdat.png");
+			centroFormacion.setUrl("http://www.idat1.edu.pe");
+			centroFormacion.setLogo("logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
 
 			CentroFormacion vo = negocio.insertar(centroFormacion);
-			System.out.println("Se insert? el id: " + vo.getCodigo());
+			System.out.println("Se insertó el id: " + vo.getCodigo());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserci?n: " + e.getMessage());
+			Assert.fail("Fallo la inserción: " + e.getMessage());
 		}
 	}
 
@@ -40,11 +40,11 @@ public class GestionCentroFormacionTest {
 	public void obtenerTest() {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
-			String codigo = "10804050208";
+			String codigo = "10804050202";
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la obtenci?n: " + e.getMessage());
+			Assert.fail("Fallo la obtención: " + e.getMessage());
 		}
 	}
 
@@ -56,18 +56,18 @@ public class GestionCentroFormacionTest {
 			planTarifario.setCodigo(3);
 
 			CentroFormacion centroFormacion = new CentroFormacion();
-			centroFormacion.setCodigo("10804050208");
+			centroFormacion.setCodigo("10804050202");
 			centroFormacion.setNombre("Instituto IDAT");
 			centroFormacion
 					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
-			centroFormacion.setUrl("http://www.idat.edu.pe/index.jsp");
-			centroFormacion.setLogo("/images/logo/logoIdat.png");
+			centroFormacion.setUrl("http://www.idat1.edu.pe/index.jsp");
+			centroFormacion.setLogo("logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
 
 			CentroFormacion vo = negocio.actualizar(centroFormacion);
-			System.out.println("Se actualiz? el id: " + vo.getCodigo());
+			System.out.println("Se actualizó el id: " + vo.getCodigo());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la actualizaci?n: " + e.getMessage());
+			Assert.fail("Falló la actualización: " + e.getMessage());
 		}
 	}
 
@@ -84,11 +84,11 @@ public class GestionCentroFormacionTest {
 
 			for (CentroFormacion vo : listado) {
 				System.out.println(vo.getNombre() + " - "
-						+ vo.getTipoCentroFormacion().toString());
+						+ vo.getTipoCentroFormacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -97,7 +97,7 @@ public class GestionCentroFormacionTest {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
 			CentroFormacion centroFormacion = new CentroFormacion();
-			centroFormacion.setNombre("Cibertec");
+			centroFormacion.setNombre("IDAT");
 			centroFormacion
 					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 
@@ -106,11 +106,11 @@ public class GestionCentroFormacionTest {
 
 			for (CentroFormacion vo : listado) {
 				System.out.println(vo.getNombre() + " - "
-						+ vo.getTipoCentroFormacion().toString());
+						+ vo.getTipoCentroFormacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -128,11 +128,11 @@ public class GestionCentroFormacionTest {
 
 			for (CentroFormacion vo : listado) {
 				System.out.println(vo.getNombre() + " - "
-						+ vo.getTipoCentroFormacion().toString());
+						+ vo.getTipoCentroFormacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -140,12 +140,12 @@ public class GestionCentroFormacionTest {
 	public void eliminarTest() {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
-			String codigo = "10804050208";
+			String codigo = "10804050202";
 			negocio.eliminar(codigo);
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNull(null, vo);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la eliminici?n: " + e.getMessage());
+			Assert.fail("Falló la eliminición: " + e.getMessage());
 		}
 	}
 }

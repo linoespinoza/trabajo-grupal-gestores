@@ -4,8 +4,7 @@ package gestores.enums;
  * @author Harry Bravo
  */
 public enum TipoDocumento {
-	DNI("DNI", "Documento Nacional de Identidad", 8), RUC("RUC",
-			"Registro Único de Contribuyentes", 11), CARNET_EXTRANJERIA("CEX",
+	DNI("DNI", "DNI", 8), RUC("RUC", "RUC", 11), CARNET_EXTRANJERIA("CEX",
 			"Carnet de Extranjería", 12), PASAPORTE("PAS", "Pasaporte", 12), PARTIDA_NACIMIENTO(
 			"PNA", "Partida de Nacimiento", 15);
 

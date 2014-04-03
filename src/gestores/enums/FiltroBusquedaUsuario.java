@@ -22,4 +22,16 @@ public enum FiltroBusquedaUsuario {
 	public String getNombre() {
 		return nombre;
 	}
+
+	public static FiltroBusquedaUsuario getFiltroBusquedaUsuario(String codigo) {
+		FiltroBusquedaUsuario filtroBusquedaUsuario = null;
+		for (FiltroBusquedaUsuario filtroBusquedaUsuarioAux : FiltroBusquedaUsuario
+				.values()) {
+			if (filtroBusquedaUsuarioAux.getCodigo().equals(codigo)) {
+				filtroBusquedaUsuario = filtroBusquedaUsuarioAux;
+				break;
+			}
+		}
+		return filtroBusquedaUsuario;
+	}
 }

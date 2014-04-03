@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * @author Jerem?as Yalta.
+ * @author Jeremías Yalta.
  */
 public class GestionUsuarioTest {
 
@@ -40,10 +40,10 @@ public class GestionUsuarioTest {
 			usuario.setCentroFormacion(centroFormacion);
 
 			Usuario vo = negocio.insertar(usuario);
-			System.out.println("Se insert? el usuario: " + vo.getNombre() + " "
+			System.out.println("Se insertó el usuario: " + vo.getNombre() + " "
 					+ vo.getApellidoPaterno() + " " + vo.getApellidoMaterno());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserci?n: " + e.getMessage());
+			Assert.fail("Fallo la inserción: " + e.getMessage());
 		}
 	}
 
@@ -55,7 +55,7 @@ public class GestionUsuarioTest {
 			Usuario vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la obtenci?n: " + e.getMessage());
+			Assert.fail("Fallo la obtención: " + e.getMessage());
 		}
 	}
 
@@ -80,9 +80,9 @@ public class GestionUsuarioTest {
 			usuario.setCentroFormacion(centroFormacion);
 
 			Usuario vo = negocio.actualizar(usuario);
-			System.out.println("Se actualiz? el id: " + vo.getCodigo());
+			System.out.println("Se actualizó el id: " + vo.getCodigo());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la actualizaci?n: " + e.getMessage());
+			Assert.fail("Falló la actualización: " + e.getMessage());
 		}
 	}
 
@@ -104,7 +104,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -126,7 +126,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -148,7 +148,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -157,7 +157,7 @@ public class GestionUsuarioTest {
 		GestionUsuario negocio = new GestionUsuario();
 		try {
 			Usuario usuario = new Usuario();
-			usuario.setApellidoPaterno("Hernandez");
+			usuario.setNombre("Hernandez");
 			usuario.setTipoUsuario(null);
 
 			List<Usuario> listado = negocio.listar(
@@ -170,7 +170,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -179,7 +179,7 @@ public class GestionUsuarioTest {
 		GestionUsuario negocio = new GestionUsuario();
 		try {
 			Usuario usuario = new Usuario();
-			usuario.setApellidoMaterno("Rodriguez");
+			usuario.setNombre("Rodriguez");
 			usuario.setTipoUsuario(null);
 
 			List<Usuario> listado = negocio.listar(
@@ -192,7 +192,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 
@@ -205,9 +205,9 @@ public class GestionUsuarioTest {
 			Usuario usuario = negocio.autenticar(email, contrasenia);
 			Assert.assertNotNull(usuario);
 		} catch (LoginExcepcion e) {
-			Assert.fail("Fall? la autenticaci?n: " + e.getMessage());
+			Assert.fail("Falló la autenticación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la autenticaci?n: " + e.getMessage());
+			Assert.fail("Falló la autenticación: " + e.getMessage());
 		}
 	}
 
@@ -220,7 +220,7 @@ public class GestionUsuarioTest {
 			Usuario vo = negocio.obtener(codigo);
 			Assert.assertNull(null, vo);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la eliminici?n: " + e.getMessage());
+			Assert.fail("Falló la eliminición: " + e.getMessage());
 		}
 	}
 }

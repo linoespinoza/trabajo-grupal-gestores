@@ -7,6 +7,7 @@ import gestores.exception.DAOExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.PlanTarifario;
 import gestores.negocio.GestionCentroFormacion;
+import gestores.util.NumeroUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,52 +48,19 @@ public class ActualizaCentroFormacionServlet extends HttpServlet {
 		GestionCentroFormacion gestionCentroFormacion = new GestionCentroFormacion();
 		try {
 			HttpSession session = request.getSession();
-			String nombreArchivo = "";
+			CentroFormacion centroFormacion = setearDatosEntrada(request);
 
-			if (ServletFileUpload.isMultipartContent(request)) {
-				DiskFileItemFactory factory = new DiskFileItemFactory();
-				factory.setSizeThreshold(CentroFormacionConstante.MEMORY_THRESHOLD);
-				factory.setRepository(new File(FileUtils.getTempDirectoryPath()));
+			if (centroFormacion != null) {
+				if (!NumeroUtil.esNumeroRuc(centroFormacion.getCodigo())) {
+					session.setAttribute("centroFormacion", centroFormacion);
 
-				ServletFileUpload upload = new ServletFileUpload(factory);
-				upload.setFileSizeMax(CentroFormacionConstante.MAX_FILE_SIZE);
-				upload.setSizeMax(CentroFormacionConstante.MAX_REQUEST_SIZE);
-
-				File directorioLogo = new File(getServletContext().getRealPath(
-						CentroFormacionConstante.DIRECTORIO_LOGO));
-				if (!directorioLogo.exists()) {
-					directorioLogo.mkdirs();
+					request.setAttribute("mensaje", GeneralConstante.ERROR_RUC);
+					RequestDispatcher requestDispatcher = request
+							.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/nuevoCentroFormacion.jsp");
+					requestDispatcher.forward(request, response);
+					return;
 				}
-
-				List<FileItem> items = upload.parseRequest(request);
-
-				if (items != null && !items.isEmpty()) {
-					CentroFormacion centroFormacion = new CentroFormacion();
-					centroFormacion.setCodigo(items.get(0).getString());
-					centroFormacion.setNombre(items.get(1).getString());
-					centroFormacion.setTipoCentroFormacion(TipoCentroFormacion
-							.getTipoCentroFormacion(items.get(2).getString()));
-					centroFormacion.setUrl(items.get(3).getString());
-
-					PlanTarifario planTarifario = new PlanTarifario();
-					planTarifario.setCodigo(Integer.parseInt(items.get(4)
-							.getString()));
-					centroFormacion.setPlanTarifario(planTarifario);
-
-					if (!items.get(5).isFormField()
-							&& StringUtils.isNotBlank(items.get(5).getName())) {
-						nombreArchivo = new File(items.get(5).getName())
-								.getName();
-						centroFormacion.setLogo(nombreArchivo);
-						File archivo = new File(
-								getServletContext()
-										.getRealPath(
-												CentroFormacionConstante.DIRECTORIO_LOGO)
-										+ File.separator + nombreArchivo);
-						items.get(5).write(archivo);
-					}
-					gestionCentroFormacion.actualizar(centroFormacion);
-				}
+				gestionCentroFormacion.actualizar(centroFormacion);
 			}
 			session.removeAttribute("listaPlanTarifario");
 		} catch (DAOExcepcion e) {
@@ -111,5 +79,54 @@ public class ActualizaCentroFormacionServlet extends HttpServlet {
 			return;
 		}
 		response.sendRedirect("InicioCentroFormacionServlet");
+	}
+
+	private CentroFormacion setearDatosEntrada(HttpServletRequest request)
+			throws Exception {
+		CentroFormacion centroFormacion = null;
+		String nombreArchivo = null;
+
+		if (ServletFileUpload.isMultipartContent(request)) {
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			factory.setSizeThreshold(CentroFormacionConstante.MEMORY_THRESHOLD);
+			factory.setRepository(new File(FileUtils.getTempDirectoryPath()));
+
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			upload.setFileSizeMax(CentroFormacionConstante.MAX_FILE_SIZE);
+			upload.setSizeMax(CentroFormacionConstante.MAX_REQUEST_SIZE);
+
+			File directorioLogo = new File(request.getServletContext()
+					.getRealPath(CentroFormacionConstante.DIRECTORIO_LOGO));
+			if (!directorioLogo.exists()) {
+				directorioLogo.mkdirs();
+			}
+			List<FileItem> items = upload.parseRequest(request);
+
+			if (items != null && !items.isEmpty()) {
+				if (StringUtils.isNotBlank(items.get(5).getName())) {
+					nombreArchivo = new File(items.get(5).getName()).getName();
+
+					File archivo = new File(request.getServletContext()
+							.getRealPath(
+									CentroFormacionConstante.DIRECTORIO_LOGO)
+							+ File.separator + nombreArchivo);
+					items.get(5).write(archivo);
+				}
+
+				PlanTarifario planTarifario = new PlanTarifario();
+				planTarifario.setCodigo(Integer.parseInt(items.get(4)
+						.getString()));
+
+				centroFormacion = new CentroFormacion();
+				centroFormacion.setCodigo(items.get(0).getString());
+				centroFormacion.setNombre(items.get(1).getString());
+				centroFormacion.setTipoCentroFormacion(TipoCentroFormacion
+						.getTipoCentroFormacion(items.get(2).getString()));
+				centroFormacion.setUrl(items.get(3).getString());
+				centroFormacion.setPlanTarifario(planTarifario);
+				centroFormacion.setLogo(nombreArchivo);
+			}
+		}
+		return centroFormacion;
 	}
 }

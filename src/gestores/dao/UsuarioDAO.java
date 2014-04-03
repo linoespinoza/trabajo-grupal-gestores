@@ -29,9 +29,10 @@ public class UsuarioDAO extends BaseDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			String query = "SELECT Co_Usuario, No_Usuario, No_Ape_Paterno, No_Ape_Materno, Tx_Email, Nu_Celular, Co_Tipo_Usuario, Co_Centro_Formacion "
-					+ "FROM USUARIO "
-					+ "WHERE Tx_Email = ? AND Tx_Contrasenia = ?";
+			String query = "SELECT usu.Co_Usuario, usu.No_Usuario, usu.No_Ape_Paterno, usu.No_Ape_Materno, usu.Tx_Email, usu.Nu_Celular, usu.Co_Tipo_Usuario, usu.Co_Centro_Formacion, cfo.No_Centro_Formacion "
+					+ "FROM USUARIO usu LEFT JOIN CENTRO_FORMACION cfo "
+					+ "ON (usu.Co_Centro_Formacion = cfo.Co_Centro_Formacion) "
+					+ "WHERE usu.Tx_Email = ? AND usu.Tx_Contrasenia = ?";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
@@ -54,6 +55,7 @@ public class UsuarioDAO extends BaseDAO {
 
 				centroFormacion = new CentroFormacion();
 				centroFormacion.setCodigo(rs.getString(8));
+				centroFormacion.setNombre(rs.getString(9));
 				usuario.setCentroFormacion(centroFormacion);
 			} else {
 				throw new LoginExcepcion("No existe usuario");
@@ -93,23 +95,14 @@ public class UsuarioDAO extends BaseDAO {
 			if (usuario.getTipoUsuario() != null) {
 				condicion += "AND usu.Co_Tipo_Usuario = ?";
 			}
-			String query = "SELECT usu.Co_Usuario, usu.No_Usuario, usu.No_Ape_Paterno, usu.No_Ape_Materno, usu.Tx_Email, usu.Nu_Celular, usu.Co_Tipo_Usuario, cfo.No_Centro_Formacion "
+			String query = "SELECT usu.Co_Usuario, usu.No_Usuario, usu.No_Ape_Paterno, usu.No_Ape_Materno, usu.Co_Tipo_Documento, usu.Nu_Documento, usu.Tx_Email, usu.Nu_Celular, usu.Co_Tipo_Usuario, cfo.No_Centro_Formacion "
 					+ "FROM USUARIO usu LEFT JOIN CENTRO_FORMACION cfo "
 					+ "ON (usu.Co_Centro_Formacion = cfo.Co_Centro_Formacion) "
 					+ "WHERE " + condicion;
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
-
-			if (filtroBusquedaUsuario.equals(FiltroBusquedaUsuario.NOMBRE)) {
-				stmt.setString(1, "%" + usuario.getNombre() + "%");
-			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.APELLIDO_MATERNO)) {
-				stmt.setString(1, "%" + usuario.getApellidoPaterno() + "%");
-			} else if (filtroBusquedaUsuario
-					.equals(FiltroBusquedaUsuario.APELLIDO_PATERNO)) {
-				stmt.setString(1, "%" + usuario.getApellidoMaterno() + "%");
-			}
+			stmt.setString(1, "%" + usuario.getNombre() + "%");
 
 			if (usuario.getTipoUsuario() != null) {
 				stmt.setString(2, usuario.getTipoUsuario().getCodigo());
@@ -121,12 +114,15 @@ public class UsuarioDAO extends BaseDAO {
 				vo.setNombre(rs.getString(2));
 				vo.setApellidoPaterno(rs.getString(3));
 				vo.setApellidoMaterno(rs.getString(4));
-				vo.setEmail(rs.getString(5));
-				vo.setNumeroCelular(rs.getString(6));
-				vo.setTipoUsuario(TipoUsuario.getTipoUsuario(rs.getString(7)));
+				vo.setTipoDocumento(TipoDocumento.getTipoDocumento(rs
+						.getString(5)));
+				vo.setNumeroDocumento(rs.getString(6));
+				vo.setEmail(rs.getString(7));
+				vo.setNumeroCelular(rs.getString(8));
+				vo.setTipoUsuario(TipoUsuario.getTipoUsuario(rs.getString(9)));
 
 				CentroFormacion centroFormacion = new CentroFormacion();
-				centroFormacion.setNombre(rs.getString(8));
+				centroFormacion.setNombre(rs.getString(10));
 				vo.setCentroFormacion(centroFormacion);
 				lista.add(vo);
 			}

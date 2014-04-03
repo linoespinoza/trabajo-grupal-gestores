@@ -326,40 +326,41 @@ public class IdeaDAO extends BaseDAO {
 	 * Lino Espinoza
 	 */
 	public Idea insertarIdea(Idea idea) throws DAOExcepcion {
-		
+
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
-			
-				String query = "INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Fe_Creacion, Co_Estado, Co_Estudiante) "
-						+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
-	
-				con = ConexionBD.obtenerConexion();
-				stmt = con.prepareStatement(query);
-				stmt.setString(1, idea.getTitulo());
-				stmt.setString(2, idea.getDescripcion());
-				stmt.setString(3, idea.getPalabrasClave());
-				stmt.setString(4, idea.getArchivo());
-				stmt.setTimestamp(5, FechaUtil.convertirTimestamp(idea.getFechaCreacion()));
-				stmt.setString(6, idea.getEstadoIdea().getCodigo());
-				stmt.setInt(7, idea.getEstudiante().getCodigo());
-	
-				int i = stmt.executeUpdate();
-				if (i != 1) {
-					throw new SQLException("No se pudo insertar la idea");
-				}
-				
-				// Obtener el ultimo id
-				int id = 0;
-				query = "SELECT LAST_INSERT_ID()";
-				stmt = con.prepareStatement(query);
-				rs = stmt.executeQuery();
-				if (rs.next()) {
-					id = rs.getInt(1);
-				}
-				idea.setCodigo(id);
-			
+
+			String query = "INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Fe_Creacion, Co_Estado, Co_Estudiante) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, idea.getTitulo());
+			stmt.setString(2, idea.getDescripcion());
+			stmt.setString(3, idea.getPalabrasClave());
+			stmt.setString(4, idea.getArchivo());
+			stmt.setTimestamp(5,
+					FechaUtil.convertirTimestamp(idea.getFechaCreacion()));
+			stmt.setString(6, idea.getEstadoIdea().getCodigo());
+			stmt.setInt(7, idea.getEstudiante().getCodigo());
+
+			int i = stmt.executeUpdate();
+			if (i != 1) {
+				throw new SQLException("No se pudo insertar la idea");
+			}
+
+			// Obtener el ultimo id
+			int id = 0;
+			query = "SELECT LAST_INSERT_ID()";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+			}
+			idea.setCodigo(id);
+
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 			throw new DAOExcepcion(e.getMessage());
@@ -398,15 +399,16 @@ public class IdeaDAO extends BaseDAO {
 		}
 		return flagIdeaConTituloExistente;
 	}
-	
-	public boolean esIdeaConAlgunaPalabraClaveIgual(Idea idea) throws DAOExcepcion {
+
+	public boolean esIdeaConAlgunaPalabraClaveIgual(Idea idea)
+			throws DAOExcepcion {
 		boolean flag = false;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			String query = "SELECT Co_Idea FROM IDEA WHERE No_Titulo = ? AND Co_Estudiante = ?";
-			
+
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, idea.getTitulo());
@@ -431,7 +433,7 @@ public class IdeaDAO extends BaseDAO {
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			
+
 			String query = "UPDATE IDEA SET No_Titulo = ?, Tx_Descripcion = ?, Tx_Palabras_Clave = ?, Tx_Archivo = ?"
 					+ "WHERE Co_Idea = ?";
 
@@ -445,7 +447,8 @@ public class IdeaDAO extends BaseDAO {
 
 			int i = stmt.executeUpdate();
 			if (i != 1) {
-				throw new SQLException("No se pudo actualizar la idea de id:" + idea.getCodigo());
+				throw new SQLException("No se pudo actualizar la idea de id:"
+						+ idea.getCodigo());
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());

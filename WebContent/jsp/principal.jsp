@@ -6,10 +6,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Harry Bravo">
-<meta name="description" content="Pagina principal">
+<meta name="description" content="Página principal">
 <title>Sistema de Gestión de Innovación</title>
 <link href="${contextPath}/css/bootstrap.css" rel="stylesheet"
 	media="screen">
@@ -19,8 +19,11 @@
 	<div class="container">
 		<div class="jumbotron">
 			<h4>
-				Bienvenido <b>${usuarioActual.nombre}
-					${usuarioActual.apellidoPaterno} ${usuarioActual.apellidoMaterno}</b>
+				Bienvenido <b>${usuarioActual.nombreCompleto}</b> <br> Tipo de
+				usuario: <b>${usuarioActual.tipoUsuario.nombre}</b><br>
+				<c:if test="${not empty usuarioActual.centroFormacion.nombre}">
+					Centro de formación: <b>${usuarioActual.centroFormacion.nombre}</b>
+				</c:if>
 			</h4>
 		</div>
 		<c:if
@@ -52,7 +55,8 @@
 						<p>Desde esta opción usted podrá crear, modificar, buscar y
 							eliminar los usuarios.</p>
 						<p>
-							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioUsuarioServlet"
+								class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
@@ -133,7 +137,7 @@
 		</c:if>
 		<jsp:include page="include/pie.jsp" flush="true" />
 	</div>
-	<script src="${contextPath}/js/jquery-2.1.0.js" type="text/javascript"></script>
-	<script src="${contextPath}/js/bootstrap.js" type="text/javascript"></script>
+	<script src="${contextPath}/js/jquery-2.1.0.js"></script>
+	<script src="${contextPath}/js/bootstrap.js"></script>
 </body>
 </html>

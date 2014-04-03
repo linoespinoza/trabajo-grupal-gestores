@@ -15,7 +15,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * @author Jerem?as Yalta.
+ * @author Jeremías Yalta.
  */
 public class GestionReunionTest {
 
@@ -38,11 +38,11 @@ public class GestionReunionTest {
 			reunion.setTipoCalificacion(TipoCalificacion.BUENO);
 
 			Reunion vo = negocio.insertar(reunion);
-			System.out.println("Se insert? la reuni?n de la idea "
+			System.out.println("Se insertó la reunión de la idea "
 					+ vo.getIdea().getCodigo() + " en la fecha "
 					+ vo.getFechaReunion());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserci?n: " + e.getMessage());
+			Assert.fail("Fallo la inserción: " + e.getMessage());
 		}
 	}
 
@@ -68,13 +68,13 @@ public class GestionReunionTest {
 			System.out.println("Total de registros: " + listado.size());
 
 			for (Reunion vo : listado) {
-				System.out.println("Reuni?n: " + vo.getCodigo() + ", Idea: "
-						+ vo.getIdea().getTitulo() + ", Calificaci?n: "
-						+ vo.getTipoCalificacion().toString());
+				System.out.println("Reunión: " + vo.getCodigo() + ", Idea: "
+						+ vo.getIdea().getTitulo() + ", Calificación: "
+						+ vo.getTipoCalificacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fall? la b?squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 }

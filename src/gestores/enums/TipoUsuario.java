@@ -13,6 +13,7 @@ public enum TipoUsuario {
 
 	private TipoUsuario(String codigo, String nombre) {
 		this.codigo = codigo;
+		this.nombre = nombre;
 	}
 
 	public String getCodigo() {

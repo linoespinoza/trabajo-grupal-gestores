@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<c:set var="contextPath" value="${pageContext.servletContext.contextPath}" />
+<c:set var="contextPath"
+	value="${pageContext.servletContext.contextPath}" />
 
 <div class="navbar navbar-default navbar-static-top">
 	<div class="container">
@@ -27,7 +28,7 @@
 							<c:if test="${usuarioActual.administrador}">
 								<li><a href="${contextPath}/InicioCentroFormacionServlet">Centros
 										de Formación</a></li>
-								<li><a href="#">Usuarios</a></li>
+								<li><a href="${contextPath}/InicioUsuarioServlet">Usuarios</a></li>
 							</c:if>
 						</ul></li>
 				</c:if>
