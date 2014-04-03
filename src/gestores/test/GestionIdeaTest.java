@@ -34,7 +34,7 @@ public class GestionIdeaTest {
 		String palabrasClave = "tag1,tag2,tag3,tag4";		
 		String archivo = "/documento/documento.docx";
 		Date fechaCreacion = FechaUtil.establecerFechaHora(1, Calendar.DECEMBER, 2014, 23, 11, 59);
-		EstadoIdea estadoIdea = EstadoIdea.Creada;
+		EstadoIdea estadoIdea = EstadoIdea.CREADA;
 		
 		try {
 			GestionUsuario gestionUsuario = new GestionUsuario();
@@ -47,7 +47,7 @@ public class GestionIdeaTest {
 			idea.setArchivo(archivo);
 			idea.setFechaCreacion(fechaCreacion);
 			idea.setEstudiante(estudiante);
-			idea.setEstadoIdea(EstadoIdea.Creada); // Creada
+			idea.setEstadoIdea(EstadoIdea.CREADA); // Creada
 		
 			Idea ideaCreada = gestion.insertar(idea);
 			
@@ -64,10 +64,9 @@ public class GestionIdeaTest {
 		String tituloIdea = "Titulo Idea 5";
 		String descripcionIdea = "Descripción de la idea 1";
 		String palabrasClave = "tag1,tag2,tag3,tag4";
-<<<<<<< HEAD
 		String archivo = "/documento/documento.docx";
 		Date fechaCreacion = FechaUtil.establecerFechaHora(1, Calendar.DECEMBER, 2014, 23, 11, 59);
-		EstadoIdea estadoIdea = EstadoIdea.Creada;
+		EstadoIdea estadoIdea = EstadoIdea.CREADA;
 		
 		try {
 			GestionUsuario gestionUsuario = new GestionUsuario();
@@ -80,7 +79,7 @@ public class GestionIdeaTest {
 			idea.setArchivo(archivo);
 			idea.setFechaCreacion(fechaCreacion);
 			idea.setEstudiante(estudiante);
-			idea.setEstadoIdea(EstadoIdea.Creada); // Creada
+			idea.setEstadoIdea(EstadoIdea.CREADA); // Creada
 		
 			Idea ideaCreada = gestion.insertar(idea);
 			
@@ -99,7 +98,7 @@ public class GestionIdeaTest {
 		String palabrasClave = "tag1,tag2,tag3,tag1";
 		String archivo = "/documento/documento.docx";
 		Date fechaCreacion = FechaUtil.establecerFechaHora(1, Calendar.DECEMBER, 2014, 23, 11, 59);
-		EstadoIdea estadoIdea = EstadoIdea.Creada;
+		EstadoIdea estadoIdea = EstadoIdea.CREADA;
 		
 		try {
 			GestionUsuario gestionUsuario = new GestionUsuario();
@@ -112,7 +111,7 @@ public class GestionIdeaTest {
 			idea.setArchivo(archivo);
 			idea.setFechaCreacion(fechaCreacion);
 			idea.setEstudiante(estudiante);
-			idea.setEstadoIdea(EstadoIdea.Creada); // Creada
+			idea.setEstadoIdea(EstadoIdea.CREADA); // Creada
 		
 			Idea ideaCreada = gestion.insertar(idea);
 			
@@ -131,7 +130,7 @@ public class GestionIdeaTest {
 		String palabrasClave = "tag1,tag2,tag3,tag4";
 		String archivo = "/documento/documento.docx";
 		Date fechaCreacion = FechaUtil.establecerFechaHora(1, Calendar.DECEMBER, 2014, 23, 11, 59);
-		EstadoIdea estadoIdea = EstadoIdea.Creada;
+		EstadoIdea estadoIdea = EstadoIdea.CREADA;
 		
 		try {
 			GestionUsuario gestionUsuario = new GestionUsuario();
@@ -144,7 +143,7 @@ public class GestionIdeaTest {
 			idea.setArchivo(archivo);
 			idea.setFechaCreacion(fechaCreacion);
 			idea.setEstudiante(estudiante);
-			idea.setEstadoIdea(EstadoIdea.Creada); // Creada
+			idea.setEstadoIdea(EstadoIdea.CREADA); // Creada
 		
 			Idea ideaCreada = gestion.insertar(idea);
 			
@@ -178,23 +177,5 @@ public class GestionIdeaTest {
 		} catch (DAOExcepcion e) {
 			Assert.fail("Fallo la insercion: " + e.getMessage());
 		}
-=======
-		String terceraPalabra = "tag3";
-		String[] palabraClaveArray = palabrasClave.split(",");
-
-		idea.setTitulo(tituloIdea);
-		idea.setDescripcion(descripcionIdea);
-		idea.setPalabrasClave(palabrasClave);
-		idea.setFechaCreacion(fechaCreacion);
-		idea.setEstadoIdea(EstadoIdea.CREADA); // Creada
-
-		assertNotNull(idea);
-		assertEquals(tituloIdea, idea.getTitulo());
-		assertEquals(descripcionIdea, idea.getDescripcion());
-		assertEquals(palabrasClave, idea.getPalabrasClave());
-		assertEquals(terceraPalabra, palabraClaveArray[2]);
-		assertEquals(fechaCreacion, idea.getFechaCreacion());
-		assertEquals(EstadoIdea.CREADA, idea.getEstadoIdea());
->>>>>>> branch 'master' of https://github.com/linoespinoza/trabajo-grupal-gestores.git
 	}
 }

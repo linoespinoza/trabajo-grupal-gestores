@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/gestores/dao/IdeaDAO.java=UTF-8
 encoding//src/gestores/modelo/Reunion.java=UTF-8
+encoding//src/gestores/servlet/LoginServlet.java=UTF-8
 encoding//src/gestores/test/GestionIdeaTest.java=UTF-8

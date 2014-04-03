@@ -24,7 +24,7 @@ public class GestionCentroFormacionTest {
 			centroFormacion.setCodigo("10804050208");
 			centroFormacion.setNombre("Instituto Superior Tecnologico IDAT");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 			centroFormacion.setUrl("http://www.idat.edu.pe");
 			centroFormacion.setLogo("/images/logo/logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
@@ -59,7 +59,7 @@ public class GestionCentroFormacionTest {
 			centroFormacion.setCodigo("10804050208");
 			centroFormacion.setNombre("Instituto IDAT");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 			centroFormacion.setUrl("http://www.idat.edu.pe/index.jsp");
 			centroFormacion.setLogo("/images/logo/logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
@@ -99,7 +99,7 @@ public class GestionCentroFormacionTest {
 			CentroFormacion centroFormacion = new CentroFormacion();
 			centroFormacion.setNombre("Cibertec");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 
 			List<CentroFormacion> listado = negocio.listar(centroFormacion);
 			System.out.println("Total de registros: " + listado.size());
@@ -121,7 +121,7 @@ public class GestionCentroFormacionTest {
 			CentroFormacion centroFormacion = new CentroFormacion();
 			centroFormacion.setNombre("");
 			centroFormacion
-					.setTipoCentroFormacion(TipoCentroFormacion.Instituto);
+					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
 
 			List<CentroFormacion> listado = negocio.listar(centroFormacion);
 			System.out.println("Total de registros: " + listado.size());

@@ -32,7 +32,7 @@ public class EvaluacionIdeaTest {
 		try {
 			Idea idea = new Idea();
 			idea.setCodigo(2);
-			idea.setEstadoIdea(EstadoIdea.Aprobada);
+			idea.setEstadoIdea(EstadoIdea.APROBADA);
 
 			Idea vo = negocio.actualizarEstado(idea);
 			System.out.println("Se aprob? el id: " + vo.getCodigo());
@@ -47,7 +47,7 @@ public class EvaluacionIdeaTest {
 		try {
 			Idea idea = new Idea();
 			idea.setCodigo(2);
-			idea.setEstadoIdea(EstadoIdea.Rechazada);
+			idea.setEstadoIdea(EstadoIdea.RECHAZADA);
 
 			Idea vo = negocio.actualizarEstado(idea);
 			System.out.println("Se rechaz? el id: " + vo.getCodigo());

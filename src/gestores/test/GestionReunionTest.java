@@ -35,7 +35,7 @@ public class GestionReunionTest {
 			reunion.setFechaReunion(FechaUtil.establecerFechaHora(19, 3, 2014,
 					12, 30, 0));
 			reunion.setObservacion("El proyecto es muy interesante y va por buen camino");
-			reunion.setTipoCalificacion(TipoCalificacion.Bueno);
+			reunion.setTipoCalificacion(TipoCalificacion.BUENO);
 
 			Reunion vo = negocio.insertar(reunion);
 			System.out.println("Se insert? la reuni?n de la idea "

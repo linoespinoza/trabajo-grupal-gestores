@@ -13,7 +13,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -342,7 +341,7 @@ public class IdeaDAO extends BaseDAO {
 				stmt.setString(2, idea.getDescripcion());
 				stmt.setString(3, idea.getPalabrasClave());
 				stmt.setString(4, idea.getArchivo());
-				stmt.setDate(5, FechaUtil.convertirSqlDate(idea.getFechaCreacion()));
+				stmt.setTimestamp(5, FechaUtil.convertirTimestamp(idea.getFechaCreacion()));
 				stmt.setString(6, idea.getEstadoIdea().getCodigo());
 				stmt.setInt(7, idea.getEstudiante().getCodigo());
 	

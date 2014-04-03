@@ -4,6 +4,7 @@ import gestores.enums.FiltroBusquedaUsuario;
 import gestores.enums.TipoDocumento;
 import gestores.enums.TipoUsuario;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.LoginExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.Usuario;
 import gestores.negocio.GestionUsuario;
