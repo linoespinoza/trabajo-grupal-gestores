@@ -4,7 +4,7 @@ import gestores.enums.FiltroBusquedaUsuario;
 import gestores.enums.TipoDocumento;
 import gestores.enums.TipoUsuario;
 import gestores.exception.DAOExcepcion;
-import gestores.exception.LoginExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.Usuario;
 import gestores.negocio.GestionUsuario;
@@ -39,9 +39,10 @@ public class GestionUsuarioTest {
 			usuario.setTipoUsuario(TipoUsuario.EVALUADOR);
 			usuario.setCentroFormacion(centroFormacion);
 
-			Usuario vo = negocio.insertar(usuario);
-			System.out.println("Se insertó el usuario: " + vo.getNombre() + " "
-					+ vo.getApellidoPaterno() + " " + vo.getApellidoMaterno());
+			int registroAfectado = negocio.insertar(usuario);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Fallo la inserción: " + e.getMessage());
 		}
@@ -54,6 +55,8 @@ public class GestionUsuarioTest {
 			Integer codigo = 9;
 			Usuario vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Fallo la obtención: " + e.getMessage());
 		}
@@ -79,8 +82,10 @@ public class GestionUsuarioTest {
 			usuario.setTipoUsuario(TipoUsuario.EVALUADOR);
 			usuario.setCentroFormacion(centroFormacion);
 
-			Usuario vo = negocio.actualizar(usuario);
-			System.out.println("Se actualizó el id: " + vo.getCodigo());
+			int registroAfectado = negocio.actualizar(usuario);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la actualización: " + e.getMessage());
 		}
@@ -204,8 +209,8 @@ public class GestionUsuarioTest {
 			String contrasenia = "admin";
 			Usuario usuario = negocio.autenticar(email, contrasenia);
 			Assert.assertNotNull(usuario);
-		} catch (LoginExcepcion e) {
-			Assert.fail("Falló la autenticación: " + e.getMessage());
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la autenticación: " + e.getMessage());
 		}
@@ -216,9 +221,8 @@ public class GestionUsuarioTest {
 		GestionUsuario negocio = new GestionUsuario();
 		try {
 			Integer codigo = 9;
-			negocio.eliminar(codigo);
-			Usuario vo = negocio.obtener(codigo);
-			Assert.assertNull(null, vo);
+			int registroAfectado = negocio.eliminar(codigo);
+			Assert.assertTrue(registroAfectado > 0);
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la eliminición: " + e.getMessage());
 		}

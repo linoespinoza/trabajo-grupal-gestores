@@ -4,7 +4,7 @@ import gestores.enums.FiltroBusquedaUsuario;
 import gestores.enums.TipoDocumento;
 import gestores.enums.TipoUsuario;
 import gestores.exception.DAOExcepcion;
-import gestores.exception.LoginExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.Usuario;
 import gestores.util.ConexionBD;
@@ -22,9 +22,8 @@ import java.util.List;
 public class UsuarioDAO extends BaseDAO {
 
 	public Usuario autenticar(String email, String contrasenia)
-			throws DAOExcepcion, LoginExcepcion {
+			throws DAOExcepcion, NegocioExcepcion {
 		Usuario usuario = null;
-		CentroFormacion centroFormacion = null;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -42,7 +41,6 @@ public class UsuarioDAO extends BaseDAO {
 
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-
 				usuario = new Usuario();
 				usuario.setCodigo(rs.getInt(1));
 				usuario.setNombre(rs.getString(2));
@@ -53,19 +51,13 @@ public class UsuarioDAO extends BaseDAO {
 				usuario.setTipoUsuario(TipoUsuario.getTipoUsuario(rs
 						.getString(7)));
 
-				centroFormacion = new CentroFormacion();
+				CentroFormacion centroFormacion = new CentroFormacion();
 				centroFormacion.setCodigo(rs.getString(8));
 				centroFormacion.setNombre(rs.getString(9));
 				usuario.setCentroFormacion(centroFormacion);
-			} else {
-				throw new LoginExcepcion("No existe usuario");
 			}
-		} catch (LoginExcepcion e) {
-			System.err.println(e.getMessage());
-			throw new LoginExcepcion(e.getMessage());
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -127,8 +119,7 @@ public class UsuarioDAO extends BaseDAO {
 				lista.add(vo);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -137,7 +128,8 @@ public class UsuarioDAO extends BaseDAO {
 		return lista;
 	}
 
-	public Usuario insertar(Usuario vo) throws DAOExcepcion {
+	public int insertar(Usuario vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -159,19 +151,15 @@ public class UsuarioDAO extends BaseDAO {
 			stmt.setString(10, vo.getTipoUsuario().getCodigo());
 			stmt.setString(11, vo.getCentroFormacion().getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo insertar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
 	}
 
 	public Usuario obtener(Integer codigo) throws DAOExcepcion {
@@ -208,8 +196,7 @@ public class UsuarioDAO extends BaseDAO {
 				vo.setCentroFormacion(centroFormacion);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -218,7 +205,8 @@ public class UsuarioDAO extends BaseDAO {
 		return vo;
 	}
 
-	public void eliminar(Integer codigo) throws DAOExcepcion {
+	public int eliminar(Integer codigo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
@@ -227,25 +215,23 @@ public class UsuarioDAO extends BaseDAO {
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, codigo);
-			int i = stmt.executeUpdate();
-
-			if (i != 1) {
-				throw new SQLException("No se pudo eliminar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
+		return registroAfectado;
 	}
 
-	public Usuario actualizar(Usuario vo) throws DAOExcepcion {
+	public int actualizar(Usuario vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			String query = "UPDATE USUARIO SET No_Usuario = ?, No_Ape_Paterno = ?, No_Ape_Materno = ?, Fl_Sexo = ?, Co_Tipo_Documento = ?, Nu_Documento = ?, Tx_Email = ?, Nu_Celular = ?, Co_Tipo_Usuario = ?, Co_Centro_Formacion = ? "
+			String query = "UPDATE USUARIO "
+					+ "SET No_Usuario = ?, No_Ape_Paterno = ?, No_Ape_Materno = ?, Fl_Sexo = ?, Co_Tipo_Documento = ?, Nu_Documento = ?, Tx_Email = ?, Nu_Celular = ?, Co_Tipo_Usuario = ?, Co_Centro_Formacion = ? "
 					+ "WHERE Co_Usuario = ?";
 
 			con = ConexionBD.obtenerConexion();
@@ -262,17 +248,72 @@ public class UsuarioDAO extends BaseDAO {
 			stmt.setString(10, vo.getCentroFormacion().getCodigo());
 			stmt.setInt(11, vo.getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo actualizar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
+	}
+
+	public boolean esRegistradoTipoDocumento(Integer codigo,
+			String tipoDocumento, String numeroDocumento) throws DAOExcepcion {
+		boolean flagRegistradoDocumento = false;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Usuario FROM USUARIO "
+					+ "WHERE Co_Usuario <> ? AND Co_Tipo_Documento = ? AND Nu_Documento = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, codigo);
+			stmt.setString(2, tipoDocumento);
+			stmt.setString(3, numeroDocumento);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				flagRegistradoDocumento = true;
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return flagRegistradoDocumento;
+	}
+
+	public boolean esRegistradoEmail(Integer codigo, String email)
+			throws DAOExcepcion {
+		boolean flagRegistradoEmail = false;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Usuario FROM USUARIO "
+					+ "WHERE Co_Usuario <> ? Tx_Email = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, codigo);
+			stmt.setString(2, email);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				flagRegistradoEmail = true;
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return flagRegistradoEmail;
 	}
 }

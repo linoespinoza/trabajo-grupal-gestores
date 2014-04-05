@@ -1,5 +1,6 @@
 package gestores.servlet.mantenimiento.centroformacion;
 
+import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
 import gestores.exception.DAOExcepcion;
 import gestores.negocio.GestionCentroFormacion;
@@ -36,11 +37,15 @@ public class EliminaCentroFormacionServlet extends HttpServlet {
 			String codigo = request.getParameter("codigo");
 			gestionCentroFormacion.eliminar(codigo);
 		} catch (DAOExcepcion e) {
+			request.setAttribute("mensaje",
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
+			e.printStackTrace();
+		} catch (Exception e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher("/InicioCentroFormacionServlet");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/"
+				+ CentroFormacionConstante.SER_INI_CENTRO_FORMACION);
 		requestDispatcher.forward(request, response);
 	}
 }

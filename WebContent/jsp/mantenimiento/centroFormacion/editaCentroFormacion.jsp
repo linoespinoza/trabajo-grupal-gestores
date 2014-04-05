@@ -31,15 +31,15 @@
 				<tr>
 					<td style="width: 160px">Nro. RUC</td>
 					<td><label> <input type="text" name="codigo"
-							style="width: 120px" readonly="readonly"
-							value="${centroFormacion.codigo}">
+							value="${centroFormacion.codigo}" style="width: 120px"
+							readonly="readonly" min="10000000000" max="99999999999">
 					</label></td>
 				</tr>
 				<tr>
 					<td>Razón Social</td>
 					<td><label> <input type="text" name="nombre"
 							style="width: 320px" required="required"
-							value="${centroFormacion.nombre}">
+							value="${centroFormacion.nombre}" maxlength="45">
 					</label></td>
 				</tr>
 				<tr>
@@ -65,8 +65,8 @@
 				<tr>
 					<td>Url</td>
 					<td><label> <input type="url" name="url"
-							style="width: 320px" required="required"
-							value="${centroFormacion.url}">
+							value="${centroFormacion.url}" style="width: 320px"
+							required="required" maxlength="45">
 					</label></td>
 				</tr>
 				<tr>
@@ -90,7 +90,8 @@
 				</tr>
 				<tr>
 					<td style="vertical-align: top;">Logo</td>
-					<td><label> <input type="file" name="logo">
+					<td><label> <input type="file" name="logo"><span
+							style="color: blue;">Adjunte gif, jpg o png</span>
 					</label> <br> <c:if test="${not empty centroFormacion.logo}">
 							<img alt="logo"
 								src="${contextPath}${directorioLogo}/${centroFormacion.logo}"

@@ -3,8 +3,9 @@ package gestores.negocio;
 import gestores.dao.UsuarioDAO;
 import gestores.enums.FiltroBusquedaUsuario;
 import gestores.exception.DAOExcepcion;
-import gestores.exception.LoginExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Usuario;
+import gestores.util.NumeroUtil;
 
 import java.util.List;
 
@@ -19,29 +20,70 @@ public class GestionUsuario {
 		return dao.listar(filtroBusquedaUsuario, usuario);
 	}
 
-	public Usuario insertar(Usuario usuario) throws DAOExcepcion {
+	public int insertar(Usuario usuario) throws DAOExcepcion, NegocioExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
+
+		if (!NumeroUtil.esDocumentoValido(usuario.getTipoDocumento(),
+				usuario.getNumeroDocumento())) {
+			throw new NegocioExcepcion(
+					NumeroUtil.obtenerMensajeDocumentoValido(usuario
+							.getTipoDocumento()));
+		}
+		if (dao.esRegistradoTipoDocumento(usuario.getCodigo(), usuario
+				.getTipoDocumento().getCodigo(), usuario.getNumeroDocumento())) {
+			throw new NegocioExcepcion("");
+		}
+		if (dao.esRegistradoEmail(usuario.getCodigo(), usuario.getEmail())) {
+			throw new NegocioExcepcion("");
+		}
 		return dao.insertar(usuario);
 	}
 
-	public Usuario obtener(Integer codigo) throws DAOExcepcion {
+	public Usuario obtener(Integer codigo) throws DAOExcepcion,
+			NegocioExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
-		return dao.obtener(codigo);
+
+		Usuario usuario = dao.obtener(codigo);
+		if (usuario == null) {
+			throw new NegocioExcepcion("");
+		}
+		return usuario;
 	}
 
-	public void eliminar(Integer codigo) throws DAOExcepcion {
+	public int eliminar(Integer codigo) throws DAOExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
-		dao.eliminar(codigo);
+		return dao.eliminar(codigo);
 	}
 
-	public Usuario actualizar(Usuario usuario) throws DAOExcepcion {
+	public int actualizar(Usuario usuario) throws DAOExcepcion,
+			NegocioExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
+
+		if (!NumeroUtil.esDocumentoValido(usuario.getTipoDocumento(),
+				usuario.getNumeroDocumento())) {
+			throw new NegocioExcepcion(
+					NumeroUtil.obtenerMensajeDocumentoValido(usuario
+							.getTipoDocumento()));
+		}
+		if (dao.esRegistradoTipoDocumento(usuario.getCodigo(), usuario
+				.getTipoDocumento().getCodigo(), usuario.getNumeroDocumento())) {
+			throw new NegocioExcepcion("");
+		}
+		if (dao.esRegistradoEmail(usuario.getCodigo(), usuario.getEmail())) {
+			throw new NegocioExcepcion("");
+		}
 		return dao.actualizar(usuario);
 	}
 
 	public Usuario autenticar(String email, String contrasenia)
-			throws DAOExcepcion, LoginExcepcion {
+			throws DAOExcepcion, NegocioExcepcion {
 		UsuarioDAO dao = new UsuarioDAO();
-		return dao.autenticar(email, contrasenia);
+
+		Usuario usuario = dao.autenticar(email, contrasenia);
+
+		if (usuario == null) {
+			throw new NegocioExcepcion("Usuario y/o contraseña incorrectos");
+		}
+		return usuario;
 	}
 }

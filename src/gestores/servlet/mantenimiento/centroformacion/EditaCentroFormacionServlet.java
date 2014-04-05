@@ -3,6 +3,7 @@ package gestores.servlet.mantenimiento.centroformacion;
 import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.PlanTarifario;
 import gestores.negocio.GestionCentroFormacion;
@@ -51,14 +52,31 @@ public class EditaCentroFormacionServlet extends HttpServlet {
 			session.setAttribute("listaPlanTarifario", listaPlanTarifario);
 			session.setAttribute("directorioLogo",
 					CentroFormacionConstante.DIRECTORIO_LOGO);
+		} catch (NegocioExcepcion e) {
+			request.setAttribute("mensaje", e.getMessage());
+			RequestDispatcher requestDispatcher = request
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+			requestDispatcher.forward(request, response);
+			return;
 		} catch (DAOExcepcion e) {
+			request.setAttribute("mensaje",
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
+			e.printStackTrace();
+			RequestDispatcher requestDispatcher = request
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+			requestDispatcher.forward(request, response);
+			return;
+		} catch (Exception e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
-					.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/mantenimientoCentroFormacion.jsp");
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
 			requestDispatcher.forward(request, response);
 			return;
 		}
-		response.sendRedirect("jsp/mantenimiento/centroFormacion/editaCentroFormacion.jsp");
+		response.sendRedirect(CentroFormacionConstante.PAG_EDITA_CENTRO_FORMACION);
 	}
 }

@@ -2,6 +2,7 @@ package gestores.test;
 
 import gestores.enums.TipoCentroFormacion;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.PlanTarifario;
 import gestores.negocio.GestionCentroFormacion;
@@ -22,15 +23,17 @@ public class GestionCentroFormacionTest {
 
 			CentroFormacion centroFormacion = new CentroFormacion();
 			centroFormacion.setCodigo("10804050202");
-			centroFormacion.setNombre("Instituto Superior IDAT");
+			centroFormacion.setNombre("Instituto Superior Tecnológico IDAT");
 			centroFormacion
 					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
-			centroFormacion.setUrl("http://www.idat1.edu.pe");
+			centroFormacion.setUrl("http://www.idat.edu.pe");
 			centroFormacion.setLogo("logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
 
-			CentroFormacion vo = negocio.insertar(centroFormacion);
-			System.out.println("Se insertó el id: " + vo.getCodigo());
+			int registroAfectado = negocio.insertar(centroFormacion);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Fallo la inserción: " + e.getMessage());
 		}
@@ -43,6 +46,8 @@ public class GestionCentroFormacionTest {
 			String codigo = "10804050202";
 			CentroFormacion vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Fallo la obtención: " + e.getMessage());
 		}
@@ -60,12 +65,14 @@ public class GestionCentroFormacionTest {
 			centroFormacion.setNombre("Instituto IDAT");
 			centroFormacion
 					.setTipoCentroFormacion(TipoCentroFormacion.INSTITUTO);
-			centroFormacion.setUrl("http://www.idat1.edu.pe/index.jsp");
+			centroFormacion.setUrl("http://www.idat.edu.pe/index.jsp");
 			centroFormacion.setLogo("logoIdat.png");
 			centroFormacion.setPlanTarifario(planTarifario);
 
-			CentroFormacion vo = negocio.actualizar(centroFormacion);
-			System.out.println("Se actualizó el id: " + vo.getCodigo());
+			int registroAfectado = negocio.actualizar(centroFormacion);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la actualización: " + e.getMessage());
 		}
@@ -141,9 +148,8 @@ public class GestionCentroFormacionTest {
 		GestionCentroFormacion negocio = new GestionCentroFormacion();
 		try {
 			String codigo = "10804050202";
-			negocio.eliminar(codigo);
-			CentroFormacion vo = negocio.obtener(codigo);
-			Assert.assertNull(null, vo);
+			int registroAfectado = negocio.eliminar(codigo);
+			Assert.assertTrue(registroAfectado > 0);
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la eliminición: " + e.getMessage());
 		}

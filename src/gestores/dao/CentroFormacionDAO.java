@@ -60,8 +60,7 @@ public class CentroFormacionDAO extends BaseDAO {
 				lista.add(vo);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -70,7 +69,8 @@ public class CentroFormacionDAO extends BaseDAO {
 		return lista;
 	}
 
-	public CentroFormacion insertar(CentroFormacion vo) throws DAOExcepcion {
+	public int insertar(CentroFormacion vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -87,19 +87,15 @@ public class CentroFormacionDAO extends BaseDAO {
 			stmt.setString(5, vo.getLogo());
 			stmt.setInt(6, vo.getPlanTarifario().getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo insertar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
 	}
 
 	public CentroFormacion obtener(String codigo) throws DAOExcepcion {
@@ -131,8 +127,7 @@ public class CentroFormacionDAO extends BaseDAO {
 				vo.setPlanTarifario(planTarifario);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -141,30 +136,30 @@ public class CentroFormacionDAO extends BaseDAO {
 		return vo;
 	}
 
-	public void eliminar(String codigo) throws DAOExcepcion {
+	public int eliminar(String codigo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
-			String query = "DELETE FROM CENTRO_FORMACION WHERE Co_Centro_Formacion = ?";
+			String query = "DELETE FROM CENTRO_FORMACION "
+					+ "WHERE Co_Centro_Formacion = ?";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, codigo);
-			int i = stmt.executeUpdate();
 
-			if (i != 1) {
-				throw new SQLException("No se pudo eliminar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
+		return registroAfectado;
 	}
 
-	public CentroFormacion actualizar(CentroFormacion vo) throws DAOExcepcion {
+	public int actualizar(CentroFormacion vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
@@ -173,7 +168,8 @@ public class CentroFormacionDAO extends BaseDAO {
 			if (StringUtils.isNotBlank(vo.getLogo())) {
 				campo = ", Tx_Logo = ?";
 			}
-			String query = "UPDATE CENTRO_FORMACION SET No_Centro_Formacion = ?, Co_Tipo_Centro_Formacion = ?, Tx_Url = ?, Co_Plan_Tarifario = ?"
+			String query = "UPDATE CENTRO_FORMACION "
+					+ "SET No_Centro_Formacion = ?, Co_Tipo_Centro_Formacion = ?, Tx_Url = ?, Co_Plan_Tarifario = ?"
 					+ campo + " WHERE Co_Centro_Formacion = ?";
 
 			con = ConexionBD.obtenerConexion();
@@ -188,17 +184,73 @@ public class CentroFormacionDAO extends BaseDAO {
 			}
 			stmt.setString(indice, vo.getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo actualizar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
+	}
+
+	public boolean esRegistradoNombre(String codigo, String nombre)
+			throws DAOExcepcion {
+		boolean flagRegistradoNombre = false;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Centro_Formacion "
+					+ "FROM CENTRO_FORMACION "
+					+ "WHERE Co_Centro_Formacion <> ? AND No_Centro_Formacion = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, codigo);
+			stmt.setString(2, nombre);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				flagRegistradoNombre = true;
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return flagRegistradoNombre;
+	}
+
+	public boolean esRegistradoUrl(String codigo, String url)
+			throws DAOExcepcion {
+		boolean flagRegistradoUrl = false;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Centro_Formacion "
+					+ "FROM CENTRO_FORMACION "
+					+ "WHERE Co_Centro_Formacion <> ? AND Tx_Url = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, codigo);
+			stmt.setString(2, url);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				flagRegistradoUrl = true;
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return flagRegistradoUrl;
 	}
 }

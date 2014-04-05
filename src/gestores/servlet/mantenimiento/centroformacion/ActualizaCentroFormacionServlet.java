@@ -4,10 +4,11 @@ import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
 import gestores.enums.TipoCentroFormacion;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.PlanTarifario;
 import gestores.negocio.GestionCentroFormacion;
-import gestores.util.NumeroUtil;
+import gestores.util.ArchivoUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,9 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -49,67 +48,57 @@ public class ActualizaCentroFormacionServlet extends HttpServlet {
 		try {
 			HttpSession session = request.getSession();
 			CentroFormacion centroFormacion = setearDatosEntrada(request);
+			session.setAttribute("centroFormacion", centroFormacion);
 
-			if (centroFormacion != null) {
-				if (!NumeroUtil.esNumeroRuc(centroFormacion.getCodigo())) {
-					session.setAttribute("centroFormacion", centroFormacion);
-
-					request.setAttribute("mensaje", GeneralConstante.ERROR_RUC);
-					RequestDispatcher requestDispatcher = request
-							.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/nuevoCentroFormacion.jsp");
-					requestDispatcher.forward(request, response);
-					return;
-				}
-				gestionCentroFormacion.actualizar(centroFormacion);
-			}
+			gestionCentroFormacion.actualizar(centroFormacion);
 			session.removeAttribute("listaPlanTarifario");
+		} catch (NegocioExcepcion e) {
+			request.setAttribute("mensaje", e.getMessage());
+			RequestDispatcher requestDispatcher = request
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_EDITA_CENTRO_FORMACION);
+			requestDispatcher.forward(request, response);
+			return;
 		} catch (DAOExcepcion e) {
-			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
+			request.setAttribute("mensaje",
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
-					.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/editaCentroFormacion.jsp");
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_EDITA_CENTRO_FORMACION);
 			requestDispatcher.forward(request, response);
 			return;
 		} catch (Exception e) {
-			request.setAttribute("mensaje", GeneralConstante.ERROR_UPLOAD);
+			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
-					.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/editaCentroFormacion.jsp");
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_EDITA_CENTRO_FORMACION);
 			requestDispatcher.forward(request, response);
 			return;
 		}
-		response.sendRedirect("InicioCentroFormacionServlet");
+		response.sendRedirect(CentroFormacionConstante.SER_INI_CENTRO_FORMACION);
 	}
 
 	private CentroFormacion setearDatosEntrada(HttpServletRequest request)
 			throws Exception {
 		CentroFormacion centroFormacion = null;
 		String nombreArchivo = null;
+		String directorioLogo = getServletContext().getRealPath(
+				CentroFormacionConstante.DIRECTORIO_LOGO);
 
 		if (ServletFileUpload.isMultipartContent(request)) {
-			DiskFileItemFactory factory = new DiskFileItemFactory();
-			factory.setSizeThreshold(CentroFormacionConstante.MEMORY_THRESHOLD);
-			factory.setRepository(new File(FileUtils.getTempDirectoryPath()));
+			ServletFileUpload upload = ArchivoUtil.obtenerUpload(request);
+			ArchivoUtil.crearDirectorio(directorioLogo);
 
-			ServletFileUpload upload = new ServletFileUpload(factory);
-			upload.setFileSizeMax(CentroFormacionConstante.MAX_FILE_SIZE);
-			upload.setSizeMax(CentroFormacionConstante.MAX_REQUEST_SIZE);
-
-			File directorioLogo = new File(request.getServletContext()
-					.getRealPath(CentroFormacionConstante.DIRECTORIO_LOGO));
-			if (!directorioLogo.exists()) {
-				directorioLogo.mkdirs();
-			}
 			List<FileItem> items = upload.parseRequest(request);
 
 			if (items != null && !items.isEmpty()) {
 				if (StringUtils.isNotBlank(items.get(5).getName())) {
 					nombreArchivo = new File(items.get(5).getName()).getName();
 
-					File archivo = new File(request.getServletContext()
-							.getRealPath(
-									CentroFormacionConstante.DIRECTORIO_LOGO)
-							+ File.separator + nombreArchivo);
+					File archivo = new File(directorioLogo + File.separator
+							+ nombreArchivo);
 					items.get(5).write(archivo);
 				}
 

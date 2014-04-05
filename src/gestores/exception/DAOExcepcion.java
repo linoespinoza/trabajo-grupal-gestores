@@ -5,7 +5,7 @@ package gestores.exception;
  */
 public class DAOExcepcion extends Exception {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -4382317977882788461L;
 
 	public DAOExcepcion() {
 		super();

@@ -1,5 +1,6 @@
 package gestores.servlet.mantenimiento.centroformacion;
 
+import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
 import gestores.exception.DAOExcepcion;
 import gestores.modelo.PlanTarifario;
@@ -43,13 +44,23 @@ public class NuevoCentroFormacionServlet extends HttpServlet {
 
 			session.setAttribute("listaPlanTarifario", listaPlanTarifario);
 		} catch (DAOExcepcion e) {
+			request.setAttribute("mensaje",
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
+			e.printStackTrace();
+			RequestDispatcher requestDispatcher = request
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+			requestDispatcher.forward(request, response);
+			return;
+		} catch (Exception e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
-					.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/mantenimientoCentroFormacion.jsp");
+					.getRequestDispatcher("/"
+							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
 			requestDispatcher.forward(request, response);
 			return;
 		}
-		response.sendRedirect("jsp/mantenimiento/centroFormacion/nuevoCentroFormacion.jsp");
+		response.sendRedirect(CentroFormacionConstante.PAG_NUEVO_CENTRO_FORMACION);
 	}
 }

@@ -1,5 +1,6 @@
 package gestores.servlet.mantenimiento.centroformacion;
 
+import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
 import gestores.enums.TipoCentroFormacion;
 import gestores.exception.DAOExcepcion;
@@ -57,11 +58,15 @@ public class BusquedaCentroFormacionServlet extends HttpServlet {
 
 			session.setAttribute("listaCentroFormacion", listaCentroFormacion);
 		} catch (DAOExcepcion e) {
+			request.setAttribute("mensaje",
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
+			e.printStackTrace();
+		} catch (Exception e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher("/jsp/mantenimiento/centroFormacion/mantenimientoCentroFormacion.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/"
+				+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
 		requestDispatcher.forward(request, response);
 	}
 }

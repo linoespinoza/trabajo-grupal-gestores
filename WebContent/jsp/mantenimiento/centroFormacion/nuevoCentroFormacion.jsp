@@ -31,14 +31,14 @@
 					<td style="width: 160px">Nro. RUC</td>
 					<td><label> <input type="number" name="codigo"
 							value="${centroFormacion.codigo}" style="width: 120px"
-							required="required">
+							required="required" min="10000000000" max="99999999999">
 					</label></td>
 				</tr>
 				<tr>
 					<td>Razón Social</td>
 					<td><label> <input type="text" name="nombre"
 							value="${centroFormacion.nombre}" style="width: 320px"
-							required="required">
+							required="required" maxlength="45">
 					</label></td>
 				</tr>
 				<tr>
@@ -65,7 +65,7 @@
 					<td>Url</td>
 					<td><label> <input type="url" name="url"
 							value="${centroFormacion.url}" style="width: 320px"
-							required="required">
+							required="required" maxlength="45">
 					</label></td>
 				</tr>
 				<tr>
@@ -90,7 +90,8 @@
 				<tr>
 					<td>Logo</td>
 					<td><label> <input type="file" name="logo"
-							required="required">
+							required="required"><span style="color: blue;">Adjunte
+								gif, jpg o png</span>
 					</label></td>
 				</tr>
 				<tr>
