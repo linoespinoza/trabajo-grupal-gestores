@@ -12,7 +12,7 @@ var editar = function(codigo) {
 };
 
 var eliminar = function(codigo) {
-	if (confirm("¿Está seguro que desea eliminar el registro?")) {
+	if (confirm("Â¿EstÃ¡ seguro que desea eliminar el registro?")) {
 		var rutaContexto = document.formulario.rutaContexto.value;
 		document.formulario.codigo.value = codigo;
 		document.formulario.action = rutaContexto

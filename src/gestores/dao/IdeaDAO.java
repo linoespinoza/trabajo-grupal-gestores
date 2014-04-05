@@ -3,6 +3,7 @@ package gestores.dao;
 import gestores.bean.Puntaje;
 import gestores.enums.EstadoIdea;
 import gestores.exception.DAOExcepcion;
+import gestores.modelo.CentroFormacion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
 import gestores.util.ConexionBD;
@@ -458,5 +459,45 @@ public class IdeaDAO extends BaseDAO {
 			this.cerrarConexion(con);
 		}
 		return idea;
+	}
+
+	public List<Idea> listarIdeasPorUsuario(Usuario estudiante) throws DAOExcepcion {
+		
+		List<Idea> lista = new ArrayList<Idea>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Idea, No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, "
+					+ "Tx_Archivo, Co_Estado, Fe_Creacion " 
+					+ "FROM IDEA i INNER JOIN USUARIO u "
+					+ "ON (i.Co_Estudiante = u.Co_Usuario) "
+					+ "WHERE i.Co_Estudiante = ? "
+					+ "ORDER BY i.No_Titulo";
+					
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, estudiante.getCodigo());
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Idea idea = new Idea();
+				idea.setCodigo(rs.getInt("Co_Idea"));
+				idea.setTitulo(rs.getString("No_Titulo"));
+				idea.setDescripcion(rs.getString("Tx_Descripcion"));
+				idea.setPalabrasClave(rs.getString("Tx_Palabras_Clave"));
+				idea.setArchivo(rs.getString("Tx_Archivo"));
+				idea.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString("Co_Estado")));
+				idea.setFechaCreacion(rs.getDate("Fe_Creacion"));
+				
+				lista.add(idea);
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return lista;
 	}
 }

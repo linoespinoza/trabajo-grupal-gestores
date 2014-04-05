@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Harry Bravo">
 <meta name="description" content="Página principal">
@@ -35,7 +35,7 @@
 						<p>Desde esta opción usted podrá crear, modificar, buscar y
 							eliminar las ideas.</p>
 						<p>
-							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioIdeaServlet" class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>

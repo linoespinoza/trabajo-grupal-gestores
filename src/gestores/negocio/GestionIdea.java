@@ -1,11 +1,13 @@
-
 package gestores.negocio;
+
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
 import gestores.dao.IdeaDAO;
 import gestores.exception.DAOExcepcion;
 import gestores.modelo.Idea;
+import gestores.modelo.Usuario;
 
 
 public class GestionIdea {
@@ -46,5 +48,10 @@ public class GestionIdea {
 	public Idea actualizar(Idea idea) throws DAOExcepcion {
 		IdeaDAO dao = new IdeaDAO();
 		return dao.actualizarIdea(idea);
+	}
+
+	public List<Idea> listarIdeasPorUsuario(Usuario estudiante) throws DAOExcepcion {
+		IdeaDAO dao = new IdeaDAO();
+		return dao.listarIdeasPorUsuario(estudiante);
 	}
 }

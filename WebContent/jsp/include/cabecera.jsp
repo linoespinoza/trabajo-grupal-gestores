@@ -23,7 +23,7 @@
 						data-toggle="dropdown">Mantenimiento</a>
 						<ul class="dropdown-menu">
 							<c:if test="${usuarioActual.estudiante}">
-								<li><a href="#">Ideas</a></li>
+								<li><a href="${contextPath}/InicioIdeaServlet">Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.administrador}">
 								<li><a href="${contextPath}/InicioCentroFormacionServlet">Centros
