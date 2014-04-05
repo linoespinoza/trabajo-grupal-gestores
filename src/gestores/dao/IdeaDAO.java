@@ -6,12 +6,15 @@ import gestores.exception.DAOExcepcion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
 import gestores.util.ConexionBD;
+import gestores.util.FechaUtil;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -320,4 +323,277 @@ public class IdeaDAO extends BaseDAO {
 		}
 		return lista;
 	}
+
+	/*
+	 * Lino Espinoza
+	 */
+	public Idea insertarIdea(Idea idea) throws DAOExcepcion {
+
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+
+			String query = "INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Fe_Creacion, Co_Estado, Co_Estudiante) "
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, idea.getTitulo());
+			stmt.setString(2, idea.getDescripcion());
+			stmt.setString(3, idea.getPalabrasClave());
+			stmt.setString(4, idea.getArchivo());
+			stmt.setTimestamp(5,
+					FechaUtil.convertirTimestamp(idea.getFechaCreacion()));
+			stmt.setString(6, idea.getEstadoIdea().getCodigo());
+			stmt.setInt(7, idea.getEstudiante().getCodigo());
+
+			int i = stmt.executeUpdate();
+			if (i != 1) {
+				throw new SQLException("No se pudo insertar la idea");
+			}
+
+			// Obtener el ultimo id
+			int id = 0;
+			query = "SELECT LAST_INSERT_ID()";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				id = rs.getInt(1);
+			}
+			idea.setCodigo(id);
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return idea;
+	}
+
+	public boolean esIdeaConTituloExistente(Idea idea) throws DAOExcepcion {
+		boolean flagIdeaConTituloExistente = false;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Idea FROM IDEA WHERE No_Titulo = ? AND Co_Estudiante = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, idea.getTitulo());
+			stmt.setInt(2, idea.getEstudiante().getCodigo());
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				flagIdeaConTituloExistente = true;
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return flagIdeaConTituloExistente;
+	}
+
+	public boolean esIdeaConAlgunaPalabraClaveIgual(Idea idea)
+			throws DAOExcepcion {
+		boolean flag = false;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Idea FROM IDEA WHERE No_Titulo = ? AND Co_Estudiante = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, idea.getTitulo());
+			stmt.setInt(2, idea.getEstudiante().getCodigo());
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				flag = true;
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return flag;
+	}
+
+	public Idea actualizarIdea(Idea idea) throws DAOExcepcion {
+		Connection con = null;
+		PreparedStatement stmt = null;
+		try {
+
+			String query = "UPDATE IDEA SET No_Titulo = ?, Tx_Descripcion = ?, Tx_Palabras_Clave = ?, Tx_Archivo = ?"
+					+ "WHERE Co_Idea = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, idea.getTitulo());
+			stmt.setString(2, idea.getDescripcion());
+			stmt.setString(3, idea.getPalabrasClave());
+			stmt.setString(4, idea.getArchivo());
+			stmt.setInt(5, idea.getCodigo());
+
+			int i = stmt.executeUpdate();
+			if (i != 1) {
+				throw new SQLException("No se pudo actualizar la idea de id:"
+						+ idea.getCodigo());
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return idea;
+	}
+	
+//--ALEX
+
+	public Collection<Idea> listar_Idea() throws DAOExcepcion {
+		Collection<Idea> i = new ArrayList<Idea>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			//String query = "select co_Idea,no_Titulo,Tx_Descripcion,Tx_Palabras_clave,Tx_Archivo,Co_Estudiante,Co_Estado,Fe_Creacion,Fe_Publicacion,Co_Asesor from idea;";
+			String query = "SELECT ide.Co_Idea, ide.No_Titulo, ide.Tx_Archivo, est.No_Usuario AS No_Estudiante_Est, est.No_Ape_Paterno AS No_Ape_Paterno_Est, est.No_Ape_Materno AS No_Ape_Materno_Est, ase.No_Usuario AS No_Asesor_Ase, ase.No_Ape_Paterno AS No_Ape_Paterno_Ase, ase.No_Ape_Materno AS No_Ape_Materno_Ase, ide.Co_Estado, ide.Fe_Creacion, ide.Fe_Publicacion " 
+						+ "FROM IDEA ide INNER JOIN USUARIO est ON (ide.Co_Estudiante = est.Co_Usuario) LEFT JOIN USUARIO ase ON (ide.Co_Asesor = ase.Co_Usuario);";
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Idea vo = new Idea();
+				vo.setCodigo(rs.getInt("ide.co_Idea"));
+				vo.setTitulo(rs.getString("ide.no_Titulo"));
+				vo.setDescripcion(rs.getString("ide.Tx_Descripcion"));
+				vo.setPalabrasClave(rs.getString("ide.Tx_Palabras_clave"));
+				vo.setArchivo(rs.getString("ide.Tx_Archivo"));
+				
+				Usuario estudiante = new Usuario();
+				estudiante.setNombre(rs.getString("No_Estudiante_Est"));
+				estudiante.setApellidoPaterno(rs.getString("No_ape_paterno_Est"));
+				estudiante.setApellidoMaterno(rs.getString("No_ape_materno_Est"));
+				vo.setEstudiante(estudiante);
+
+				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString("ide.Co_Estado")));
+				vo.setFechaCreacion(rs.getDate("Fe_Creacion"));
+				vo.setFechaPublicacion(rs.getDate("Fe_Publicacion"));
+				
+				Usuario asesor = new Usuario();
+				asesor.setNombre(rs.getString("No_Asesor_Ase"));
+				asesor.setApellidoPaterno(rs.getString("No_Ape_paterno_Ase"));
+				asesor.setApellidoMaterno(rs.getString("No_Ape_materno_Ase"));
+				vo.setAsesor(asesor);
+							
+				i.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return i;
+	}
+	
+	public Collection<Idea> buscarCadena_Idea(String cadena) throws DAOExcepcion {
+		Collection<Idea> i = new ArrayList<Idea>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			//String query = "select co_Idea,no_Titulo,Tx_Descripcion,Tx_Palabras_clave,Tx_Archivo,Co_Estudiante,Co_Estado,Fe_Creacion,Fe_Publicacion,Co_Asesor from idea where no_Titulo like ? or tx_Descripcion like ? or tx_Palabras like ?;";
+			String query = "SELECT i.* FROM IDEA i INNER JOIN USUARIO u ON (i.Co_Estudiante = u.Co_Usuario) LEFT JOIN USUARIO a ON (i.Co_Asesor = a.Co_Usuario);"
+					+ "WHERE i.no_Titulo like ? OR i.tx_Descripcion like ? OR i.tx_Palabras_clave like ?";
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, "%" + cadena + "%");
+			stmt.setString(2, "%" + cadena + "%");
+			stmt.setString(3, "%" + cadena + "%");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Idea vo = new Idea();
+				vo.setCodigo(rs.getInt("i.co_Idea"));
+				vo.setTitulo(rs.getString("i.no_Titulo"));
+				vo.setDescripcion(rs.getString("i.Tx_Descripcion"));
+				vo.setPalabrasClave(rs.getString("i.Tx_Palabras_clave"));
+				vo.setArchivo(rs.getString("i.Tx_Archivo"));
+				
+				Usuario estudiante = new Usuario();
+				estudiante.setNombre(rs.getString("u.No_Usuario"));
+				estudiante.setApellidoPaterno(rs.getString("u.No_ape_paterno"));
+				estudiante.setApellidoMaterno(rs.getString("u.No_ape_materno"));
+				vo.setEstudiante(estudiante);
+
+				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString("i.Co_Estado")));
+				
+				vo.setFechaCreacion(rs.getDate("i.Fe_Creacion"));
+				vo.setFechaPublicacion(rs.getDate("i.Fe_Publicacion"));
+				
+				Usuario asesor = new Usuario();
+				asesor.setNombre(rs.getString("a.No_Usuario"));
+				asesor.setApellidoPaterno(rs.getString("a.No_Ape_paterno"));
+				asesor.setApellidoMaterno(rs.getString("a.No_Ape_materno"));
+				vo.setAsesor(asesor);
+									
+				i.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return i;
+	}
+	
+	public Collection<Idea> buscarNombre_Idea(int codigo) throws DAOExcepcion {
+		Collection<Idea> i = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			con = ConexionBD.obtenerConexion();
+			String query = "select * from Idea where co_Idea like ?";
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, "%" + codigo + "%");
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Idea vo = new Idea();
+				vo.setTitulo(rs.getString("No_Titulo"));
+				i.add(vo);
+			}
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+			throw new DAOExcepcion(e.getMessage());
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);			
+			this.cerrarConexion(con);
+		}
+		return i;
+	}
+//--ALEX
 }

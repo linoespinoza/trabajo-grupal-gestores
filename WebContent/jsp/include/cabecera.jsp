@@ -1,6 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath"
@@ -31,7 +28,7 @@
 							<c:if test="${usuarioActual.administrador}">
 								<li><a href="${contextPath}/InicioCentroFormacionServlet">Centros
 										de Formación</a></li>
-								<li><a href="#">Usuarios</a></li>
+								<li><a href="${contextPath}/InicioUsuarioServlet">Usuarios</a></li>
 							</c:if>
 						</ul></li>
 				</c:if>
@@ -41,7 +38,9 @@
 						<ul class="dropdown-menu">
 							<c:if
 								test="${usuarioActual.estudiante or usuarioActual.docente or usuarioActual.evaluador}">
-								<li><a href="#">Consulta de Ideas</a></li>
+<!-- 								<li><a href="#">Consulta de Ideas</a></li> -->
+								<li><a href="${contextPath}/InicioCentroFormacionServlet">B&uacute;squeda
+										 de Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.docente}">
 								<li><a href="#">Registro de Reuniones</a></li>

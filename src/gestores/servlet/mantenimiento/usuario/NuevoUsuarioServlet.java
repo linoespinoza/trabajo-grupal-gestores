@@ -1,9 +1,10 @@
-package gestores.servlet.mantenimiento.centroformacion;
+package gestores.servlet.mantenimiento.usuario;
 
-import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
+import gestores.constante.UsuarioConstante;
+import gestores.enums.TipoDocumento;
 import gestores.exception.DAOExcepcion;
-import gestores.modelo.PlanTarifario;
+import gestores.modelo.CentroFormacion;
 import gestores.negocio.ListasComunes;
 
 import java.io.IOException;
@@ -18,14 +19,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Harry Bravo.
+ * @author Jeremías Yalta.
  */
-@WebServlet("/NuevoCentroFormacionServlet")
-public class NuevoCentroFormacionServlet extends HttpServlet {
+@WebServlet("/NuevoUsuarioServlet")
+public class NuevoUsuarioServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -2824916743031642534L;
+	private static final long serialVersionUID = 2991379571049678703L;
 
-	public NuevoCentroFormacionServlet() {
+	public NuevoUsuarioServlet() {
 		super();
 	}
 
@@ -38,19 +39,20 @@ public class NuevoCentroFormacionServlet extends HttpServlet {
 		ListasComunes listasComunes = new ListasComunes();
 		try {
 			HttpSession session = request.getSession();
-			session.removeAttribute("centroFormacion");
+			session.removeAttribute("usuario");
 
-			List<PlanTarifario> listaPlanTarifario = listasComunes
-					.listarPlanTarifario();
+			List<CentroFormacion> listaCentroFormacion = listasComunes
+					.listarCentroFormacion();
 
-			session.setAttribute("listaPlanTarifario", listaPlanTarifario);
+			session.setAttribute("listaCentroFormacion", listaCentroFormacion);
+			session.setAttribute("listaTipoDocumento", TipoDocumento.values());
 		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje",
 					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+							+ UsuarioConstante.PAG_MANT_USUARIO);
 			requestDispatcher.forward(request, response);
 			return;
 		} catch (Exception e) {
@@ -58,10 +60,10 @@ public class NuevoCentroFormacionServlet extends HttpServlet {
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+							+ UsuarioConstante.PAG_MANT_USUARIO);
 			requestDispatcher.forward(request, response);
 			return;
 		}
-		response.sendRedirect(CentroFormacionConstante.PAG_NUEVO_CENTRO_FORMACION);
+		response.sendRedirect(UsuarioConstante.PAG_NUEVO_USUARIO);
 	}
 }

@@ -1,9 +1,9 @@
-package gestores.servlet.mantenimiento.centroformacion;
+package gestores.servlet.mantenimiento.usuario;
 
-import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
+import gestores.constante.UsuarioConstante;
 import gestores.exception.DAOExcepcion;
-import gestores.negocio.GestionCentroFormacion;
+import gestores.negocio.GestionUsuario;
 
 import java.io.IOException;
 
@@ -15,14 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Harry Bravo.
+ * @author Jeremías Yalta.
  */
-@WebServlet("/EliminaCentroFormacionServlet")
-public class EliminaCentroFormacionServlet extends HttpServlet {
+@WebServlet("/EliminaUsuarioServlet")
+public class EliminaUsuarioServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -2824916743031642534L;
+	private static final long serialVersionUID = 9003186291231676725L;
 
-	public EliminaCentroFormacionServlet() {
+	public EliminaUsuarioServlet() {
 		super();
 	}
 
@@ -32,20 +32,16 @@ public class EliminaCentroFormacionServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		GestionCentroFormacion gestionCentroFormacion = new GestionCentroFormacion();
+		GestionUsuario gestionUsuario = new GestionUsuario();
 		try {
-			String codigo = request.getParameter("codigo");
-			gestionCentroFormacion.eliminar(codigo);
+			int codigo = Integer.parseInt(request.getParameter("codigo"));
+			gestionUsuario.eliminar(codigo);
 		} catch (DAOExcepcion e) {
-			request.setAttribute("mensaje",
-					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
-			e.printStackTrace();
-		} catch (Exception e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 		}
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/"
-				+ CentroFormacionConstante.SER_INI_CENTRO_FORMACION);
+				+ UsuarioConstante.SER_INI_USUARIO);
 		requestDispatcher.forward(request, response);
 	}
 }

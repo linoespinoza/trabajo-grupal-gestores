@@ -1,7 +1,8 @@
 package gestores.servlet;
 
+import gestores.constante.GeneralConstante;
 import gestores.exception.DAOExcepcion;
-import gestores.exception.LoginExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Usuario;
 import gestores.negocio.GestionUsuario;
 
@@ -44,13 +45,15 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("usuarioActual", usuario);
 			response.sendRedirect("PortadaServlet");
 			return;
+		} catch (NegocioExcepcion e) {
+			request.setAttribute("mensaje", e.getMessage());
+			e.printStackTrace();
 		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje",
-					"Hubo un error al procesar la operación: " + e.getMessage());
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
 			e.printStackTrace();
-		} catch (LoginExcepcion e) {
-			request.setAttribute("mensaje",
-					"Usuario y/o contraseña incorrectos");
+		} catch (Exception e) {
+			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 		}
 		RequestDispatcher requestDispatcher = request

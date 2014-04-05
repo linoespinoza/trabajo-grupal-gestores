@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath"
@@ -8,10 +6,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Harry Bravo">
-<meta name="description" content="Pagina de nuevo centro de formacion">
+<meta name="description" content="Página de nuevo centro de formación">
 <title>Sistema de Gestión de Innovación</title>
 <link href="${contextPath}/css/bootstrap.css" rel="stylesheet"
 	media="screen">
@@ -26,21 +24,21 @@
 		<form name="formulario" method="post"
 			action="${contextPath}/InsertaCentroFormacionServlet"
 			class="form-horizontal" enctype="multipart/form-data">
-			<input type="hidden" id="rutaContexto" value="${contextPath}">
+			<input type="hidden" name="rutaContexto" value="${contextPath}">
 			<table border="1"
 				style="width: 500; height: 104; padding: 0; border-spacing: 0;">
 				<tr>
 					<td style="width: 160px">Nro. RUC</td>
-					<td><label> <input type="number" name="codigo"
+					<td><label> <input type="text" name="codigo"
 							value="${centroFormacion.codigo}" style="width: 120px"
-							required="required">
+							required="required" maxlength="11">
 					</label></td>
 				</tr>
 				<tr>
 					<td>Razón Social</td>
 					<td><label> <input type="text" name="nombre"
 							value="${centroFormacion.nombre}" style="width: 320px"
-							required="required">
+							required="required" maxlength="45">
 					</label></td>
 				</tr>
 				<tr>
@@ -67,7 +65,7 @@
 					<td>Url</td>
 					<td><label> <input type="url" name="url"
 							value="${centroFormacion.url}" style="width: 320px"
-							required="required">
+							required="required" maxlength="45">
 					</label></td>
 				</tr>
 				<tr>
@@ -92,7 +90,8 @@
 				<tr>
 					<td>Logo</td>
 					<td><label> <input type="file" name="logo"
-							required="required">
+							required="required"><span style="color: blue;">Adjunte
+								gif, jpg o png</span>
 					</label></td>
 				</tr>
 				<tr>
@@ -105,11 +104,8 @@
 		</form>
 		<jsp:include page="../../include/pie.jsp" flush="true" />
 	</div>
-	<script src="${contextPath}/js/jquery-2.1.0.js" type="text/javascript"
-		charset="ISO-8859-1"></script>
-	<script src="${contextPath}/js/bootstrap.js" type="text/javascript"
-		charset="ISO-8859-1"></script>
-	<script src="${contextPath}/js/app/mantenimientoCentroFormacion.js"
-		type="text/javascript" charset="ISO-8859-1"></script>
+	<script src="${contextPath}/js/jquery-2.1.0.js"></script>
+	<script src="${contextPath}/js/bootstrap.js"></script>
+	<script src="${contextPath}/js/app/mantenimientoCentroFormacion.js"></script>
 </body>
 </html>

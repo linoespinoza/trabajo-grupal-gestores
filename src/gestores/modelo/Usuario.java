@@ -117,6 +117,10 @@ public class Usuario {
 		this.centroFormacion = centroFormacion;
 	}
 
+	public String getNombreCompleto() {
+		return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+	}
+
 	public boolean isAdministrador() {
 		return tipoUsuario.equals(TipoUsuario.ADMINISTRADOR);
 	}

@@ -26,7 +26,7 @@ public class GestionReunion {
 			return dao.insertar(reunion);
 		} else {
 			throw new DAOExcepcion(
-					"No puede registrar más de una reunión el mismo día");
+					"No puede registrar mï¿½s de una reuniï¿½n el mismo dï¿½a");
 		}
 	}
 }

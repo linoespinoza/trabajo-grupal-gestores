@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <c:set var="contextPath"
@@ -8,11 +6,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Harry Bravo">
 <meta name="description"
-	content="Pagina de mantenimiento de centro de formacion">
+	content="Página de mantenimiento de centro de formación">
 <title>Sistema de Gestión de Innovación</title>
 <link href="${contextPath}/css/bootstrap.css" rel="stylesheet"
 	media="screen">
@@ -27,8 +25,8 @@
 		<form name="formulario" method="post"
 			action="${contextPath}/BusquedaCentroFormacionServlet"
 			class="form-horizontal">
-			<input type="hidden" id="rutaContexto" value="${contextPath}">
-			<input type="hidden" id="codigo" name="codigo">
+			<input type="hidden" name="rutaContexto" value="${contextPath}">
+			<input type="hidden" name="codigo">
 			<p>
 				Nombre <label><input type="text" name="nombre"
 					value="${centroFormacion.nombre}"></label> Tipo <label> <select
@@ -72,10 +70,10 @@
 							<td>${centroFormacion.tipoCentroFormacion.nombre}</td>
 							<td>${centroFormacion.url}</td>
 							<td>${centroFormacion.planTarifario.nombre}</td>
-							<td><a href="#"
+							<td><a href="javascript: void(0);"
 								onclick="editar('${centroFormacion.codigo}');">Editar</a> - <a
-								href="#" onclick="eliminar('${centroFormacion.codigo}');">Eliminar</a>
-							</td>
+								href="javascript: void(0);"
+								onclick="eliminar('${centroFormacion.codigo}');">Eliminar</a></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -83,11 +81,8 @@
 		</form>
 		<jsp:include page="../../include/pie.jsp" flush="true" />
 	</div>
-	<script src="${contextPath}/js/jquery-2.1.0.js" type="text/javascript"
-		charset="ISO-8859-1"></script>
-	<script src="${contextPath}/js/bootstrap.js" type="text/javascript"
-		charset="ISO-8859-1"></script>
-	<script src="${contextPath}/js/app/mantenimientoCentroFormacion.js"
-		type="text/javascript" charset="ISO-8859-1"></script>
+	<script src="${contextPath}/js/jquery-2.1.0.js"></script>
+	<script src="${contextPath}/js/bootstrap.js"></script>
+	<script src="${contextPath}/js/app/mantenimientoCentroFormacion.js"></script>
 </body>
 </html>

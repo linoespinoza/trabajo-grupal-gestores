@@ -12,14 +12,14 @@ Lino Espinoza
 Alex Valencia
 
 	- HU03. Buscar ideas
-	- HU04. Participar en la discusi贸n y votaci贸n de las ideas
+	- HU04. Participar en la discusi髇 y votaci髇 de las ideas
 
 Harry Bravo
 
 	- HU05. Evaluar idea
-	- HU06. Mantener perfiles de centros de formaci贸n
+	- HU06. Mantener perfiles de centros de formaci髇
 
-Jerem铆as Yalta
+Jerem韆s Yalta
 
 	- HU07. Mantener usuarios
 	- HU08. Registrar reuniones
@@ -27,4 +27,4 @@ Jerem铆as Yalta
 Marco Chumpitaz
 
 	- HU09. Reporte de ideas
-	- HU10. M贸dulo de Cobranza
+	- HU10. M骴ulo de Cobranza
