@@ -50,7 +50,8 @@
 								<li><a href="#">Participación de Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.evaluador}">
-								<li><a href="#">Evaluación de Ideas</a></li>
+								<li><a href="${contextPath}/InicioEvaluacionIdeaServlet">Evaluación
+										de Ideas</a></li>
 							</c:if>
 						</ul></li>
 				</c:if>

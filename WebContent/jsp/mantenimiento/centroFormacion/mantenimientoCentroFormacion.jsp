@@ -71,7 +71,7 @@
 							<td>${centroFormacion.url}</td>
 							<td>${centroFormacion.planTarifario.nombre}</td>
 							<td><a href="javascript: void(0);"
-								onclick="editar('${centroFormacion.codigo}');">Editar</a> - <a
+								onclick="editar('${centroFormacion.codigo}');">Editar</a> <a
 								href="javascript: void(0);"
 								onclick="eliminar('${centroFormacion.codigo}');">Eliminar</a></td>
 						</tr>

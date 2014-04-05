@@ -1,10 +1,12 @@
-package gestores.servlet;
+package gestores.servlet.gestion.evaluacion.idea;
 
+import gestores.constante.EvaluacionIdeaConstante;
 import gestores.constante.GeneralConstante;
+import gestores.enums.EstadoIdea;
 import gestores.exception.DAOExcepcion;
 import gestores.exception.NegocioExcepcion;
-import gestores.modelo.Usuario;
-import gestores.negocio.GestionUsuario;
+import gestores.modelo.Idea;
+import gestores.negocio.EvaluacionIdea;
 
 import java.io.IOException;
 
@@ -19,12 +21,12 @@ import javax.servlet.http.HttpSession;
 /**
  * @author Harry Bravo.
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/ApruebaIdeaServlet")
+public class ApruebaIdeaServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 2700361414490186248L;
+	private static final long serialVersionUID = 1439075737137979464L;
 
-	public LoginServlet() {
+	public ApruebaIdeaServlet() {
 		super();
 	}
 
@@ -34,17 +36,15 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		EvaluacionIdea evaluacionIdea = new EvaluacionIdea();
 		try {
 			HttpSession session = request.getSession();
-			String email = request.getParameter("email");
-			String contrasenia = request.getParameter("contrasenia");
+			Idea idea = setearDatosEntrada(request);
 
-			GestionUsuario gestionUsuario = new GestionUsuario();
-			Usuario usuario = gestionUsuario.autenticar(email, contrasenia);
+			evaluacionIdea.actualizarEstado(idea);
+			idea = evaluacionIdea.obtenerEvaluacion(idea.getCodigo());
 
-			session.setAttribute("usuarioActual", usuario);
-			response.sendRedirect("PortadaServlet");
-			return;
+			session.setAttribute("idea", idea);
 		} catch (NegocioExcepcion e) {
 			request.setAttribute("mensaje", e.getMessage());
 		} catch (DAOExcepcion e) {
@@ -55,8 +55,17 @@ public class LoginServlet extends HttpServlet {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 		}
-		RequestDispatcher requestDispatcher = request
-				.getRequestDispatcher("/index.jsp");
+		RequestDispatcher requestDispatcher = request.getRequestDispatcher("/"
+				+ EvaluacionIdeaConstante.PAG_EVALUACION_IDEA);
 		requestDispatcher.forward(request, response);
+	}
+
+	private Idea setearDatosEntrada(HttpServletRequest request)
+			throws Exception {
+		HttpSession session = request.getSession();
+		Idea idea = (Idea) session.getAttribute("idea");
+		idea.setEstadoIdea(EstadoIdea.APROBADA);
+
+		return idea;
 	}
 }

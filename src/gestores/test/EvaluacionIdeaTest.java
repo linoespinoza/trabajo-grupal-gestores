@@ -3,6 +3,7 @@ package gestores.test;
 import gestores.bean.Puntaje;
 import gestores.enums.EstadoIdea;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
 import gestores.negocio.EvaluacionIdea;
@@ -21,6 +22,8 @@ public class EvaluacionIdeaTest {
 			Integer codigo = 2;
 			Idea vo = negocio.obtenerEvaluacion(codigo);
 			Assert.assertNotNull(vo);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Fallo la obtención: " + e.getMessage());
 		}
@@ -34,8 +37,10 @@ public class EvaluacionIdeaTest {
 			idea.setCodigo(2);
 			idea.setEstadoIdea(EstadoIdea.APROBADA);
 
-			Idea vo = negocio.actualizarEstado(idea);
-			System.out.println("Se aprobó el id: " + vo.getCodigo());
+			int registroAfectado = negocio.actualizarEstado(idea);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la aprobación: " + e.getMessage());
 		}
@@ -49,8 +54,10 @@ public class EvaluacionIdeaTest {
 			idea.setCodigo(2);
 			idea.setEstadoIdea(EstadoIdea.RECHAZADA);
 
-			Idea vo = negocio.actualizarEstado(idea);
-			System.out.println("Se rechazó el id: " + vo.getCodigo());
+			int registroAfectado = negocio.actualizarEstado(idea);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la desaprobación: " + e.getMessage());
 		}
@@ -71,10 +78,10 @@ public class EvaluacionIdeaTest {
 			idea.setEstudiante(estudiante);
 			idea.setAsesor(asesor);
 
-			Idea vo = negocio.asignarAsesor(idea);
-			System.out.println("Se asignó el asesor "
-					+ vo.getAsesor().getCodigo() + " para la idea "
-					+ vo.getCodigo());
+			int registroAfectado = negocio.asignarAsesor(idea);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
 			Assert.fail("Falló la asignación de asesor: " + e.getMessage());
 		}
@@ -87,7 +94,10 @@ public class EvaluacionIdeaTest {
 			Idea idea = new Idea();
 			idea.setTitulo("");
 
-			List<Idea> listado = negocio.listarEvaluacion(idea);
+			Usuario evaluador = new Usuario();
+			evaluador.setCodigo(8);
+
+			List<Idea> listado = negocio.listarEvaluacion(idea, evaluador);
 			System.out.println("Total de registros: " + listado.size());
 
 			for (Idea vo : listado) {
@@ -107,7 +117,10 @@ public class EvaluacionIdeaTest {
 			Idea idea = new Idea();
 			idea.setTitulo("Matricula");
 
-			List<Idea> listado = negocio.listarEvaluacion(idea);
+			Usuario evaluador = new Usuario();
+			evaluador.setCodigo(8);
+
+			List<Idea> listado = negocio.listarEvaluacion(idea, evaluador);
 			System.out.println("Total de registros: " + listado.size());
 
 			for (Idea vo : listado) {

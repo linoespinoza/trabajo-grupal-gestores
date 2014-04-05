@@ -1,13 +1,13 @@
-package gestores.servlet.mantenimiento.usuario;
+package gestores.servlet.gestion.evaluacion.idea;
 
+import gestores.bean.Puntaje;
+import gestores.constante.EvaluacionIdeaConstante;
 import gestores.constante.GeneralConstante;
-import gestores.constante.UsuarioConstante;
-import gestores.enums.TipoDocumento;
 import gestores.exception.DAOExcepcion;
 import gestores.exception.NegocioExcepcion;
-import gestores.modelo.CentroFormacion;
+import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
-import gestores.negocio.GestionUsuario;
+import gestores.negocio.EvaluacionIdea;
 import gestores.negocio.ListasComunes;
 
 import java.io.IOException;
@@ -22,14 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Jeremías Yalta.
+ * @author Harry Bravo.
  */
-@WebServlet("/EditaUsuarioServlet")
-public class EditaUsuarioServlet extends HttpServlet {
+@WebServlet("/ObtieneEvaluacionIdeaServlet")
+public class ObtieneEvaluacionIdeaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -4946639447137471749L;
 
-	public EditaUsuarioServlet() {
+	public ObtieneEvaluacionIdeaServlet() {
 		super();
 	}
 
@@ -39,24 +39,28 @@ public class EditaUsuarioServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		GestionUsuario gestionUsuario = new GestionUsuario();
+		EvaluacionIdea evaluacionIdea = new EvaluacionIdea();
 		ListasComunes listasComunes = new ListasComunes();
 		try {
 			HttpSession session = request.getSession();
+			Usuario evaluador = (Usuario) session.getAttribute("usuarioActual");
+
 			int codigo = Integer.parseInt(request.getParameter("codigo"));
 
-			List<CentroFormacion> listaCentroFormacion = listasComunes
-					.listarCentroFormacion();
-			Usuario usuario = gestionUsuario.obtener(codigo);
+			List<Usuario> listaDocente = listasComunes.listarDocente(evaluador
+					.getCentroFormacion().getCodigo());
+			List<Puntaje> listaPuntaje = evaluacionIdea
+					.listarResumenPuntaje(codigo);
+			Idea idea = evaluacionIdea.obtenerEvaluacion(codigo);
 
-			session.setAttribute("usuario", usuario);
-			session.setAttribute("listaCentroFormacion", listaCentroFormacion);
-			session.setAttribute("listaTipoDocumento", TipoDocumento.values());
+			session.setAttribute("idea", idea);
+			session.setAttribute("listaDocente", listaDocente);
+			session.setAttribute("listaPuntaje", listaPuntaje);
 		} catch (NegocioExcepcion e) {
 			request.setAttribute("mensaje", e.getMessage());
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ UsuarioConstante.PAG_MANT_USUARIO);
+							+ EvaluacionIdeaConstante.PAG_BUSQ_EVALUACION_IDEA);
 			requestDispatcher.forward(request, response);
 			return;
 		} catch (DAOExcepcion e) {
@@ -65,7 +69,7 @@ public class EditaUsuarioServlet extends HttpServlet {
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ UsuarioConstante.PAG_MANT_USUARIO);
+							+ EvaluacionIdeaConstante.PAG_BUSQ_EVALUACION_IDEA);
 			requestDispatcher.forward(request, response);
 			return;
 		} catch (Exception e) {
@@ -73,10 +77,10 @@ public class EditaUsuarioServlet extends HttpServlet {
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ UsuarioConstante.PAG_MANT_USUARIO);
+							+ EvaluacionIdeaConstante.PAG_BUSQ_EVALUACION_IDEA);
 			requestDispatcher.forward(request, response);
 			return;
 		}
-		response.sendRedirect(UsuarioConstante.PAG_EDITA_USUARIO);
+		response.sendRedirect(EvaluacionIdeaConstante.PAG_EVALUACION_IDEA);
 	}
 }

@@ -84,7 +84,7 @@
 							<td>${usuario.tipoUsuario.nombre}</td>
 							<td>${usuario.centroFormacion.nombre}</td>
 							<td><a href="javascript: void(0);"
-								onclick="editar('${usuario.codigo}');">Editar</a> - <a
+								onclick="editar('${usuario.codigo}');">Editar</a> <a
 								href="javascript: void(0);"
 								onclick="eliminar('${usuario.codigo}');">Eliminar</a></td>
 						</tr>
