@@ -2,7 +2,7 @@
     <wb-module deploy-name="gestores">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <property name="context-root" value="gestores"/>
         <property name="java-output-path" value="/gestores/build/classes"/>
+        <property name="context-root" value="gestores"/>
     </wb-module>
 </project-modules>
