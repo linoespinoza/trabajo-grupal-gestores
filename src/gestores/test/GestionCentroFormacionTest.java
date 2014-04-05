@@ -151,7 +151,7 @@ public class GestionCentroFormacionTest {
 			int registroAfectado = negocio.eliminar(codigo);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la eliminición: " + e.getMessage());
+			Assert.fail("Falló la eliminación: " + e.getMessage());
 		}
 	}
 }

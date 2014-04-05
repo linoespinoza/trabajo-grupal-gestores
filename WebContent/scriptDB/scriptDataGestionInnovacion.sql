@@ -42,19 +42,19 @@ VALUES ('Pablo', 'Narvaez', 'Peña', 'M', 'DNI', '33212222', 'pablo.narvaez@upc.e
 
 -- IDEA
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Aula Virtual', 'Tener clases no presenciales', 'online,cursos,foro,evaluación', '/archivo/upload/aulaVirtual.docx', 2, 'CRE', NOW(), NULL, NULL);
+VALUES ('Aula Virtual', 'Tener clases no presenciales', 'online,cursos,foro,evaluación', 'aulaVirtual.docx', 2, 'CRE', NOW(), NULL, NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Matricula Online', 'Matricularse en la comodidad de su casa', 'online,horario,matricula,cursos', '/archivo/upload/matriculaOnline.docx', 2, 'PUB', NOW(), NOW(), NULL);
+VALUES ('Matricula Online', 'Matricularse en la comodidad de su casa', 'online,horario,matricula,cursos', 'matriculaOnline.docx', 2, 'PUB', NOW(), NOW(), NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Encuesta de Alumnos Online', 'Encuesta online de los alumnos con respecto a la calidad educativa', 'online,evaluación,educación,calidad', '/archivo/upload/encuestaAlumnoOnline.docx', 2, 'APR', NOW(), NOW(), NULL);
+VALUES ('Encuesta de Alumnos Online', 'Encuesta online de los alumnos con respecto a la calidad educativa', 'online,evaluación,educación,calidad', 'encuestaAlumnoOnline.docx', 2, 'APR', NOW(), NOW(), NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Inglés Online', 'Inglés en la comodidad de su casa', 'online,horario,inglés,exámenes', '/archivo/upload/inglesOnline.docx', 2, 'REC', NOW(), NOW(), NULL);
+VALUES ('Inglés Online', 'Inglés en la comodidad de su casa', 'online,horario,inglés,exámenes', 'inglesOnline.docx', 2, 'REC', NOW(), NOW(), NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Conferencia Online', 'Conferencia online para estudiantes', 'online,conferencia,educación,temas', '/archivo/upload/conferenciaOnline.docx', 2, 'APR', NOW(), NOW(), 5);
+VALUES ('Conferencia Online', 'Conferencia online para estudiantes', 'online,conferencia,educación,temas', 'conferenciaOnline.docx', 2, 'APR', NOW(), NOW(), 5);
 
 -- USUARIO PERMITIDO
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)

@@ -1,12 +1,11 @@
-package gestores.servlet.mantenimiento.usuario;
+package gestores.servlet.gestion.evaluacion.idea;
 
+import gestores.constante.EvaluacionIdeaConstante;
 import gestores.constante.GeneralConstante;
-import gestores.constante.UsuarioConstante;
-import gestores.enums.FiltroBusquedaUsuario;
-import gestores.enums.TipoUsuario;
 import gestores.exception.DAOExcepcion;
+import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
-import gestores.negocio.GestionUsuario;
+import gestores.negocio.EvaluacionIdea;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,14 +18,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Jeremías Yalta.
+ * @author Harry Bravo.
  */
-@WebServlet("/InicioUsuarioServlet")
-public class InicioUsuarioServlet extends HttpServlet {
+@WebServlet("/InicioEvaluacionIdeaServlet")
+public class InicioEvaluacionIdeaServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -1730025169920311600L;
 
-	public InicioUsuarioServlet() {
+	public InicioEvaluacionIdeaServlet() {
 		super();
 	}
 
@@ -42,21 +41,22 @@ public class InicioUsuarioServlet extends HttpServlet {
 
 	private void iniciar(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		GestionUsuario gestionUsuario = new GestionUsuario();
+		EvaluacionIdea evaluacionIdea = new EvaluacionIdea();
 		try {
 			HttpSession session = request.getSession();
+			Usuario evaluador = (Usuario) session.getAttribute("usuarioActual");
 
-			Usuario usuario = new Usuario();
-			usuario.setNombre("");
+			Idea idea = new Idea();
+			idea.setTitulo("");
 
-			List<Usuario> listaUsuario = gestionUsuario.listar(
-					FiltroBusquedaUsuario.NOMBRE, usuario);
-
-			session.setAttribute("listaFiltroBusqueda",
-					FiltroBusquedaUsuario.values());
-			session.setAttribute("listaTipoUsuario", TipoUsuario.values());
-			session.setAttribute("listaUsuario", listaUsuario);
-			session.removeAttribute("usuario");
+			List<Idea> listaIdea = evaluacionIdea.listarEvaluacion(idea,
+					evaluador);
+			session.setAttribute("listaIdea", listaIdea);
+			session.setAttribute("directorioArchivo",
+					EvaluacionIdeaConstante.DIRECTORIO_ARCHIVO);
+			session.removeAttribute("idea");
+			session.removeAttribute("listaDocente");
+			session.removeAttribute("listaPuntaje");
 		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje",
 					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
@@ -65,6 +65,6 @@ public class InicioUsuarioServlet extends HttpServlet {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 		}
-		response.sendRedirect(UsuarioConstante.PAG_MANT_USUARIO);
+		response.sendRedirect(EvaluacionIdeaConstante.PAG_BUSQ_EVALUACION_IDEA);
 	}
 }

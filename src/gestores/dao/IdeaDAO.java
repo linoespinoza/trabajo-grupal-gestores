@@ -21,7 +21,8 @@ import java.util.List;
  */
 public class IdeaDAO extends BaseDAO {
 
-	public List<Idea> listarEvaluacion(Idea idea) throws DAOExcepcion {
+	public List<Idea> listarEvaluacion(Idea idea, Usuario evaluador)
+			throws DAOExcepcion {
 		List<Idea> lista = new ArrayList<Idea>();
 		Connection con = null;
 		PreparedStatement stmt = null;
@@ -33,14 +34,16 @@ public class IdeaDAO extends BaseDAO {
 					+ "LEFT JOIN USUARIO ase "
 					+ "ON (ide.Co_Asesor = ase.Co_Usuario) "
 					+ "WHERE ide.No_Titulo LIKE ? "
+					+ "AND est.Co_Centro_Formacion = ?"
 					+ "AND ide.Co_Estado IN (?, ?, ?)";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, "%" + idea.getTitulo() + "%");
-			stmt.setString(2, EstadoIdea.PUBLICADA.getCodigo());
-			stmt.setString(3, EstadoIdea.APROBADA.getCodigo());
-			stmt.setString(4, EstadoIdea.RECHAZADA.getCodigo());
+			stmt.setString(2, evaluador.getCentroFormacion().getCodigo());
+			stmt.setString(3, EstadoIdea.PUBLICADA.getCodigo());
+			stmt.setString(4, EstadoIdea.APROBADA.getCodigo());
+			stmt.setString(5, EstadoIdea.RECHAZADA.getCodigo());
 
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -62,12 +65,11 @@ public class IdeaDAO extends BaseDAO {
 				vo.setAsesor(asesor);
 
 				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString(10)));
-				vo.setFechaCreacion(rs.getDate(11));
+				vo.setFechaCreacion(rs.getTimestamp(11));
 				lista.add(vo);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -108,15 +110,14 @@ public class IdeaDAO extends BaseDAO {
 				vo.setEstudiante(estudiante);
 
 				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString(10)));
-				vo.setFechaCreacion(rs.getDate(11));
+				vo.setFechaCreacion(rs.getTimestamp(11));
 
 				Usuario asesor = new Usuario();
 				asesor.setCodigo(rs.getInt(12));
 				vo.setAsesor(asesor);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -125,7 +126,8 @@ public class IdeaDAO extends BaseDAO {
 		return vo;
 	}
 
-	public Idea actualizarEstado(Idea vo) throws DAOExcepcion {
+	public int actualizarEstado(Idea vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
@@ -136,21 +138,18 @@ public class IdeaDAO extends BaseDAO {
 			stmt.setString(1, vo.getEstadoIdea().getCodigo());
 			stmt.setInt(2, vo.getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo actualizar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
 	}
 
-	public Idea actualizarAsesor(Idea vo) throws DAOExcepcion {
+	public int actualizarAsesor(Idea vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		try {
@@ -161,18 +160,14 @@ public class IdeaDAO extends BaseDAO {
 			stmt.setInt(1, vo.getAsesor().getCodigo());
 			stmt.setInt(2, vo.getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo actualizar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
 	}
 
 	public boolean esPublicada(Integer codigo) throws DAOExcepcion {
@@ -193,8 +188,7 @@ public class IdeaDAO extends BaseDAO {
 						rs.getString(1));
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -221,8 +215,7 @@ public class IdeaDAO extends BaseDAO {
 						rs.getString(1));
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -250,8 +243,7 @@ public class IdeaDAO extends BaseDAO {
 				flagAsesorOtraIdea = true;
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -280,8 +272,7 @@ public class IdeaDAO extends BaseDAO {
 				}
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -313,8 +304,7 @@ public class IdeaDAO extends BaseDAO {
 				lista.add(puntaje);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);

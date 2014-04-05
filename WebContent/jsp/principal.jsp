@@ -70,7 +70,8 @@
 						<h4>Consulta de Ideas</h4>
 						<p>Desde esta opción usted podrá consultar las ideas.</p>
 						<p>
-							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioEvaluacionIdeaServlet"
+								class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>

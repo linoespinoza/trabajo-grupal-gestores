@@ -119,4 +119,12 @@ public class Idea {
 	public void setListaReuniones(List<Reunion> listaReuniones) {
 		this.listaReuniones = listaReuniones;
 	}
+
+	public boolean isPublicada() {
+		return estadoIdea.equals(EstadoIdea.PUBLICADA);
+	}
+
+	public boolean isAprobada() {
+		return estadoIdea.equals(EstadoIdea.APROBADA);
+	}
 }

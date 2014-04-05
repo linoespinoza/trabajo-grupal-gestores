@@ -2,8 +2,6 @@ package gestores.modelo;
 
 import gestores.enums.TipoCentroFormacion;
 
-import java.util.List;
-
 /**
  * @author Harry Bravo.
  */
@@ -15,7 +13,6 @@ public class CentroFormacion {
 	private String url;
 	private String logo;
 	private PlanTarifario planTarifario;
-	private List<ReportePago> listaReportePagos;
 
 	public String getCodigo() {
 		return codigo;
@@ -63,13 +60,5 @@ public class CentroFormacion {
 
 	public void setPlanTarifario(PlanTarifario planTarifario) {
 		this.planTarifario = planTarifario;
-	}
-
-	public List<ReportePago> getListaReportePagos() {
-		return listaReportePagos;
-	}
-
-	public void setListaReportePagos(List<ReportePago> listaReportePagos) {
-		this.listaReportePagos = listaReportePagos;
 	}
 }

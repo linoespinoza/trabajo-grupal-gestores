@@ -1,9 +1,12 @@
 package gestores.negocio;
 
 import gestores.bean.Puntaje;
+import gestores.constante.EvaluacionIdeaConstante;
 import gestores.dao.IdeaDAO;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Idea;
+import gestores.modelo.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,46 +16,51 @@ import java.util.List;
  */
 public class EvaluacionIdea {
 
-	public List<Idea> listarEvaluacion(Idea idea) throws DAOExcepcion {
+	public List<Idea> listarEvaluacion(Idea idea, Usuario evaluador)
+			throws DAOExcepcion {
 		IdeaDAO dao = new IdeaDAO();
-		return dao.listarEvaluacion(idea);
+		return dao.listarEvaluacion(idea, evaluador);
 	}
 
-	public Idea obtenerEvaluacion(Integer codigo) throws DAOExcepcion {
+	public Idea obtenerEvaluacion(Integer codigo) throws DAOExcepcion,
+			NegocioExcepcion {
 		IdeaDAO dao = new IdeaDAO();
-		return dao.obtenerEvaluacion(codigo);
-	}
 
-	public Idea actualizarEstado(Idea idea) throws DAOExcepcion {
-		IdeaDAO dao = new IdeaDAO();
-		boolean esPublicada = dao.esPublicada(idea.getCodigo());
-		boolean esIdeaVotada = dao.esIdeaVotada(idea.getCodigo());
-
-		if (esPublicada && esIdeaVotada) {
-			return dao.actualizarEstado(idea);
-		} else if (!esPublicada) {
-			throw new DAOExcepcion(
-					"No puede aprobar o rechazar la idea si no es publicada");
-		} else {
-			throw new DAOExcepcion(
-					"No puede aprobar o rechazar la idea si no fue votada");
+		Idea idea = dao.obtenerEvaluacion(codigo);
+		if (idea == null) {
+			throw new NegocioExcepcion(
+					EvaluacionIdeaConstante.MSJ_VALID_NO_EXIST_IDEA);
 		}
+		return idea;
 	}
 
-	public Idea asignarAsesor(Idea idea) throws DAOExcepcion {
+	public int actualizarEstado(Idea idea) throws DAOExcepcion,
+			NegocioExcepcion {
 		IdeaDAO dao = new IdeaDAO();
-		boolean flagAprobada = dao.esAprobada(idea.getCodigo());
-		boolean flagAsesorOtraIdea = dao.esAsesorOtraIdea(idea);
 
-		if (flagAprobada && !flagAsesorOtraIdea) {
-			return dao.actualizarAsesor(idea);
-		} else if (!flagAprobada) {
-			throw new DAOExcepcion(
-					"No puede asignar asesor si la idea no está aprobada");
-		} else {
-			throw new DAOExcepcion(
-					"No puede asignar asesor ya que es asesor de otra idea para el mismo estudiante");
+		if (!dao.esPublicada(idea.getCodigo())) {
+			throw new NegocioExcepcion(
+					EvaluacionIdeaConstante.MSJ_VALID_NO_PUBLICADA);
 		}
+		if (!dao.esIdeaVotada(idea.getCodigo())) {
+			throw new NegocioExcepcion(
+					EvaluacionIdeaConstante.MSJ_VALID_NO_VOTADA);
+		}
+		return dao.actualizarEstado(idea);
+	}
+
+	public int asignarAsesor(Idea idea) throws DAOExcepcion, NegocioExcepcion {
+		IdeaDAO dao = new IdeaDAO();
+
+		if (!dao.esAprobada(idea.getCodigo())) {
+			throw new NegocioExcepcion(
+					EvaluacionIdeaConstante.MSJ_VALID_NO_APROBADA);
+		}
+		if (dao.esAsesorOtraIdea(idea)) {
+			throw new NegocioExcepcion(
+					EvaluacionIdeaConstante.MSJ_VALID_NO_ASIGNADA);
+		}
+		return dao.actualizarAsesor(idea);
 	}
 
 	public List<Puntaje> listarResumenPuntaje(Integer codigo)
