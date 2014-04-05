@@ -3,6 +3,8 @@ package gestores.modelo;
 import gestores.enums.TipoDocumento;
 import gestores.enums.TipoUsuario;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author Harry Bravo.
  */
@@ -118,7 +120,14 @@ public class Usuario {
 	}
 
 	public String getNombreCompleto() {
-		return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
+		String nombreCompleto = "";
+		if (StringUtils.isNotBlank(nombre)
+				&& StringUtils.isNotBlank(apellidoPaterno)
+				&& StringUtils.isNotBlank(apellidoMaterno)) {
+			nombreCompleto = nombre + " " + apellidoPaterno + " "
+					+ apellidoMaterno;
+		}
+		return nombreCompleto;
 	}
 
 	public boolean isAdministrador() {

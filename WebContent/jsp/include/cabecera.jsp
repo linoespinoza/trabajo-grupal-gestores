@@ -23,7 +23,7 @@
 						data-toggle="dropdown">Mantenimiento</a>
 						<ul class="dropdown-menu">
 							<c:if test="${usuarioActual.estudiante}">
-								<li><a href="#">Ideas</a></li>
+								<li><a href="${contextPath}/InicioIdeaServlet">Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.administrador}">
 								<li><a href="${contextPath}/InicioCentroFormacionServlet">Centros
@@ -52,7 +52,8 @@
 								<li><a href="#">Participación de Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.evaluador}">
-								<li><a href="#">Evaluación de Ideas</a></li>
+								<li><a href="${contextPath}/InicioEvaluacionIdeaServlet">Evaluación
+										de Ideas</a></li>
 							</c:if>
 						</ul></li>
 				</c:if>

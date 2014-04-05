@@ -1,13 +1,13 @@
-
 package gestores.negocio;
+import java.util.List;
 
 import java.util.Collection;
-
 import org.apache.commons.lang.StringUtils;
 
 import gestores.dao.IdeaDAO;
 import gestores.exception.DAOExcepcion;
 import gestores.modelo.Idea;
+import gestores.modelo.Usuario;
 
 
 public class GestionIdea {
@@ -50,24 +50,35 @@ public class GestionIdea {
 		return dao.actualizarIdea(idea);
 	}
 	
-//--ALEX
-
+	public List<Idea> listarIdeasPorUsuario(Usuario estudiante) throws DAOExcepcion {
+		IdeaDAO dao = new IdeaDAO();
+		return dao.listarIdeasPorUsuario(estudiante);
+	}
+	
+	/**
+	* @author Alex Valencia
+	*/
 	public Collection<Idea> listar_Idea() throws DAOExcepcion {
 		
 		IdeaDAO dao = new IdeaDAO();
 		return dao.listar_Idea();
 	}
 	
+	/**
+	* @author Alex Valencia
+	*/
 	public Collection<Idea> buscarNombre_Idea(int codigo) throws DAOExcepcion {
 		
 		IdeaDAO dao = new IdeaDAO();
 		return dao.buscarNombre_Idea(codigo);
 	}
 	
+	/**
+	* @author Alex Valencia
+	*/
 	public Collection<Idea> buscarCadena_Idea(String cadena) throws DAOExcepcion {
 		
 		IdeaDAO dao = new IdeaDAO();
 		return dao.buscarCadena_Idea(cadena);
 	}
-//--ALEX
 }

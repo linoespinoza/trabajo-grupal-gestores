@@ -17,9 +17,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Jeremías Yalta.
+ * @author JeremÃ­as Yalta.
  */
 public class UsuarioDAO extends BaseDAO {
+
+	public List<Usuario> listarDocente(String codigoCentroFormacion)
+			throws DAOExcepcion {
+		List<Usuario> lista = new ArrayList<Usuario>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Usuario, No_Usuario, No_Ape_Paterno, No_Ape_Materno "
+					+ "FROM USUARIO "
+					+ "WHERE Co_Tipo_Usuario = ? AND Co_Centro_Formacion = ? "
+					+ "ORDER BY No_Usuario, No_Ape_Paterno, No_Ape_Materno";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, TipoUsuario.DOCENTE.getCodigo());
+			stmt.setString(2, codigoCentroFormacion);
+
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Usuario vo = new Usuario();
+				vo.setCodigo(rs.getInt(1));
+				vo.setNombre(rs.getString(2));
+				vo.setApellidoPaterno(rs.getString(3));
+				vo.setApellidoMaterno(rs.getString(4));
+				lista.add(vo);
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return lista;
+	}
 
 	public Usuario autenticar(String email, String contrasenia)
 			throws DAOExcepcion, NegocioExcepcion {

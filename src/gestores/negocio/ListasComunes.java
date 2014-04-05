@@ -2,9 +2,11 @@ package gestores.negocio;
 
 import gestores.dao.CentroFormacionDAO;
 import gestores.dao.PlanTarifarioDAO;
+import gestores.dao.UsuarioDAO;
 import gestores.exception.DAOExcepcion;
 import gestores.modelo.CentroFormacion;
 import gestores.modelo.PlanTarifario;
+import gestores.modelo.Usuario;
 
 import java.util.List;
 
@@ -21,5 +23,11 @@ public class ListasComunes {
 	public List<CentroFormacion> listarCentroFormacion() throws DAOExcepcion {
 		CentroFormacionDAO dao = new CentroFormacionDAO();
 		return dao.listar();
+	}
+
+	public List<Usuario> listarDocente(String codigoCentroFormacion)
+			throws DAOExcepcion {
+		UsuarioDAO dao = new UsuarioDAO();
+		return dao.listarDocente(codigoCentroFormacion);
 	}
 }
