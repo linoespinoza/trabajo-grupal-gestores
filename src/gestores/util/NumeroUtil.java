@@ -10,6 +10,11 @@ public class NumeroUtil {
 	private NumeroUtil() {
 	}
 
+	public static boolean esNumeroCelular(String numero) {
+		return StringUtils.isNumeric(numero) && Long.parseLong(numero) > 0L
+				&& numero.length() == 9;
+	}
+
 	public static boolean esDni(String numero) {
 		return StringUtils.isNumeric(numero) && Long.parseLong(numero) > 0L
 				&& numero.length() == TipoDocumento.DNI.getLongitud();

@@ -1,9 +1,13 @@
-package gestores.servlet.mantenimiento.centroformacion;
+package gestores.servlet.mantenimiento.usuario;
 
-import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
+import gestores.constante.UsuarioConstante;
+import gestores.enums.TipoDocumento;
 import gestores.exception.DAOExcepcion;
-import gestores.modelo.PlanTarifario;
+import gestores.exception.NegocioExcepcion;
+import gestores.modelo.CentroFormacion;
+import gestores.modelo.Usuario;
+import gestores.negocio.GestionUsuario;
 import gestores.negocio.ListasComunes;
 
 import java.io.IOException;
@@ -18,14 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Harry Bravo.
+ * @author Jeremías Yalta.
  */
-@WebServlet("/NuevoCentroFormacionServlet")
-public class NuevoCentroFormacionServlet extends HttpServlet {
+@WebServlet("/EditaUsuarioServlet")
+public class EditaUsuarioServlet extends HttpServlet {
 
-	private static final long serialVersionUID = -2824916743031642534L;
+	private static final long serialVersionUID = -4946639447137471749L;
 
-	public NuevoCentroFormacionServlet() {
+	public EditaUsuarioServlet() {
 		super();
 	}
 
@@ -35,33 +39,35 @@ public class NuevoCentroFormacionServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		GestionUsuario gestionUsuario = new GestionUsuario();
 		ListasComunes listasComunes = new ListasComunes();
 		try {
 			HttpSession session = request.getSession();
-			session.removeAttribute("centroFormacion");
+			int codigo = Integer.parseInt(request.getParameter("codigo"));
 
-			List<PlanTarifario> listaPlanTarifario = listasComunes
-					.listarPlanTarifario();
+			List<CentroFormacion> listaCentroFormacion = listasComunes
+					.listarCentroFormacion();
+			Usuario usuario = gestionUsuario.obtener(codigo);
 
-			session.setAttribute("listaPlanTarifario", listaPlanTarifario);
-		} catch (DAOExcepcion e) {
-			request.setAttribute("mensaje",
-					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
-			e.printStackTrace();
+			session.setAttribute("usuario", usuario);
+			session.setAttribute("listaCentroFormacion", listaCentroFormacion);
+			session.setAttribute("listaTipoDocumento", TipoDocumento.values());
+		} catch (NegocioExcepcion e) {
+			request.setAttribute("mensaje", e.getMessage());
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+							+ UsuarioConstante.PAG_MANT_USUARIO);
 			requestDispatcher.forward(request, response);
 			return;
-		} catch (Exception e) {
+		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
-							+ CentroFormacionConstante.PAG_MANT_CENTRO_FORMACION);
+							+ UsuarioConstante.PAG_MANT_USUARIO);
 			requestDispatcher.forward(request, response);
 			return;
 		}
-		response.sendRedirect(CentroFormacionConstante.PAG_NUEVO_CENTRO_FORMACION);
+		response.sendRedirect(UsuarioConstante.PAG_EDITA_USUARIO);
 	}
 }

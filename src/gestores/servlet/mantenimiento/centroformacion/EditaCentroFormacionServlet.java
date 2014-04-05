@@ -44,7 +44,8 @@ public class EditaCentroFormacionServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			String codigo = request.getParameter("codigo");
 
-			List<PlanTarifario> listaPlanTarifario = listasComunes.listar();
+			List<PlanTarifario> listaPlanTarifario = listasComunes
+					.listarPlanTarifario();
 			CentroFormacion centroFormacion = gestionCentroFormacion
 					.obtener(codigo);
 

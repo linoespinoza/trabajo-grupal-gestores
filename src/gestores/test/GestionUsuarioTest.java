@@ -42,9 +42,9 @@ public class GestionUsuarioTest {
 			int registroAfectado = negocio.insertar(usuario);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("Validaciï¿½n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserción: " + e.getMessage());
+			Assert.fail("Fallo la inserciï¿½n: " + e.getMessage());
 		}
 	}
 
@@ -56,9 +56,9 @@ public class GestionUsuarioTest {
 			Usuario vo = negocio.obtener(codigo);
 			Assert.assertNotNull(vo);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("Validaciï¿½n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la obtención: " + e.getMessage());
+			Assert.fail("Fallo la obtenciï¿½n: " + e.getMessage());
 		}
 	}
 
@@ -85,9 +85,9 @@ public class GestionUsuarioTest {
 			int registroAfectado = negocio.actualizar(usuario);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("Validaciï¿½n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la actualización: " + e.getMessage());
+			Assert.fail("Fallï¿½ la actualizaciï¿½n: " + e.getMessage());
 		}
 	}
 
@@ -109,7 +109,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -131,7 +131,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -153,7 +153,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -175,7 +175,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -197,7 +197,7 @@ public class GestionUsuarioTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -205,14 +205,14 @@ public class GestionUsuarioTest {
 	public void autenticarTest() {
 		GestionUsuario negocio = new GestionUsuario();
 		try {
-			String email = "hbravocoronel@gmail.com";
-			String contrasenia = "admin";
+			String email = "victoria.h@upc.edu.pe";
+			String contrasenia = "vhernandez";
 			Usuario usuario = negocio.autenticar(email, contrasenia);
 			Assert.assertNotNull(usuario);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("Validaciï¿½n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la autenticación: " + e.getMessage());
+			Assert.fail("Fallï¿½ la autenticaciï¿½n: " + e.getMessage());
 		}
 	}
 
@@ -220,11 +220,11 @@ public class GestionUsuarioTest {
 	public void eliminarTest() {
 		GestionUsuario negocio = new GestionUsuario();
 		try {
-			Integer codigo = 9;
+			Integer codigo = 11;
 			int registroAfectado = negocio.eliminar(codigo);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la eliminición: " + e.getMessage());
+			Assert.fail("Fallï¿½ la eliminiciï¿½n: " + e.getMessage());
 		}
 	}
 }

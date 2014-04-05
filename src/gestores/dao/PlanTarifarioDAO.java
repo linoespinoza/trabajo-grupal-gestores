@@ -23,7 +23,7 @@ public class PlanTarifarioDAO extends BaseDAO {
 		ResultSet rs = null;
 		try {
 			String query = "SELECT Co_Plan_Tarifario, No_Plan_Tarifario, Ss_Precio_Servicio, Ss_Precio_Tarifa "
-					+ "FROM PLAN_TARIFARIO";
+					+ "FROM PLAN_TARIFARIO ORDER BY Co_Plan_Tarifario";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);

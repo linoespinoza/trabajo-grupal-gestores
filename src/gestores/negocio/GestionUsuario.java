@@ -1,5 +1,6 @@
 package gestores.negocio;
 
+import gestores.constante.UsuarioConstante;
 import gestores.dao.UsuarioDAO;
 import gestores.enums.FiltroBusquedaUsuario;
 import gestores.exception.DAOExcepcion;
@@ -29,12 +30,15 @@ public class GestionUsuario {
 					NumeroUtil.obtenerMensajeDocumentoValido(usuario
 							.getTipoDocumento()));
 		}
+		if (!NumeroUtil.esNumeroCelular(usuario.getNumeroCelular())) {
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_NRO_CELULAR);
+		}
 		if (dao.esRegistradoTipoDocumento(usuario.getCodigo(), usuario
 				.getTipoDocumento().getCodigo(), usuario.getNumeroDocumento())) {
-			throw new NegocioExcepcion("");
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_DOCUMENTO);
 		}
 		if (dao.esRegistradoEmail(usuario.getCodigo(), usuario.getEmail())) {
-			throw new NegocioExcepcion("");
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_EMAIL);
 		}
 		return dao.insertar(usuario);
 	}
@@ -65,12 +69,15 @@ public class GestionUsuario {
 					NumeroUtil.obtenerMensajeDocumentoValido(usuario
 							.getTipoDocumento()));
 		}
+		if (!NumeroUtil.esNumeroCelular(usuario.getNumeroCelular())) {
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_NRO_CELULAR);
+		}
 		if (dao.esRegistradoTipoDocumento(usuario.getCodigo(), usuario
 				.getTipoDocumento().getCodigo(), usuario.getNumeroDocumento())) {
-			throw new NegocioExcepcion("");
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_DOCUMENTO);
 		}
 		if (dao.esRegistradoEmail(usuario.getCodigo(), usuario.getEmail())) {
-			throw new NegocioExcepcion("");
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_EMAIL);
 		}
 		return dao.actualizar(usuario);
 	}
@@ -82,7 +89,7 @@ public class GestionUsuario {
 		Usuario usuario = dao.autenticar(email, contrasenia);
 
 		if (usuario == null) {
-			throw new NegocioExcepcion("Usuario y/o contraseña incorrectos");
+			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_AUTENTICACION);
 		}
 		return usuario;
 	}

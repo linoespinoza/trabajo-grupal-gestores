@@ -265,14 +265,23 @@ public class UsuarioDAO extends BaseDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
+			String condicion = "";
+
+			if (codigo != null) {
+				condicion = " AND Co_Usuario <> ?";
+			}
 			String query = "SELECT Co_Usuario FROM USUARIO "
-					+ "WHERE Co_Usuario <> ? AND Co_Tipo_Documento = ? AND Nu_Documento = ?";
+					+ "WHERE Co_Tipo_Documento = ? AND Nu_Documento = ?"
+					+ condicion;
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
-			stmt.setInt(1, codigo);
-			stmt.setString(2, tipoDocumento);
-			stmt.setString(3, numeroDocumento);
+			stmt.setString(1, tipoDocumento);
+			stmt.setString(2, numeroDocumento);
+
+			if (codigo != null) {
+				stmt.setInt(3, codigo);
+			}
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
@@ -295,13 +304,21 @@ public class UsuarioDAO extends BaseDAO {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
+			String condicion = "";
+
+			if (codigo != null) {
+				condicion = " AND Co_Usuario <> ?";
+			}
 			String query = "SELECT Co_Usuario FROM USUARIO "
-					+ "WHERE Co_Usuario <> ? Tx_Email = ?";
+					+ "WHERE Tx_Email = ?" + condicion;
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
-			stmt.setInt(1, codigo);
-			stmt.setString(2, email);
+			stmt.setString(1, email);
+
+			if (codigo != null) {
+				stmt.setInt(2, codigo);
+			}
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {

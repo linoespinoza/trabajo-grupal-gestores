@@ -24,14 +24,14 @@
 		<form name="formulario" method="post"
 			action="${contextPath}/InsertaCentroFormacionServlet"
 			class="form-horizontal" enctype="multipart/form-data">
-			<input type="hidden" id="rutaContexto" value="${contextPath}">
+			<input type="hidden" name="rutaContexto" value="${contextPath}">
 			<table border="1"
 				style="width: 500; height: 104; padding: 0; border-spacing: 0;">
 				<tr>
 					<td style="width: 160px">Nro. RUC</td>
-					<td><label> <input type="number" name="codigo"
+					<td><label> <input type="text" name="codigo"
 							value="${centroFormacion.codigo}" style="width: 120px"
-							required="required" min="10000000000" max="99999999999">
+							required="required" maxlength="11">
 					</label></td>
 				</tr>
 				<tr>

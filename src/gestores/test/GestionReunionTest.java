@@ -38,11 +38,11 @@ public class GestionReunionTest {
 			reunion.setTipoCalificacion(TipoCalificacion.BUENO);
 
 			Reunion vo = negocio.insertar(reunion);
-			System.out.println("Se insertó la reunión de la idea "
+			System.out.println("Se insertï¿½ la reuniï¿½n de la idea "
 					+ vo.getIdea().getCodigo() + " en la fecha "
 					+ vo.getFechaReunion());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserción: " + e.getMessage());
+			Assert.fail("Fallo la inserciï¿½n: " + e.getMessage());
 		}
 	}
 
@@ -68,13 +68,13 @@ public class GestionReunionTest {
 			System.out.println("Total de registros: " + listado.size());
 
 			for (Reunion vo : listado) {
-				System.out.println("Reunión: " + vo.getCodigo() + ", Idea: "
-						+ vo.getIdea().getTitulo() + ", Calificación: "
+				System.out.println("Reuniï¿½n: " + vo.getCodigo() + ", Idea: "
+						+ vo.getIdea().getTitulo() + ", Calificaciï¿½n: "
 						+ vo.getTipoCalificacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 }

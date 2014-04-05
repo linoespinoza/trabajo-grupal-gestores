@@ -20,6 +20,34 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class CentroFormacionDAO extends BaseDAO {
 
+	public List<CentroFormacion> listar() throws DAOExcepcion {
+		List<CentroFormacion> lista = new ArrayList<CentroFormacion>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Centro_Formacion, No_Centro_Formacion "
+					+ "FROM CENTRO_FORMACION ORDER BY No_Centro_Formacion";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				CentroFormacion vo = new CentroFormacion();
+				vo.setCodigo(rs.getString(1));
+				vo.setNombre(rs.getString(2));
+				lista.add(vo);
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return lista;
+	}
+
 	public List<CentroFormacion> listar(CentroFormacion centroFormacion)
 			throws DAOExcepcion {
 		List<CentroFormacion> lista = new ArrayList<CentroFormacion>();
