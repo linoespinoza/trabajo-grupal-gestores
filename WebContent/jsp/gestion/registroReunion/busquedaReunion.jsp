@@ -33,8 +33,8 @@
 				Rango de Fecha <label> <input type="date" name="fechaInicio"
 					value="${fechaInicio}" required="required">
 				</label> <label><input type="date" name="fechaFin"
-					value="${fechaFin}" required="required"></label> Tipo de Calificación <label> <select
-					name="tipoCalificacion">
+					value="${fechaFin}" required="required"></label> Tipo de
+				Calificación <label> <select name="tipoCalificacion">
 						<option value="">Todos</option>
 						<c:forEach var="tipoCalificacion" items="${listaTipoCalificacion}">
 							<c:choose>
