@@ -11,7 +11,7 @@ import gestores.util.NumeroUtil;
 import java.util.List;
 
 /**
- * @author JeremÃ­as Yalta.
+ * @author Jeremías Yalta.
  */
 public class GestionUsuario {
 

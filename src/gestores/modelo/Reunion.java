@@ -1,6 +1,7 @@
 package gestores.modelo;
 
 import gestores.enums.TipoCalificacion;
+import gestores.util.FechaUtil;
 
 import java.util.Date;
 
@@ -53,5 +54,13 @@ public class Reunion {
 
 	public void setTipoCalificacion(TipoCalificacion tipoCalificacion) {
 		this.tipoCalificacion = tipoCalificacion;
+	}
+
+	public String getFechaReunionFormateada() {
+		String fechaFormateada = null;
+		if (fechaReunion != null) {
+			fechaFormateada = FechaUtil.formatearFechaHora(fechaReunion);
+		}
+		return fechaFormateada;
 	}
 }

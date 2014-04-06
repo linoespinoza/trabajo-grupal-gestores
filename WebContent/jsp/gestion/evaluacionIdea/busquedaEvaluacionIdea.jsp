@@ -57,7 +57,7 @@
 							<td>${idea.asesor.nombreCompleto}</td>
 							<td>${idea.estadoIdea.nombre}</td>
 							<td><fmt:formatDate value="${idea.fechaCreacion}"
-									pattern="dd/MM/yyyy HH:mm:ss" /></td>
+									pattern="dd/MM/yyyy HH:mm" /></td>
 							<td><c:if test="${idea.publicada}">
 									<a href="javascript: void(0);"
 										onclick="obtener('${idea.codigo}');">Evaluar</a>

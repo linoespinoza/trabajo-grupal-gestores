@@ -58,7 +58,7 @@
 				<tr>
 					<td>Fecha de Creación</td>
 					<td><fmt:formatDate value="${idea.fechaCreacion}"
-							pattern="dd/MM/yyyy HH:mm:ss" /></td>
+							pattern="dd/MM/yyyy HH:mm" /></td>
 				</tr>
 				<c:if test="${idea.aprobada}">
 					<tr>

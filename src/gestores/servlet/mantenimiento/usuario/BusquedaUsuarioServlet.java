@@ -19,8 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * @author Jeremías Yalta.
  */
@@ -49,9 +47,8 @@ public class BusquedaUsuarioServlet extends HttpServlet {
 
 			Usuario usuario = new Usuario();
 			usuario.setNombre(nombre);
-			if (StringUtils.isNotBlank(tipo)) {
-				usuario.setTipoUsuario(TipoUsuario.getTipoUsuario(tipo));
-			}
+			usuario.setTipoUsuario(TipoUsuario.getTipoUsuario(tipo));
+
 			request.setAttribute("codigoFiltro", codigoFiltro);
 			request.setAttribute("usuario", usuario);
 

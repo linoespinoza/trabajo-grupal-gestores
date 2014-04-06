@@ -2,10 +2,13 @@ package gestores.util;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
+import org.apache.commons.lang3.StringUtils;
 
 public class FechaUtil {
 
@@ -47,5 +50,27 @@ public class FechaUtil {
 
 	public static Timestamp convertirTimestamp(Date fecha) {
 		return new Timestamp(fecha.getTime());
+	}
+
+	public static String formatearFecha(Date fecha) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormat.format(fecha);
+	}
+
+	public static Date parsearFecha(String fecha) throws ParseException {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormat.parse(fecha);
+	}
+
+	public static String formatearFechaHora(Date fecha) {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		String fechaFormateada = dateFormat.format(fecha);
+		return StringUtils.replace(fechaFormateada, " ", "T");
+	}
+
+	public static Date parsearFechaHora(String fecha) throws ParseException {
+		fecha = StringUtils.replace(fecha, "T", " ");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return dateFormat.parse(fecha);
 	}
 }

@@ -1,7 +1,9 @@
 package gestores.negocio;
 
+import gestores.constante.ReunionConstante;
 import gestores.dao.ReunionDAO;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Reunion;
 
 import java.util.Date;
@@ -13,20 +15,21 @@ import java.util.List;
 public class GestionReunion {
 
 	public List<Reunion> listar(Date fechaInicio, Date fechaFin, Reunion reunion)
-			throws DAOExcepcion {
+			throws DAOExcepcion, NegocioExcepcion {
 		ReunionDAO dao = new ReunionDAO();
+		if (fechaInicio != null && fechaFin != null
+				&& fechaInicio.after(fechaFin)) {
+			throw new NegocioExcepcion(ReunionConstante.MSJ_VALID_RANGO_FECHA);
+		}
 		return dao.listar(fechaInicio, fechaFin, reunion);
 	}
 
-	public Reunion insertar(Reunion reunion) throws DAOExcepcion {
+	public int insertar(Reunion reunion) throws DAOExcepcion, NegocioExcepcion {
 		ReunionDAO dao = new ReunionDAO();
 
-		boolean registradaMismoDiaFlag = dao.esRegistradaMismoDia(reunion);
-		if (!registradaMismoDiaFlag) {
-			return dao.insertar(reunion);
-		} else {
-			throw new DAOExcepcion(
-					"No puede registrar m�s de una reuni�n el mismo d�a");
+		if (dao.esRegistradaMismoDia(reunion)) {
+			throw new NegocioExcepcion(ReunionConstante.MSJ_VALID_REUNION);
 		}
+		return dao.insertar(reunion);
 	}
 }

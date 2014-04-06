@@ -38,12 +38,12 @@
 						<ul class="dropdown-menu">
 							<c:if
 								test="${usuarioActual.estudiante or usuarioActual.docente or usuarioActual.evaluador}">
-<!-- 								<li><a href="#">Consulta de Ideas</a></li> -->
-								<li><a href="${contextPath}/InicioCentroFormacionServlet">B&uacute;squeda
-										 de Ideas</a></li>
+								<li><a href="${contextPath}/InicioBusquedaIdeaServlet">Búsqueda
+										de Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.docente}">
-								<li><a href="#">Registro de Reuniones</a></li>
+								<li><a href="${contextPath}/InicioReunionServlet">Registro
+										de Reuniones</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.estudiante}">
 								<li><a href="#">Publicación de Ideas</a></li>

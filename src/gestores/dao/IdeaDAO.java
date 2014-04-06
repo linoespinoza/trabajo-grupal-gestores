@@ -9,7 +9,6 @@ import gestores.util.ConexionBD;
 import gestores.util.FechaUtil;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,11 +16,40 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-
 /**
  * @author Harry Bravo.
  */
 public class IdeaDAO extends BaseDAO {
+
+	public List<Idea> listar(Integer codigoAsesor) throws DAOExcepcion {
+		List<Idea> lista = new ArrayList<Idea>();
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Idea, No_Titulo FROM IDEA "
+					+ "WHERE Co_Asesor = ? ORDER BY No_Titulo";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setInt(1, codigoAsesor);
+
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				Idea vo = new Idea();
+				vo.setCodigo(rs.getInt(1));
+				vo.setTitulo(rs.getString(2));
+				lista.add(vo);
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return lista;
+	}
 
 	public List<Idea> listarEvaluacion(Idea idea, Usuario evaluador)
 			throws DAOExcepcion {
@@ -453,20 +481,20 @@ public class IdeaDAO extends BaseDAO {
 		return idea;
 	}
 
-	public List<Idea> listarIdeasPorUsuario(Usuario estudiante) throws DAOExcepcion {
-		
+	public List<Idea> listarIdeasPorUsuario(Usuario estudiante)
+			throws DAOExcepcion {
+
 		List<Idea> lista = new ArrayList<Idea>();
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			String query = "SELECT Co_Idea, No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, "
-					+ "Tx_Archivo, Co_Estado, Fe_Creacion " 
+					+ "Tx_Archivo, Co_Estado, Fe_Creacion "
 					+ "FROM IDEA i INNER JOIN USUARIO u "
 					+ "ON (i.Co_Estudiante = u.Co_Usuario) "
-					+ "WHERE i.Co_Estudiante = ? "
-					+ "ORDER BY i.No_Titulo";
-					
+					+ "WHERE i.Co_Estudiante = ? " + "ORDER BY i.No_Titulo";
+
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			stmt.setInt(1, estudiante.getCodigo());
@@ -478,9 +506,10 @@ public class IdeaDAO extends BaseDAO {
 				idea.setDescripcion(rs.getString("Tx_Descripcion"));
 				idea.setPalabrasClave(rs.getString("Tx_Palabras_Clave"));
 				idea.setArchivo(rs.getString("Tx_Archivo"));
-				idea.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString("Co_Estado")));
+				idea.setEstadoIdea(EstadoIdea.getEstadoIdea(rs
+						.getString("Co_Estado")));
 				idea.setFechaCreacion(rs.getDate("Fe_Creacion"));
-				
+
 				lista.add(idea);
 			}
 		} catch (SQLException e) {
@@ -492,7 +521,7 @@ public class IdeaDAO extends BaseDAO {
 		}
 		return lista;
 	}
-	
+
 	public Collection<Idea> listar_Idea() throws DAOExcepcion {
 		Collection<Idea> i = new ArrayList<Idea>();
 		Connection con = null;
@@ -500,9 +529,10 @@ public class IdeaDAO extends BaseDAO {
 		ResultSet rs = null;
 		try {
 			con = ConexionBD.obtenerConexion();
-			//String query = "select co_Idea,no_Titulo,Tx_Descripcion,Tx_Palabras_clave,Tx_Archivo,Co_Estudiante,Co_Estado,Fe_Creacion,Fe_Publicacion,Co_Asesor from idea;";
-			String query = "SELECT ide.Co_Idea, ide.No_Titulo, ide.Tx_Archivo, est.No_Usuario AS No_Estudiante_Est, est.No_Ape_Paterno AS No_Ape_Paterno_Est, est.No_Ape_Materno AS No_Ape_Materno_Est, ase.No_Usuario AS No_Asesor_Ase, ase.No_Ape_Paterno AS No_Ape_Paterno_Ase, ase.No_Ape_Materno AS No_Ape_Materno_Ase, ide.Co_Estado, ide.Fe_Creacion, ide.Fe_Publicacion " 
-						+ "FROM IDEA ide INNER JOIN USUARIO est ON (ide.Co_Estudiante = est.Co_Usuario) LEFT JOIN USUARIO ase ON (ide.Co_Asesor = ase.Co_Usuario);";
+			// String query =
+			// "select co_Idea,no_Titulo,Tx_Descripcion,Tx_Palabras_clave,Tx_Archivo,Co_Estudiante,Co_Estado,Fe_Creacion,Fe_Publicacion,Co_Asesor from idea;";
+			String query = "SELECT ide.Co_Idea, ide.No_Titulo, ide.Tx_Archivo, est.No_Usuario AS No_Estudiante_Est, est.No_Ape_Paterno AS No_Ape_Paterno_Est, est.No_Ape_Materno AS No_Ape_Materno_Est, ase.No_Usuario AS No_Asesor_Ase, ase.No_Ape_Paterno AS No_Ape_Paterno_Ase, ase.No_Ape_Materno AS No_Ape_Materno_Ase, ide.Co_Estado, ide.Fe_Creacion, ide.Fe_Publicacion "
+					+ "FROM IDEA ide INNER JOIN USUARIO est ON (ide.Co_Estudiante = est.Co_Usuario) LEFT JOIN USUARIO ase ON (ide.Co_Asesor = ase.Co_Usuario);";
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
@@ -512,23 +542,26 @@ public class IdeaDAO extends BaseDAO {
 				vo.setDescripcion(rs.getString("ide.Tx_Descripcion"));
 				vo.setPalabrasClave(rs.getString("ide.Tx_Palabras_clave"));
 				vo.setArchivo(rs.getString("ide.Tx_Archivo"));
-				
+
 				Usuario estudiante = new Usuario();
 				estudiante.setNombre(rs.getString("No_Estudiante_Est"));
-				estudiante.setApellidoPaterno(rs.getString("No_ape_paterno_Est"));
-				estudiante.setApellidoMaterno(rs.getString("No_ape_materno_Est"));
+				estudiante.setApellidoPaterno(rs
+						.getString("No_ape_paterno_Est"));
+				estudiante.setApellidoMaterno(rs
+						.getString("No_ape_materno_Est"));
 				vo.setEstudiante(estudiante);
 
-				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString("ide.Co_Estado")));
+				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs
+						.getString("ide.Co_Estado")));
 				vo.setFechaCreacion(rs.getDate("Fe_Creacion"));
 				vo.setFechaPublicacion(rs.getDate("Fe_Publicacion"));
-				
+
 				Usuario asesor = new Usuario();
 				asesor.setNombre(rs.getString("No_Asesor_Ase"));
 				asesor.setApellidoPaterno(rs.getString("No_Ape_paterno_Ase"));
 				asesor.setApellidoMaterno(rs.getString("No_Ape_materno_Ase"));
 				vo.setAsesor(asesor);
-							
+
 				i.add(vo);
 			}
 
@@ -542,15 +575,17 @@ public class IdeaDAO extends BaseDAO {
 		}
 		return i;
 	}
-	
-	public Collection<Idea> buscarCadena_Idea(String cadena) throws DAOExcepcion {
+
+	public Collection<Idea> buscarCadena_Idea(String cadena)
+			throws DAOExcepcion {
 		Collection<Idea> i = new ArrayList<Idea>();
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
 			con = ConexionBD.obtenerConexion();
-			//String query = "select co_Idea,no_Titulo,Tx_Descripcion,Tx_Palabras_clave,Tx_Archivo,Co_Estudiante,Co_Estado,Fe_Creacion,Fe_Publicacion,Co_Asesor from idea where no_Titulo like ? or tx_Descripcion like ? or tx_Palabras like ?;";
+			// String query =
+			// "select co_Idea,no_Titulo,Tx_Descripcion,Tx_Palabras_clave,Tx_Archivo,Co_Estudiante,Co_Estado,Fe_Creacion,Fe_Publicacion,Co_Asesor from idea where no_Titulo like ? or tx_Descripcion like ? or tx_Palabras like ?;";
 			String query = "SELECT i.* FROM IDEA i INNER JOIN USUARIO u ON (i.Co_Estudiante = u.Co_Usuario) LEFT JOIN USUARIO a ON (i.Co_Asesor = a.Co_Usuario);"
 					+ "WHERE i.no_Titulo like ? OR i.tx_Descripcion like ? OR i.tx_Palabras_clave like ?";
 			stmt = con.prepareStatement(query);
@@ -565,24 +600,25 @@ public class IdeaDAO extends BaseDAO {
 				vo.setDescripcion(rs.getString("i.Tx_Descripcion"));
 				vo.setPalabrasClave(rs.getString("i.Tx_Palabras_clave"));
 				vo.setArchivo(rs.getString("i.Tx_Archivo"));
-				
+
 				Usuario estudiante = new Usuario();
 				estudiante.setNombre(rs.getString("u.No_Usuario"));
 				estudiante.setApellidoPaterno(rs.getString("u.No_ape_paterno"));
 				estudiante.setApellidoMaterno(rs.getString("u.No_ape_materno"));
 				vo.setEstudiante(estudiante);
 
-				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs.getString("i.Co_Estado")));
-				
+				vo.setEstadoIdea(EstadoIdea.getEstadoIdea(rs
+						.getString("i.Co_Estado")));
+
 				vo.setFechaCreacion(rs.getDate("i.Fe_Creacion"));
 				vo.setFechaPublicacion(rs.getDate("i.Fe_Publicacion"));
-				
+
 				Usuario asesor = new Usuario();
 				asesor.setNombre(rs.getString("a.No_Usuario"));
 				asesor.setApellidoPaterno(rs.getString("a.No_Ape_paterno"));
 				asesor.setApellidoMaterno(rs.getString("a.No_Ape_materno"));
 				vo.setAsesor(asesor);
-									
+
 				i.add(vo);
 			}
 
@@ -596,7 +632,7 @@ public class IdeaDAO extends BaseDAO {
 		}
 		return i;
 	}
-	
+
 	public Collection<Idea> buscarNombre_Idea(int codigo) throws DAOExcepcion {
 		Collection<Idea> i = new ArrayList<>();
 		Connection con = null;
@@ -619,7 +655,7 @@ public class IdeaDAO extends BaseDAO {
 			throw new DAOExcepcion(e.getMessage());
 		} finally {
 			this.cerrarResultSet(rs);
-			this.cerrarStatement(stmt);			
+			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
 		return i;

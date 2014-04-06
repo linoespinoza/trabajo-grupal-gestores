@@ -2,6 +2,7 @@ package gestores.test;
 
 import gestores.enums.TipoCalificacion;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Idea;
 import gestores.modelo.Reunion;
 import gestores.modelo.Usuario;
@@ -37,12 +38,12 @@ public class GestionReunionTest {
 			reunion.setObservacion("El proyecto es muy interesante y va por buen camino");
 			reunion.setTipoCalificacion(TipoCalificacion.BUENO);
 
-			Reunion vo = negocio.insertar(reunion);
-			System.out.println("Se insertï¿½ la reuniï¿½n de la idea "
-					+ vo.getIdea().getCodigo() + " en la fecha "
-					+ vo.getFechaReunion());
+			int registroAfectado = negocio.insertar(reunion);
+			Assert.assertTrue(registroAfectado > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la inserciï¿½n: " + e.getMessage());
+			Assert.fail("Fallo la inserción: " + e.getMessage());
 		}
 	}
 
@@ -68,13 +69,15 @@ public class GestionReunionTest {
 			System.out.println("Total de registros: " + listado.size());
 
 			for (Reunion vo : listado) {
-				System.out.println("Reuniï¿½n: " + vo.getCodigo() + ", Idea: "
-						+ vo.getIdea().getTitulo() + ", Calificaciï¿½n: "
+				System.out.println("Reunión: " + vo.getCodigo() + ", Idea: "
+						+ vo.getIdea().getTitulo() + ", Calificación: "
 						+ vo.getTipoCalificacion().getNombre());
 			}
 			Assert.assertTrue(listado.size() > 0);
+		} catch (NegocioExcepcion e) {
+			Assert.fail("Validación: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
+			Assert.fail("Falló la búsqueda: " + e.getMessage());
 		}
 	}
 }

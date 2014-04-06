@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author JeremÃ­as Yalta.
+ * @author Jeremías Yalta.
  */
 public class UsuarioDAO extends BaseDAO {
 

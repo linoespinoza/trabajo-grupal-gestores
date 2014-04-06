@@ -18,8 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.lang3.StringUtils;
-
 /**
  * @author Harry Bravo.
  */
@@ -47,10 +45,9 @@ public class BusquedaCentroFormacionServlet extends HttpServlet {
 
 			CentroFormacion centroFormacion = new CentroFormacion();
 			centroFormacion.setNombre(nombre);
-			if (StringUtils.isNotBlank(tipo)) {
-				centroFormacion.setTipoCentroFormacion(TipoCentroFormacion
-						.getTipoCentroFormacion(tipo));
-			}
+			centroFormacion.setTipoCentroFormacion(TipoCentroFormacion
+					.getTipoCentroFormacion(tipo));
+
 			request.setAttribute("centroFormacion", centroFormacion);
 
 			List<CentroFormacion> listaCentroFormacion = gestionCentroFormacion

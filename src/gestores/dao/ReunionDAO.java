@@ -63,7 +63,7 @@ public class ReunionDAO extends BaseDAO {
 			while (rs.next()) {
 				Reunion vo = new Reunion();
 				vo.setCodigo(rs.getInt(1));
-				vo.setFechaReunion(rs.getDate(2));
+				vo.setFechaReunion(rs.getTimestamp(2));
 
 				Idea idea = new Idea();
 				idea.setTitulo(rs.getString(3));
@@ -81,8 +81,7 @@ public class ReunionDAO extends BaseDAO {
 				lista.add(vo);
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
@@ -91,7 +90,8 @@ public class ReunionDAO extends BaseDAO {
 		return lista;
 	}
 
-	public Reunion insertar(Reunion vo) throws DAOExcepcion {
+	public int insertar(Reunion vo) throws DAOExcepcion {
+		int registroAfectado = 0;
 		Connection con = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -107,19 +107,15 @@ public class ReunionDAO extends BaseDAO {
 			stmt.setString(3, vo.getObservacion());
 			stmt.setString(4, vo.getTipoCalificacion().getCodigo());
 
-			int i = stmt.executeUpdate();
-			if (i != 1) {
-				throw new SQLException("No se pudo insertar");
-			}
+			registroAfectado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);
 			this.cerrarConexion(con);
 		}
-		return vo;
+		return registroAfectado;
 	}
 
 	public boolean esRegistradaMismoDia(Reunion reunion) throws DAOExcepcion {
@@ -131,7 +127,7 @@ public class ReunionDAO extends BaseDAO {
 			String query = "SELECT reu.Co_Reunion "
 					+ "FROM REUNION reu INNER JOIN IDEA ide "
 					+ "ON (reu.Co_Idea = ide.Co_Idea) "
-					+ "WHERE ide.Co_Asesor = ? AND DATE(reu.Fe_Reunion) = ?";
+					+ "WHERE ide.Co_Asesor = ? AND DATE(reu.Fe_Reunion) = DATE(?)";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
@@ -144,8 +140,7 @@ public class ReunionDAO extends BaseDAO {
 				registradaFlag = true;
 			}
 		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-			throw new DAOExcepcion(e.getMessage());
+			throw new DAOExcepcion(e);
 		} finally {
 			this.cerrarResultSet(rs);
 			this.cerrarStatement(stmt);

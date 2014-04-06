@@ -62,7 +62,7 @@
 					<td>Tipo de Documento</td>
 					<td><label> <select name="tipoDocumento"
 							required="required" onchange="cambiarLongitud();">
-								<option value="" label="">-- Seleccione --</option>
+								<option value="">-- Seleccione --</option>
 								<c:forEach var="tipoDocumento" items="${listaTipoDocumento}">
 									<c:choose>
 										<c:when

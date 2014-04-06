@@ -22,7 +22,7 @@ public class CentroFormacionConstante {
 	public static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50;
 
 	public static final String MSJ_VALID_IMAGEN = "Debe adjuntar un archivo gif, jpg o png";
-	public static final String MSJ_VALID_NOMBRE = "Ya existe un centro de formaciÃ³n con el mismo nombre";
-	public static final String MSJ_VALID_URL = "Ya existe un centro de formaciÃ³n con la misma url";
-	public static final String MSJ_VALID_NO_EXIST_CENTRO_FORMACION = "No existe el centro de formaciÃ³n";
+	public static final String MSJ_VALID_NOMBRE = "Ya existe un centro de formación con el mismo nombre";
+	public static final String MSJ_VALID_URL = "Ya existe un centro de formación con la misma url";
+	public static final String MSJ_VALID_NO_EXIST_CENTRO_FORMACION = "No existe el centro de formación";
 }
