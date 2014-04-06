@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * @author Jeremías Yalta.
  */
@@ -46,10 +48,23 @@ public class BusquedaReunionServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			Usuario asesor = (Usuario) session.getAttribute("usuarioActual");
 
-			Date fechaInicio = FechaUtil.parsearFecha(request
-					.getParameter("fechaInicio"));
-			Date fechaFin = FechaUtil.parsearFecha(request
-					.getParameter("fechaFin"));
+			Date fechaInicio = null;
+			Date fechaFin = null;
+
+			if (StringUtils.isNotBlank(request.getParameter("fechaInicio"))
+					&& StringUtils.isNotBlank(request.getParameter("fechaFin"))) {
+				fechaInicio = FechaUtil.parsearFecha(request
+						.getParameter("fechaInicio"));
+				fechaFin = FechaUtil.parsearFecha(request
+						.getParameter("fechaFin"));
+				session.setAttribute("fechaInicio",
+						FechaUtil.formatearFecha(fechaInicio));
+				session.setAttribute("fechaFin",
+						FechaUtil.formatearFecha(fechaFin));
+			} else {
+				session.removeAttribute("fechaInicio");
+				session.removeAttribute("fechaFin");
+			}
 			String tipoCalificacion = request.getParameter("tipoCalificacion");
 
 			Idea idea = new Idea();
@@ -59,15 +74,12 @@ public class BusquedaReunionServlet extends HttpServlet {
 			reunion.setIdea(idea);
 			reunion.setTipoCalificacion(TipoCalificacion
 					.getTipoCalificacion(tipoCalificacion));
+			session.setAttribute("reunion", reunion);
 
 			List<Reunion> listaReunion = gestionReunion.listar(fechaInicio,
 					fechaFin, reunion);
 
 			session.setAttribute("listaReunion", listaReunion);
-			session.setAttribute("fechaInicio",
-					FechaUtil.formatearFecha(fechaInicio));
-			session.setAttribute("fechaFin", FechaUtil.formatearFecha(fechaFin));
-			session.setAttribute("reunion", reunion);
 		} catch (NegocioExcepcion e) {
 			request.setAttribute("mensaje", e.getMessage());
 		} catch (DAOExcepcion e) {

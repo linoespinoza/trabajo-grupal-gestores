@@ -94,24 +94,24 @@ public class InsertaCentroFormacionServlet extends HttpServlet {
 			List<FileItem> items = upload.parseRequest(request);
 
 			if (items != null && !items.isEmpty()) {
-				if (StringUtils.isNotBlank(items.get(5).getName())) {
-					nombreArchivo = new File(items.get(5).getName()).getName();
+				if (StringUtils.isNotBlank(items.get(6).getName())) {
+					nombreArchivo = new File(items.get(6).getName()).getName();
 
 					File archivo = new File(directorioLogo + File.separator
 							+ nombreArchivo);
-					items.get(5).write(archivo);
+					items.get(6).write(archivo);
 				}
 
 				PlanTarifario planTarifario = new PlanTarifario();
-				planTarifario.setCodigo(Integer.parseInt(items.get(4)
+				planTarifario.setCodigo(Integer.parseInt(items.get(5)
 						.getString()));
 
 				centroFormacion = new CentroFormacion();
-				centroFormacion.setCodigo(items.get(0).getString());
-				centroFormacion.setNombre(items.get(1).getString());
+				centroFormacion.setCodigo(items.get(1).getString());
+				centroFormacion.setNombre(items.get(2).getString());
 				centroFormacion.setTipoCentroFormacion(TipoCentroFormacion
-						.getTipoCentroFormacion(items.get(2).getString()));
-				centroFormacion.setUrl(items.get(3).getString());
+						.getTipoCentroFormacion(items.get(3).getString()));
+				centroFormacion.setUrl(items.get(4).getString());
 				centroFormacion.setPlanTarifario(planTarifario);
 				centroFormacion.setLogo(nombreArchivo);
 			}
