@@ -31,9 +31,9 @@
 			<input type="hidden" id="codigo" name="codigo">
 			<p>
 				Rango de Fecha <label> <input type="date" name="fechaInicio"
-					value="${fechaInicio}">
+					value="${fechaInicio}" required="required">
 				</label> <label><input type="date" name="fechaFin"
-					value="${fechaFin}"></label> Tipo de Calificación <label> <select
+					value="${fechaFin}" required="required"></label> Tipo de Calificación <label> <select
 					name="tipoCalificacion">
 						<option value="">Todos</option>
 						<c:forEach var="tipoCalificacion" items="${listaTipoCalificacion}">
