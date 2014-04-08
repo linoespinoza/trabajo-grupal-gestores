@@ -73,6 +73,7 @@ public class GestionCentroFormacion {
 		}
 		if (StringUtils.isNotBlank(centroFormacion.getLogo())
 				&& !ArchivoUtil.esImagen(centroFormacion.getLogo())) {
+			centroFormacion.setLogo(null);
 			throw new NegocioExcepcion(
 					CentroFormacionConstante.MSJ_VALID_IMAGEN);
 		}

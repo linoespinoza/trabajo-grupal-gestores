@@ -94,7 +94,7 @@
 				</tr>
 				<tr>
 					<td>Nro. Celular</td>
-					<td><label> <input type="text" name="numeroCelular"
+					<td><label> <input type="tel" name="numeroCelular"
 							value="${usuario.numeroCelular}" style="width: 150px"
 							required="required" maxlength="9">
 					</label></td>
