@@ -74,7 +74,7 @@
 						<td>${ideaN.titulo}</td>
 						 	<td>${ideaN.descripcion}</td>
 							<td>${ideaN.palabrasClave}</td>
-							<td><a href="/files/prueba.txt"> ${ideaN.archivo}</a></td>  
+							<td><a href="${contextPath}/upload/archivo/${ideaN.archivo}" target="_blank">${ideaN.archivo}</a></td>  
 							<td>${ideaN.estudiante.nombre} ${ideaN.estudiante.apellidoPaterno} ${ideaN.estudiante.apellidoMaterno}</td>
 							<td>${ideaN.asesor.nombre} ${ideaN.asesor.apellidoPaterno} ${ideaN.asesor.apellidoMaterno}</td>
 							<td>${ideaN.estadoIdea.nombre} 

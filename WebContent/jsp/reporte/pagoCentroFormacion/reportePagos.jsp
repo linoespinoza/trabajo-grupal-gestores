@@ -18,7 +18,7 @@
  <body>
      <jsp:include page="../../include/cabecera.jsp" flush="true" />
 	 <div class="container"> 
-		<p><strong>Reporte  &gt; Cobros</strong></p>
+		<p><strong>Reporte  &gt; Pagos Centro de Formación</strong></p>
 		<span style="color: red;">${mensaje}</span>
 		<form id="form1" name="form1" method="post" action="${contextPath}/GenerarReportePagosServlet" class="form-horizontal" >
 			<p> 
@@ -64,23 +64,23 @@
   				<label><input type="submit" name="button" id="button" value="Buscar" /></label>
   		</form>
 		<div class="table-responsive">
-		<table border="1" style="width: 1100; height: 20; padding: 0; border-spacing: 0;" class="table table-hover">
+		<table border="1" style="width: 800; height: 20; padding: 0; border-spacing: 0;" class="table table-hover">
 		  <tr>
-		    <th width="350" scope="col">Nombre</th>
-		    <th width="150" scope="col">Tipo</th>
-		    <th width="150" scope="col">Plan Tarifario</th>
-		    <th width="90" scope="col">Mes de Pago</th>
-		    <th width="70" scope="col">Año</th>
-		    <th width="120" scope="col">Monto Mensual(S/.)</th>
+		    <th width="300" scope="col">Nombre</th>
+		    <th width="80" scope="col" style="text-align: center;">Tipo</th>
+		    <th width="120" scope="col" style="text-align: center;">Plan Tarifario</th>
+		    <th width="90" scope="col" style="text-align: center;">Mes de Pago</th>
+		    <th width="70" scope="col"style="text-align: center;">Año</th>
+		    <th style="text-align: center;" width="100" scope="col">Monto Mensual(S/.)</th>
 		  </tr>
 			<c:forEach var="pago" items="${listaReportePagos}">
 						<tr>
 							<td>${pago.centroFormacion.nombre}</td>
-						 	<td>${pago.centroFormacion.tipoCentroFormacion.nombre}</td>
-							<td>${pago.planTarifario.nombre}</td>
-							<td>${pago.mesPago}</td>
-							<td>${pago.anioPago}</td>
-							<td>${pago.montoMensual}</td>
+						 	<td align="center">${pago.centroFormacion.tipoCentroFormacion.nombre}</td>
+							<td align="center">${pago.planTarifario.nombre}</td>
+							<td align="center">${pago.mesPago}</td>
+							<td align="center">${pago.anioPago}</td>
+							<td align="right">${pago.montoMensual}</td>
 						</tr>
 			</c:forEach>
 		</table>

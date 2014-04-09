@@ -122,18 +122,18 @@ public class EvaluadorDAO extends BaseDAO {
 					
 			if (ideab.getTitulo() != null) {
 				stmt.setString(indiceParametro, "%" + ideab.getTitulo() + "%");
-				indiceParametro = indiceParametro + 1;
+				indiceParametro += 1;
 			} else if (ideab.getDescripcion() != null) {
 				stmt.setString(indiceParametro, "%" + ideab.getDescripcion() + "%");
-				indiceParametro = indiceParametro + 1;
+				indiceParametro += 1;
 			} else if (ideab.getPalabrasClave() != null) {
 				stmt.setString(indiceParametro, "%" + ideab.getPalabrasClave() + "%");
-				indiceParametro = indiceParametro + 1;
+				indiceParametro += 1;
 			}
 			
 			if (ideab.getEstadoIdea() != null) {
 				stmt.setString(indiceParametro, ideab.getEstadoIdea().getCodigo());
-				indiceParametro = indiceParametro + 1;
+				indiceParametro += 1;
 			}
 			
 			if (fecha_ini != null && fecha_fin != null) {

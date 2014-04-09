@@ -1,6 +1,6 @@
 -- PLAN TARIFARIO
 INSERT INTO PLAN_TARIFARIO (No_Plan_Tarifario, Ss_Precio_Servicio, Ss_Precio_Tarifa)
-VALUES ('Plan B醩ico', 100.00, 5.00);
+VALUES ('Plan B谩sico', 100.00, 5.00);
 
 INSERT INTO PLAN_TARIFARIO (No_Plan_Tarifario, Ss_Precio_Servicio, Ss_Precio_Tarifa)
 VALUES ('Plan Premium', 200.00, 10.00);
@@ -13,7 +13,26 @@ INSERT INTO CENTRO_FORMACION (Co_Centro_Formacion, No_Centro_Formacion, Co_Tipo_
 VALUES ('10406048417', 'Universidad Peruana de Ciencias Aplicadas', 'UNI', 'http://www.upc.edu.pe', 'logoUpc.jpg', 1);
 
 INSERT INTO CENTRO_FORMACION (Co_Centro_Formacion, No_Centro_Formacion, Co_Tipo_Centro_Formacion, Tx_Url, Tx_Logo, Co_Plan_Tarifario)
-VALUES ('10334522659', 'Instituto Superior Tecnol骻ico Cibertec', 'INS', 'http://www.cibertec.edu.pe', 'logoCibertec.jpg', 2);
+VALUES ('10334522659', 'Instituto Superior Tecnol贸gico Cibertec', 'INS', 'http://www.cibertec.edu.pe', 'logoCibertec.jpg', 2);
+
+-- REPORTE DE PAGO
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2014,'Febrero','10334522659','1',1,105.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2014,'Febrero','10406048417','3',1,320.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2014,'Marzo','10334522659','1',1,105.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2014,'Marzo','10406048417','3',1,320.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2014,'Abril','10334522659','1',1,105.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2014,'Abril','10406048417','3',3,960.00);
 
 -- USUARIO
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
@@ -23,38 +42,63 @@ INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tip
 VALUES ('Pedro', 'Huanco', 'Rivas', 'M', 'DNI', '42654751', 'u201320957@upc.edu.pe', '995553330', 'phuanco', 'EST', '10406048417');
 
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
-VALUES ('Roberto', 'L髉ez', 'Lingan', 'M', 'DNI', '58933771', 'u201312558@upc.edu.pe', '914554321', 'rlopez', 'EST', '10406048417');
+VALUES ('Roberto', 'L贸pez', 'Lingan', 'M', 'DNI', '58933771', 'u201312558@upc.edu.pe', '914554321', 'rlopez', 'EST', '10334522659');
 
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
 VALUES ('Fiorella', 'Rojas', 'Mesa', 'F', 'DNI', '22258051', 'u201462989@upc.edu.pe', '922984532', 'frojas', 'EST', '10406048417');
 
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
-VALUES ('Luisa', 'Barrera', 'Nu馿z', 'F', 'DNI', '33344066', 'luisa.barrera@upc.edu.pe', '985583722', 'lbarrera', 'DOC', '10406048417');
+VALUES ('Luisa', 'Barrera', 'Nu帽ez', 'F', 'DNI', '33344066', 'luisa.barrera@upc.edu.pe', '985583722', 'lbarrera', 'DOC', '10406048417');
 
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
-VALUES ('Oscar', 'Elera', 'Mu駉z', 'M', 'DNI', '56357809', 'oscar.elera@upc.edu.pe', '953278012', 'oelera', 'DOC', '10406048417');
+VALUES ('Oscar', 'Elera', 'Mu帽oz', 'M', 'DNI', '56357809', 'oscar.elera@upc.edu.pe', '953278012', 'oelera', 'DOC', '10406048417');
 
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
-VALUES ('Marco', 'Aurelio', 'Ya馿z', 'M', 'DNI', '35488065', 'marco.aurelio@upc.edu.pe', '922537712', 'maurelio', 'DOC', '10406048417');
+VALUES ('Marco', 'Aurelio', 'Ya帽ez', 'M', 'DNI', '35488065', 'marco.aurelio@upc.edu.pe', '922537712', 'maurelio', 'DOC', '10406048417');
 
 INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
-VALUES ('Pablo', 'Narvaez', 'Pe馻', 'M', 'DNI', '33212222', 'pablo.narvaez@upc.edu.pe', '956128913', 'pnarvaez', 'EVA', '10406048417');
+VALUES ('Pablo', 'Narvaez', 'Pe帽a', 'M', 'DNI', '33212222', 'pablo.narvaez@upc.edu.pe', '956128913', 'pnarvaez', 'EVA', '10406048417');
+
+INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
+VALUES ('Claudia', 'Sanchez', 'Herrera', 'F', 'DNI', '46321609', 'claudia.sanchez@cibertec.edu.pe', '983741252', 'csanchez', 'EVA', '10334522659');
+
+INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
+VALUES ('Dora', 'Llerena', 'Montes', 'F', 'DNI', '43518329', 'rosa.llerena@cibertec.edu.pe', '981290212', 'dllerena', 'DOC', '10334522659');
+
+INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
+VALUES ('Jose', 'Luna', 'Rodriguez', 'M', 'DNI', '46486513', 'u201214132@cibertec.edu.pe', '951337011', 'jluna', 'EST', '10334522659');
+
+INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
+VALUES ('Henry', 'Perez', 'Romero', 'M', 'DNI', '44615323', 'u201321932@cibertec.edu.pe', '90425103', 'hperez', 'EST', '10334522659');
+
+INSERT INTO USUARIO (No_Usuario, No_Ape_Paterno, No_Ape_Materno, Fl_Sexo, Co_Tipo_Documento, Nu_Documento, Tx_Email, Nu_Celular, Tx_Contrasenia, Co_Tipo_Usuario, Co_Centro_Formacion)
+VALUES ('Erick', 'Tello', 'Meza', 'M', 'DNI', '46236293', 'erick.tello@cibertec.edu.pe', '93031569', 'etello', 'DOC', '10334522659');
+
 
 -- IDEA
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Aula Virtual', 'Tener clases no presenciales', 'online,cursos,foro,evaluaci髇', 'aulaVirtual.docx', 2, 'CRE', NOW(), NULL, NULL);
+VALUES ('Aula Virtual','Tener clases no presenciales','online,cursos,foro,evaluaci贸n','aulaVirtual.docx',2,'CRE','2014-04-05 05:06:42',NULL,NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Matricula Online', 'Matricularse en la comodidad de su casa', 'online,horario,matricula,cursos', 'matriculaOnline.docx', 2, 'PUB', NOW(), NOW(), NULL);
+VALUES ('Matricula Online','Matricularse en la comodidad de su casa','online,horario,matricula,cursos','matriculaOnline.docx',4,'APR','2014-02-20 10:15:03',NULL,6);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Encuesta de Alumnos Online', 'Encuesta online de los alumnos con respecto a la calidad educativa', 'online,evaluaci髇,educaci髇,calidad', 'encuestaAlumnoOnline.docx', 2, 'APR', NOW(), NOW(), NULL);
+VALUES ('Encuesta de Alumnos Online','Encuesta online de los alumnos con respecto a la calidad educativa','online,evaluaci贸n,educaci贸n,calidad','encuestaAlumnoOnline.docx',3,'APR','2014-04-05 05:06:42','2014-04-05 05:06:42',10);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Ingl閟 Online', 'Ingl閟 en la comodidad de su casa', 'online,horario,ingl閟,ex醡enes', 'inglesOnline.docx', 2, 'REC', NOW(), NOW(), NULL);
+VALUES ('Ingl茅s Online','Ingl茅s en la comodidad de su casa','online,horario,ingl茅s,ex谩menes','inglesOnline.docx',2,'REC','2014-04-05 05:06:42','2014-04-05 05:06:42',NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Conferencia Online', 'Conferencia online para estudiantes', 'online,conferencia,educaci髇,temas', 'conferenciaOnline.docx', 2, 'APR', NOW(), NOW(), 5);
+VALUES ('Conferencia Online','Conferencia online para estudiantes','online,conferencia,educaci贸n,temas','conferenciaOnline.docx',2,'APR','2014-04-05 05:06:42','2014-04-05 05:06:42',5);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('Exito en trabajo grupal','Referencias para lograr la sinergia en los grupos de trabajo','grupos,sinergia,exito,trabajos','grupoexitoso.pdf',12,'CRE','2014-03-03 00:00:01',NULL,NULL);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('Programaci贸n F谩cil','Metodo de programaci贸n java agil y simple','programacion,java,metodo,agil','programacionfacil.pdf',3,'PUB','2014-03-10 00:00:00','2014-04-05 17:50:54',NULL);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('Lectura Dinamica','Pautas para leer, comprender y resumir grandes volumnenes de texto','texto,leer,pauta,dinamismo','lecturadinamica.docx',11,'APR','2014-02-13 00:00:00','2014-04-05 17:50:55',10);
 
 -- USUARIO PERMITIDO
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
@@ -70,15 +114,30 @@ INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
 VALUES (6, 2, 2);
 
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
-VALUES (4, 3, 2);
+VALUES (10, 3, 2);
 
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
-VALUES (6, 3, 2);
+VALUES (11, 3, 1);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (13, 3, 4);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (12, 3, 1);
 
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
 VALUES (4, 4, 2);
 
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
 VALUES (6, 4, 2);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (10, 7, 1);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (11, 7, 3);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (12, 7, 2);
 
 COMMIT;

@@ -16,7 +16,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -35,31 +34,44 @@ public class GenerarReportePagosServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		GestionPagos negocio = new GestionPagos();
 		try {
-			HttpSession session = request.getSession();
-
-			String nombrecf = request.getParameter("nombre");
-			String tipocf = request.getParameter("tipo");
-			String mes = request.getParameter("mes");
-			int anio = Integer.parseInt(request.getParameter("anio"));
 			
+			String nombrecf = null;
+			TipoCentroFormacion tipocf = null;
+			String mes = null;
+			int anio;
+			
+			if (StringUtils.isNotBlank(request.getParameter("nombre"))){
+				nombrecf = request.getParameter("nombre");
+			}
+			if(StringUtils.isNotBlank(request.getParameter("tipo"))){
+				tipocf = TipoCentroFormacion.getTipoCentroFormacion(request.getParameter("tipo"));
+			}
+			if(StringUtils.isNotBlank(request.getParameter("mes"))){
+				mes = request.getParameter("mes");
+			}
+			
+		
 			CentroFormacion centrof = new CentroFormacion();
 			centrof.setNombre(nombrecf);
-			centrof.setTipoCentroFormacion(TipoCentroFormacion.getTipoCentroFormacion(tipocf));
-			
+			centrof.setTipoCentroFormacion(tipocf);
+
 			ReportePago rpagoCF = new ReportePago();
 			rpagoCF.setCentroFormacion(centrof);
-			rpagoCF.setAnioPago(anio);
+			rpagoCF.setMesPago(mes);
 			
-			if (StringUtils.isNotBlank(mes)) {
-				rpagoCF.setMesPago(mes);
+			if(StringUtils.isNotBlank(request.getParameter("anio"))){
+				anio = Integer.parseInt(request.getParameter("anio"));
+				rpagoCF.setAnioPago(anio);
 			}
-		
-			GestionPagos negocio = new GestionPagos();
+			
+			
 			Collection<ReportePago> listaReportePago = negocio.listaPagos(rpagoCF);
 			
-			session.setAttribute("listaTipoCentroFormacion", TipoCentroFormacion.values());
-			session.setAttribute("listaReportePagos", listaReportePago);
+			request.setAttribute("listaTipoCentroFormacion", TipoCentroFormacion.values());
+			request.setAttribute("listaReportePagos", listaReportePago);
+			
 		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje",
 					GeneralConstante.ERROR_CONEXION_BASE_DATOS);

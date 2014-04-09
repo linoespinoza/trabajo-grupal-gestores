@@ -32,11 +32,11 @@ public class PagosDAO extends BaseDAO{
 				condicion = " Where No_Centro_Formacion like ? ";
 				f_cond += 1;
 			} 
-			if (rpago.getCentroFormacion().getTipoCentroFormacion().getCodigo() != null) {
+			if (rpago.getCentroFormacion().getTipoCentroFormacion() != null) {
 				if (f_cond == 1){
 					condicion += "and Co_Tipo_Centro_Formacion like ? ";
 				} else {
-					condicion = "Where Co_Tipo_Centro_Formacion like ? ";	
+					condicion = " Where Co_Tipo_Centro_Formacion like ? ";	
 				}
 				f_cond += 1;
 			}
@@ -44,7 +44,7 @@ public class PagosDAO extends BaseDAO{
 				if (f_cond >= 1){
 					condicion += "and Fe_Mes_Pago like ? ";
 				} else {
-					condicion = "Where Fe_Mes_Pago like ? ";
+					condicion = " Where Fe_Mes_Pago like ? ";
 				}
 				f_cond += 1;
 			}
@@ -52,26 +52,25 @@ public class PagosDAO extends BaseDAO{
 				if (f_cond >= 1){
 					condicion += "and Fe_Anio_Pago = ? ";
 				} else {
-					condicion = "Where Fe_Anio_Pago == ? ";
+					condicion = " Where Fe_Anio_Pago = ? ";
 				}
-				f_cond += 1;
 			}
-				String query = "SELECT No_Centro_Formacion, Co_Tipo_Centro_Formacion,No_Plan_Tarifario, Fe_Mes_Pago, Fe_Anio_Pago, Ss_Monto_Mensual " 
+			
+			String query = "SELECT No_Centro_Formacion, Co_Tipo_Centro_Formacion,No_Plan_Tarifario, Fe_Mes_Pago, Fe_Anio_Pago, Ss_Monto_Mensual " 
 					+ "FROM centro_formacion cf inner join reporte_pago rp " 
 					+ "on (cf.Co_Centro_Formacion = rp.Co_Centro_Formacion) "
 					+ "left join plan_tarifario pt "
-					+ "on (cf.Co_Plan_Tarifario = pt.Co_Plan_Tarifario)"
-					+  condicion;
+					+ "on (cf.Co_Plan_Tarifario = pt.Co_Plan_Tarifario)" +  condicion;
 			
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
 			int indiceParametro = 1;
 			
 			if (rpago.getCentroFormacion().getNombre() != null) {
-				stmt.setString(indiceParametro, rpago.getCentroFormacion().getNombre());
+				stmt.setString(indiceParametro,"%" + rpago.getCentroFormacion().getNombre() + "%");
 				indiceParametro += 1;
 			} 
-			if (rpago.getCentroFormacion().getTipoCentroFormacion().getCodigo() != null) {
+			if (rpago.getCentroFormacion().getTipoCentroFormacion() != null) {
 				stmt.setString(indiceParametro, rpago.getCentroFormacion().getTipoCentroFormacion().getCodigo());
 				indiceParametro += 1;
 			}
@@ -81,26 +80,26 @@ public class PagosDAO extends BaseDAO{
 			}
 			if (rpago.getAnioPago() != null) {
 				stmt.setInt(indiceParametro, rpago.getAnioPago());	
-				indiceParametro += 1;
 			}
 							
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				ReportePago vo = new ReportePago();
+				vo.setMesPago(rs.getString(4));
+				vo.setAnioPago(rs.getInt(5));
+				vo.setMontoMensual(rs.getBigDecimal(6));
+				
 				CentroFormacion centroF = new CentroFormacion();
-				centroF.setNombre(rs.getNString(1));
-				centroF.setTipoCentroFormacion(TipoCentroFormacion.getTipoCentroFormacion(rs.getNString(2)));
+				centroF.setNombre(rs.getString(1));
+				centroF.setTipoCentroFormacion(TipoCentroFormacion.getTipoCentroFormacion(rs.getString(2)));
 				vo.setCentroFormacion(centroF);
 				
 				PlanTarifario plant = new PlanTarifario();
-				plant.setNombre(rs.getNString(3));
+				plant.setNombre(rs.getString(3));
 				vo.setPlanTarifario(plant);
 				
-				vo.setMesPago(rs.getString(4));
-				vo.setAnioPago(rs.getInt(5));
-				//vo.setCantidadIdeas(rs.getInt(2));;
-				vo.setMontoMensual(rs.getBigDecimal(6));
 				listap.add(vo);
+				
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
@@ -126,8 +125,7 @@ public class PagosDAO extends BaseDAO{
 						+ "on (cf.Co_Centro_Formacion = rp.Co_Centro_Formacion) "
 						+ "left join plan_tarifario pt "
 						+ "on (cf.Co_Plan_Tarifario = pt.Co_Plan_Tarifario)";
-						//+ "where No_Centro_Formacion like ?";
-		
+							
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
