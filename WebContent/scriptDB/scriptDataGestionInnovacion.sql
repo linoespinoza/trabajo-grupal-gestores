@@ -17,6 +17,18 @@ VALUES ('10334522659', 'Instituto Superior Tecnológico Cibertec', 'INS', 'http:
 
 -- REPORTE DE PAGO
 INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2012,'Marzo','10406048417','1',1,105.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2012,'Setiembre','10334522659','3',1,320.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2013,'Mayo','10334522659','1',1,105.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
+VALUES(2013,'Agosto','10334522659','3',1,320.00);
+
+INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
 VALUES(2014,'Febrero','10334522659','1',1,105.00);
 
 INSERT INTO REPORTE_PAGO (Fe_Anio_Pago,Fe_Mes_Pago,Co_Centro_Formacion,Co_Plan_Tarifario,Qt_Ideas,Ss_Monto_Mensual)
@@ -99,6 +111,18 @@ VALUES ('Programación Fácil','Metodo de programación java agil y simple','pro
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
 VALUES ('Lectura Dinamica','Pautas para leer, comprender y resumir grandes volumnenes de texto','texto,leer,pauta,dinamismo','lecturadinamica.docx',11,'APR','2014-02-13 00:00:00','2014-04-05 17:50:55',10);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('Proquest','Como aprovechar el uso de la biblioteca virtual','biblioteca,libros,online,busqueda','bibliotecavirtual.docx',4,'REC','2012-03-19 03:57:07','2012-04-09 11:07:17',null);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('EBSCO','Optimizar la busqueda de recursos academicos onlines','revistas,recursos,online,busqueda','busquedarecursoonline.docx',11,'APR','2013-05-29 20:07:10','2013-06-09 13:57:52',13);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('Organiza tu tiempo','Taller Online para organizar mejor el tiempo','tiempo,organizacion,planeamiento,online','tallertiempoonline.docx',12,'REC','2013-08-11 15:20:41','2013-08-31 18:15:47',null);
+
+INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
+VALUES ('Aprueba tus Examenes Online','Tutorial con tecnicas de estudio para rendir adecuadamente los examenes online','examenes,online,aprobar,tecnicas','apruebaexamenesonline.docx',3,'REC','2012-09-11 18:02:01','2012-09-25 09:01:11',null);
 
 -- USUARIO PERMITIDO
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
