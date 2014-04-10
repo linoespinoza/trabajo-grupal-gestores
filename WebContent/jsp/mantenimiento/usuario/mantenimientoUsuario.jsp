@@ -83,10 +83,12 @@
 							<td>${usuario.numeroCelular}</td>
 							<td>${usuario.tipoUsuario.nombre}</td>
 							<td>${usuario.centroFormacion.nombre}</td>
-							<td><a href="javascript: void(0);"
-								onclick="editar('${usuario.codigo}');">Editar</a> - <a
-								href="javascript: void(0);"
-								onclick="eliminar('${usuario.codigo}');">Eliminar</a></td>
+							<td><c:if test="${usuario.codigo != 1}">
+									<a href="javascript: void(0);"
+										onclick="editar('${usuario.codigo}');">Editar</a> - <a
+										href="javascript: void(0);"
+										onclick="eliminar('${usuario.codigo}');">Eliminar</a>
+								</c:if></td>
 						</tr>
 					</c:forEach>
 				</table>
