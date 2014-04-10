@@ -63,10 +63,10 @@
 						data-toggle="dropdown">Reporte</a>
 						<ul class="dropdown-menu">
 							<c:if test="${usuarioActual.evaluador}">
-								<li><a href="#">Ideas</a></li>
+								<li><a href="${contextPath}/InicioReporteIdeaServlet">Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.administrador}">
-								<li><a href="#">Pagos de Centro de Formación</a></li>
+								<li><a href="${contextPath}/InicioReportePagosServlet">Pagos de Centro de Formación</a></li>
 							</c:if>
 						</ul></li>
 				</c:if>
