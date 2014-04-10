@@ -45,7 +45,7 @@ public class ObtieneEvaluacionIdeaServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			Usuario evaluador = (Usuario) session.getAttribute("usuarioActual");
 
-			int codigo = Integer.parseInt(request.getParameter("codigo"));
+			Integer codigo = Integer.parseInt(request.getParameter("codigo"));
 
 			List<Usuario> listaDocente = listasComunes.listarDocente(evaluador
 					.getCentroFormacion().getCodigo());

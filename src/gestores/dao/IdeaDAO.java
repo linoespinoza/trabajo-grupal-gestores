@@ -2,8 +2,11 @@ package gestores.dao;
 
 import gestores.bean.Puntaje;
 import gestores.enums.EstadoIdea;
+import gestores.enums.TipoCentroFormacion;
 import gestores.exception.DAOExcepcion;
+import gestores.modelo.CentroFormacion;
 import gestores.modelo.Idea;
+import gestores.modelo.PlanTarifario;
 import gestores.modelo.Usuario;
 import gestores.util.ConexionBD;
 import gestores.util.FechaUtil;
@@ -373,7 +376,7 @@ public class IdeaDAO extends BaseDAO {
 			}
 
 			// Obtener el ultimo id
-			int id = 0;
+			Integer id = 0;
 			query = "SELECT LAST_INSERT_ID()";
 			stmt = con.prepareStatement(query);
 			rs = stmt.executeQuery();
@@ -405,6 +408,8 @@ public class IdeaDAO extends BaseDAO {
 			stmt = con.prepareStatement(query);
 			stmt.setString(1, idea.getTitulo());
 			stmt.setInt(2, idea.getEstudiante().getCodigo());
+			
+			System.out.println(idea.getTitulo());
 			rs = stmt.executeQuery();
 
 			if (rs.next()) {
@@ -456,7 +461,7 @@ public class IdeaDAO extends BaseDAO {
 		try {
 
 			String query = "UPDATE IDEA SET No_Titulo = ?, Tx_Descripcion = ?, Tx_Palabras_Clave = ?, Tx_Archivo = ?"
-					+ "WHERE Co_Idea = ?";
+					+ " WHERE Co_Idea = ?";
 
 			con = ConexionBD.obtenerConexion();
 			stmt = con.prepareStatement(query);
@@ -659,5 +664,62 @@ public class IdeaDAO extends BaseDAO {
 			this.cerrarConexion(con);
 		}
 		return i;
+	}
+	
+	/**
+	 * @author Lino Espinoza
+	 */
+	public int eliminar(String codigo) throws DAOExcepcion {
+		int registroAfectado = 0;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		try {
+			String query = "DELETE FROM IDEA WHERE Co_Idea = ?";
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, codigo);
+			registroAfectado = stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return registroAfectado;
+	}
+
+	/**
+	 * @author Lino Espinoza
+	 */	
+	public Idea obtener(String codigo) throws DAOExcepcion {
+		Idea vo = null;
+		Connection con = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			String query = "SELECT Co_Idea, No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo "
+					+ "FROM IDEA WHERE Co_Idea = ?";
+
+			con = ConexionBD.obtenerConexion();
+			stmt = con.prepareStatement(query);
+			stmt.setString(1, codigo);
+			rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				vo = new Idea();
+				vo.setCodigo(Integer.parseInt(rs.getString(1)));
+				vo.setTitulo(rs.getString(2));
+				vo.setDescripcion(rs.getString(3));
+				vo.setPalabrasClave(rs.getString(4));
+				vo.setArchivo(rs.getString(5));
+			}
+		} catch (SQLException e) {
+			throw new DAOExcepcion(e);
+		} finally {
+			this.cerrarResultSet(rs);
+			this.cerrarStatement(stmt);
+			this.cerrarConexion(con);
+		}
+		return vo;
 	}
 }

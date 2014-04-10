@@ -1,5 +1,16 @@
 eclipse.preferences.version=1
+encoding//WebContent/js/app/mantenimientoCentroFormacion.js=UTF-8
+encoding//src/gestores/constante/CentroFormacionConstante.java=UTF-8
+encoding//src/gestores/constante/GeneralConstante.java=UTF-8
+encoding//src/gestores/constante/IdeaConstante.java=UTF-8
+encoding//src/gestores/constante/UsuarioConstante.java=UTF-8
 encoding//src/gestores/dao/IdeaDAO.java=UTF-8
+encoding//src/gestores/dao/ReunionDAO.java=UTF-8
+encoding//src/gestores/dao/UsuarioDAO.java=UTF-8
 encoding//src/gestores/modelo/Reunion.java=UTF-8
+encoding//src/gestores/negocio/GestionUsuario.java=UTF-8
 encoding//src/gestores/servlet/LoginServlet.java=UTF-8
+encoding//src/gestores/servlet/gestion/registro/reunion/InsertaReunionServlet.java=UTF-8
+encoding//src/gestores/test/EvaluacionIdeaTest.java=UTF-8
 encoding//src/gestores/test/GestionIdeaTest.java=UTF-8
+encoding/<project>=UTF-8

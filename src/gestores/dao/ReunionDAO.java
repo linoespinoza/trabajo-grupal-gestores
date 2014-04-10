@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author Jeremías Yalta.
+ * @author JeremÃ­as Yalta.
  */
 public class ReunionDAO extends BaseDAO {
 

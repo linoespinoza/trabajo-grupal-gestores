@@ -1,57 +1,72 @@
 package gestores.negocio;
 
+import gestores.constante.IdeaConstante;
 import gestores.dao.IdeaDAO;
 import gestores.exception.DAOExcepcion;
+import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
 
 import java.util.Collection;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
-
 public class GestionIdea {
 
-	public Idea insertar(Idea idea) throws DAOExcepcion {
+	/**
+	 * @author Lino Espinoza
+	 */
+	public Idea insertar(Idea idea) throws DAOExcepcion, NegocioExcepcion {
 
 		IdeaDAO dao = new IdeaDAO();
-
-		boolean ideaConTituloExistente = dao.esIdeaConTituloExistente(idea);
-		boolean palabrasRepetidas = false;
-		String[] palabrasClaves = idea.getPalabrasClave().split(",");
-
-		// String = match
-		int numeroCoincidencias = 0;
-		for (String string : palabrasClaves) {
-
-			System.out
-					.println(string
-							+ ' '
-							+ StringUtils.containsOnly(idea.getPalabrasClave(),
-									string));
-
-			/*
-			 * if () { numeroCoincidencias++; } if (numeroCoincidencias > 1) {
-			 * palabrasRepetidas = true; break; }
-			 */
-			System.out.println(numeroCoincidencias);
+		
+		if(!idea.getPalabrasClave().equals(null)){
+			String[] palabrasClaves = idea.getPalabrasClave().split(",");
+			String palabrasAux = palabrasClaves[0];
+			Integer cont = 0;
+			boolean flag = false;
+			
+			for (int i = 0; i < palabrasClaves.length; i++) {
+				if (palabrasAux.equals(palabrasClaves[i])) {
+					cont++;
+				}
+	
+				if (cont > 1) {
+					flag = true;
+					break;
+				}
+			}
+			
+			if(flag) {
+				throw new NegocioExcepcion(IdeaConstante.MSJ_VALID_PALABRAS_CLAVES);
+			}
 		}
-
-		if (!ideaConTituloExistente && !palabrasRepetidas) {
-			return dao.insertarIdea(idea);
-		} else if (ideaConTituloExistente) {
-			throw new DAOExcepcion(
-					"No puede ingresar una idea con el mismo titulo");
-		} else {
-			throw new DAOExcepcion(
-					"No puede ingresar una idea con palabras clave repetidas");
+		
+		if(dao.esIdeaConTituloExistente(idea)) {
+			throw new NegocioExcepcion(IdeaConstante.MSJ_VALID_TITULO);
 		}
+		
+		return dao.insertarIdea(idea);
 	}
 
+	/**
+	 * @author Lino Espinoza
+	 */
 	public Idea actualizar(Idea idea) throws DAOExcepcion {
 		IdeaDAO dao = new IdeaDAO();
 		return dao.actualizarIdea(idea);
 	}
+	
+	/**
+	 * @author Lino Espinoza
+	 */
+	public int eliminar(String codigo) throws DAOExcepcion {
+		IdeaDAO dao = new IdeaDAO();
+		return dao.eliminar(codigo);
+	}
+	
+	/**
+	 * @author Lino Espinoza
+	 */
 
 	public List<Idea> listarIdeasPorUsuario(Usuario estudiante)
 			throws DAOExcepcion {
@@ -85,5 +100,19 @@ public class GestionIdea {
 
 		IdeaDAO dao = new IdeaDAO();
 		return dao.buscarCadena_Idea(cadena);
+	}
+	
+	/**
+	 * @author Lino Espinoza
+	 */
+
+	public Idea obtener(String codigo) throws DAOExcepcion, NegocioExcepcion {
+		IdeaDAO dao = new IdeaDAO();
+
+		Idea idea = dao.obtener(codigo);
+		if (idea == null) {
+			throw new NegocioExcepcion(IdeaConstante.MSJ_VALID_NO_EXIST_IDEA);
+		}
+		return idea;
 	}
 }

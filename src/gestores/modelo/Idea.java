@@ -27,8 +27,8 @@ public class Idea {
 		return codigo;
 	}
 
-	public void setCodigo(Integer codigo) {
-		this.codigo = codigo;
+	public void setCodigo(Integer i) {
+		this.codigo = i;
 	}
 
 	public String getTitulo() {

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Página de mantenimiento de Idea">
 <title>Sistema de Gestión de Innovación</title>
@@ -21,8 +21,8 @@
 		<span style="color: red;">${mensaje}</span>
 		<form name="formulario" method="post" action="${contextPath}/BusquedaCentroFormacionServlet"
             class="form-horizontal">
-			<input type="hidden" name="rutaContexto" value="${contextPath}">
-			<input type="hidden" name="codigo">
+			<input type="hidden" name="rutaContexto" value="${contextPath}" />
+			<input type="hidden" name="codigo" />
             <input type="button" class="btn btn-primary" value="Nuevo" onclick="crear();"><br /><br />
 			<div class="table-responsive">
 				<table border="1"

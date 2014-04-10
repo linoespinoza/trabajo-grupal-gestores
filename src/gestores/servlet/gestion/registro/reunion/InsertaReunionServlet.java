@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Jeremías Yalta.
+ * @author JeremÃ­as Yalta.
  */
 @WebServlet("/InsertaReunionServlet")
 public class InsertaReunionServlet extends HttpServlet {

@@ -1,17 +1,11 @@
 package gestores.servlet.mantenimiento.idea;
 
-import gestores.constante.CentroFormacionConstante;
 import gestores.constante.GeneralConstante;
 import gestores.constante.IdeaConstante;
-import gestores.enums.EstadoIdea;
-import gestores.enums.TipoCentroFormacion;
 import gestores.exception.DAOExcepcion;
-import gestores.modelo.CentroFormacion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
-import gestores.negocio.GestionCentroFormacion;
 import gestores.negocio.GestionIdea;
-import gestores.negocio.GestionUsuario;
 
 import java.io.IOException;
 import java.util.List;
@@ -22,8 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import com.mysql.jdbc.EscapeTokenizer;
 
 /**
  * Servlet implementation class InicioIdeaServlet
@@ -73,6 +65,7 @@ public class InicioIdeaServlet extends HttpServlet {
 		
 		try {
 			HttpSession session = request.getSession();
+			session.removeAttribute("idea");
 			Usuario usuarioActual = (Usuario) session.getAttribute("usuarioActual");
 			if (usuarioActual == null) {
 				request.getRequestDispatcher("error.jsp")
@@ -91,6 +84,10 @@ public class InicioIdeaServlet extends HttpServlet {
 			List<Idea> listaIdea = gestionIdea.listarIdeasPorUsuario(usuarioActual);
 			session.setAttribute("listaIdea", listaIdea);
 			
+		} catch (DAOExcepcion e) {
+			request.setAttribute("mensaje",
+					GeneralConstante.ERROR_CONEXION_BASE_DATOS);
+			e.printStackTrace();
 		} catch (Exception e) {
 			request.setAttribute("mensaje", GeneralConstante.ERROR_GENERAL);
 			e.printStackTrace();

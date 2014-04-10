@@ -27,3 +27,9 @@
 	position: absolute;
 	z-index: 99;
 }
+
+/* Modulo Idea */
+
+form fieldset {
+	color: #F00;
+}

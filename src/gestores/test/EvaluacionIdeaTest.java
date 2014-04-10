@@ -23,9 +23,9 @@ public class EvaluacionIdeaTest {
 			Idea vo = negocio.obtenerEvaluacion(codigo);
 			Assert.assertNotNull(vo);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("ValidaciÃ³n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Fallo la obtención: " + e.getMessage());
+			Assert.fail("Fallo la obtenciÃ³n: " + e.getMessage());
 		}
 	}
 
@@ -40,9 +40,9 @@ public class EvaluacionIdeaTest {
 			int registroAfectado = negocio.actualizarEstado(idea);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("ValidaciÃ³n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la aprobación: " + e.getMessage());
+			Assert.fail("FallÃ³ la aprobaciÃ³n: " + e.getMessage());
 		}
 	}
 
@@ -57,9 +57,9 @@ public class EvaluacionIdeaTest {
 			int registroAfectado = negocio.actualizarEstado(idea);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("ValidaciÃ³n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la desaprobación: " + e.getMessage());
+			Assert.fail("FallÃ³ la desaprobaciÃ³n: " + e.getMessage());
 		}
 	}
 
@@ -81,9 +81,9 @@ public class EvaluacionIdeaTest {
 			int registroAfectado = negocio.asignarAsesor(idea);
 			Assert.assertTrue(registroAfectado > 0);
 		} catch (NegocioExcepcion e) {
-			Assert.fail("Validación: " + e.getMessage());
+			Assert.fail("Validaciï¿½n: " + e.getMessage());
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la asignación de asesor: " + e.getMessage());
+			Assert.fail("Fallï¿½ la asignaciï¿½n de asesor: " + e.getMessage());
 		}
 	}
 
@@ -106,7 +106,7 @@ public class EvaluacionIdeaTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -129,7 +129,7 @@ public class EvaluacionIdeaTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 
@@ -148,7 +148,7 @@ public class EvaluacionIdeaTest {
 			}
 			Assert.assertTrue(listado.size() > 0);
 		} catch (DAOExcepcion e) {
-			Assert.fail("Falló la búsqueda: " + e.getMessage());
+			Assert.fail("Fallï¿½ la bï¿½squeda: " + e.getMessage());
 		}
 	}
 }
