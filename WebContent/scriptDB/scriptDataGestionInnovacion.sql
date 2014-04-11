@@ -92,16 +92,16 @@ INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_E
 VALUES ('Aula Virtual','Tener clases no presenciales','online,cursos,foro,evaluación','aulaVirtual.docx',2,'CRE','2014-04-05 05:06:42',NULL,NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Matricula Online','Matricularse en la comodidad de su casa','online,horario,matricula,cursos','matriculaOnline.docx',4,'APR','2014-02-20 10:15:03',NULL,6);
+VALUES ('Matricula Online','Matricularse en la comodidad de su casa','online,horario,matricula,cursos','matriculaOnline.docx',4,'PUB','2014-02-20 10:15:03',NULL,NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Encuesta de Alumnos Online','Encuesta online de los alumnos con respecto a la calidad educativa','online,evaluación,educación,calidad','encuestaAlumnoOnline.docx',3,'APR','2014-04-05 05:06:42','2014-04-05 05:06:42',10);
+VALUES ('Encuesta de Alumnos Online','Encuesta online de los alumnos con respecto a la calidad educativa','online,evaluación,educación,calidad','encuestaAlumnoOnline.docx',3,'PUB','2014-04-05 05:06:42','2014-04-05 05:06:42',NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Inglés Online','Inglés en la comodidad de su casa','online,horario,inglés,exámenes','inglesOnline.docx',2,'REC','2014-04-05 05:06:42','2014-04-05 05:06:42',NULL);
+VALUES ('Inglés Online','Inglés en la comodidad de su casa','online,horario,inglés,exámenes','inglesOnline.docx',2,'PUB','2014-04-05 05:06:42','2014-04-05 05:06:42',NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Conferencia Online','Conferencia online para estudiantes','online,conferencia,educación,temas','conferenciaOnline.docx',2,'APR','2014-04-05 05:06:42','2014-04-05 05:06:42',5);
+VALUES ('Conferencia Online','Conferencia online para estudiantes','online,conferencia,educación,temas','conferenciaOnline.docx',2,'PUB','2014-04-05 05:06:42','2014-04-05 05:06:42',NULL);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
 VALUES ('Exito en trabajo grupal','Referencias para lograr la sinergia en los grupos de trabajo','grupos,sinergia,exito,trabajos','grupoexitoso.pdf',12,'CRE','2014-03-03 00:00:01',NULL,NULL);
@@ -113,7 +113,7 @@ INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_E
 VALUES ('Lectura Dinamica','Pautas para leer, comprender y resumir grandes volumnenes de texto','texto,leer,pauta,dinamismo','lecturadinamica.docx',11,'APR','2014-02-13 00:00:00','2014-04-05 17:50:55',10);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
-VALUES ('Proquest','Como aprovechar el uso de la biblioteca virtual','biblioteca,libros,online,busqueda','bibliotecavirtual.docx',4,'REC','2012-03-19 03:57:07','2012-04-09 11:07:17',null);
+VALUES ('Proquest','Como aprovechar el uso de la biblioteca virtual','biblioteca,libros,online,busqueda','bibliotecavirtual.docx',4,'PUB','2012-03-19 03:57:07','2012-04-09 11:07:17',null);
 
 INSERT INTO IDEA (No_Titulo, Tx_Descripcion, Tx_Palabras_Clave, Tx_Archivo, Co_Estudiante, Co_Estado, Fe_Creacion, Fe_Publicacion, Co_Asesor)
 VALUES ('EBSCO','Optimizar la busqueda de recursos academicos onlines','revistas,recursos,online,busqueda','busquedarecursoonline.docx',11,'APR','2013-05-29 20:07:10','2013-06-09 13:57:52',13);
@@ -163,5 +163,23 @@ VALUES (11, 7, 3);
 
 INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
 VALUES (12, 7, 2);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (2, 9, 3);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (3, 9, 3);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (4, 9, 5);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (5, 9, 5);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (6, 9, 4);
+
+INSERT INTO USUARIO_PERMITIDO (Co_Usuario, Co_Idea, Qt_Puntaje)
+VALUES (7, 9, 1);
 
 COMMIT;

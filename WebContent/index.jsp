@@ -22,9 +22,9 @@
 			method="post">
 			<h2 class="form-signin-heading">Autenticación</h2>
 			<input type="email" name="email" class="form-control"
-				placeholder="E-mail" autofocus="autofocus" required="required">
+				placeholder="E-mail" autofocus="autofocus" required="required" maxlength="45">
 			<input type="password" name="contrasenia" class="form-control"
-				placeholder="Contraseña" required="required">
+				placeholder="Contraseña" required="required" maxlength="12">
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
 			<span style="color: red;">${mensaje}</span>
 		</form>

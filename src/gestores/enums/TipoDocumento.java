@@ -5,7 +5,7 @@ package gestores.enums;
  */
 public enum TipoDocumento {
 	DNI("DNI", "DNI", 8), RUC("RUC", "RUC", 11), CARNET_EXTRANJERIA("CEX",
-			"Carnet de Extranjería", 12), PASAPORTE("PAS", "Pasaporte", 12), PARTIDA_NACIMIENTO(
+			"Carnet de ExtranjerÃ­a", 12), PASAPORTE("PAS", "Pasaporte", 12), PARTIDA_NACIMIENTO(
 			"PNA", "Partida de Nacimiento", 15);
 
 	private String codigo;

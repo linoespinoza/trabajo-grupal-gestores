@@ -36,16 +36,18 @@ public class ApruebaIdeaServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		EvaluacionIdea evaluacionIdea = new EvaluacionIdea();
+		Idea ideaBD = null;
 		try {
-			HttpSession session = request.getSession();
 			Idea idea = setearDatosEntrada(request);
+			ideaBD = evaluacionIdea.obtenerEvaluacion(idea.getCodigo());
 
 			evaluacionIdea.actualizarEstado(idea);
-			idea = evaluacionIdea.obtenerEvaluacion(idea.getCodigo());
 
 			session.setAttribute("idea", idea);
 		} catch (NegocioExcepcion e) {
+			session.setAttribute("idea", ideaBD);
 			request.setAttribute("mensaje", e.getMessage());
 		} catch (DAOExcepcion e) {
 			request.setAttribute("mensaje",

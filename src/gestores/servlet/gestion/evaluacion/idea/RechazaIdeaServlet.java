@@ -36,12 +36,16 @@ public class RechazaIdeaServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
 		EvaluacionIdea evaluacionIdea = new EvaluacionIdea();
+		Idea ideaBD = null;
 		try {
 			Idea idea = setearDatosEntrada(request);
+			ideaBD = evaluacionIdea.obtenerEvaluacion(idea.getCodigo());
 
 			evaluacionIdea.actualizarEstado(idea);
 		} catch (NegocioExcepcion e) {
+			session.setAttribute("idea", ideaBD);
 			request.setAttribute("mensaje", e.getMessage());
 			RequestDispatcher requestDispatcher = request
 					.getRequestDispatcher("/"
