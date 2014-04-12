@@ -8,10 +8,11 @@ import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Usuario;
 import gestores.util.NumeroUtil;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
- * @author Jeremías Yalta.
+ * @author Jeremï¿½as Yalta.
  */
 public class GestionUsuario {
 
@@ -92,5 +93,15 @@ public class GestionUsuario {
 			throw new NegocioExcepcion(UsuarioConstante.MSJ_VALID_AUTENTICACION);
 		}
 		return usuario;
+	}
+
+	/*
+	 * Alex Valencia
+	 */
+	public Collection<Usuario> buscarNombre_Usuario(int codigo)
+			throws DAOExcepcion {
+
+		UsuarioDAO dao = new UsuarioDAO();
+		return dao.buscarNombre_Usuario(codigo);
 	}
 }

@@ -100,7 +100,8 @@
 						<h4>Participación de Ideas</h4>
 						<p>Desde esta opción usted podrá participar de las ideas.</p>
 						<p>
-							<a href="#" class="btn btn-primary">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioParticipacionIdeaServlet"
+								class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
@@ -123,7 +124,8 @@
 						<h4>Reporte de Ideas</h4>
 						<p>Desde esta opción usted podrá ver el reporte de las ideas.</p>
 						<p>
-								<a href="${contextPath}/InicioReporteIdeaServlet" class="btn btn-primary">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioReporteIdeaServlet"
+								class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>
@@ -133,7 +135,8 @@
 						<p>Desde esta opción usted podrá consultar los pagos de los
 							centros de formación.</p>
 						<p>
-							<a href="${contextPath}/InicioReportePagosServlet" class="btn btn-primary">Ver detalles &raquo;</a>
+							<a href="${contextPath}/InicioReportePagosServlet"
+								class="btn btn-primary">Ver detalles &raquo;</a>
 						</p>
 					</div>
 				</c:if>

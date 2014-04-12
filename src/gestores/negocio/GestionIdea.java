@@ -7,7 +7,6 @@ import gestores.exception.NegocioExcepcion;
 import gestores.modelo.Idea;
 import gestores.modelo.Usuario;
 
-import java.util.Collection;
 import java.util.List;
 
 public class GestionIdea {
@@ -18,33 +17,34 @@ public class GestionIdea {
 	public Idea insertar(Idea idea) throws DAOExcepcion, NegocioExcepcion {
 
 		IdeaDAO dao = new IdeaDAO();
-		
-		if(!idea.getPalabrasClave().equals(null)){
+
+		if (!idea.getPalabrasClave().equals(null)) {
 			String[] palabrasClaves = idea.getPalabrasClave().split(",");
 			String palabrasAux = palabrasClaves[0];
 			Integer cont = 0;
 			boolean flag = false;
-			
+
 			for (int i = 0; i < palabrasClaves.length; i++) {
 				if (palabrasAux.equals(palabrasClaves[i])) {
 					cont++;
 				}
-	
+
 				if (cont > 1) {
 					flag = true;
 					break;
 				}
 			}
-			
-			if(flag) {
-				throw new NegocioExcepcion(IdeaConstante.MSJ_VALID_PALABRAS_CLAVES);
+
+			if (flag) {
+				throw new NegocioExcepcion(
+						IdeaConstante.MSJ_VALID_PALABRAS_CLAVES);
 			}
 		}
-		
-		if(dao.esIdeaConTituloExistente(idea)) {
+
+		if (dao.esIdeaConTituloExistente(idea)) {
 			throw new NegocioExcepcion(IdeaConstante.MSJ_VALID_TITULO);
 		}
-		
+
 		return dao.insertarIdea(idea);
 	}
 
@@ -55,7 +55,7 @@ public class GestionIdea {
 		IdeaDAO dao = new IdeaDAO();
 		return dao.actualizarIdea(idea);
 	}
-	
+
 	/**
 	 * @author Lino Espinoza
 	 */
@@ -63,7 +63,7 @@ public class GestionIdea {
 		IdeaDAO dao = new IdeaDAO();
 		return dao.eliminar(codigo);
 	}
-	
+
 	/**
 	 * @author Lino Espinoza
 	 */
@@ -75,37 +75,8 @@ public class GestionIdea {
 	}
 
 	/**
-	 * @author Alex Valencia
-	 */
-	public Collection<Idea> listar_Idea() throws DAOExcepcion {
-
-		IdeaDAO dao = new IdeaDAO();
-		return dao.listar_Idea();
-	}
-
-	/**
-	 * @author Alex Valencia
-	 */
-	public Collection<Idea> buscarNombre_Idea(int codigo) throws DAOExcepcion {
-
-		IdeaDAO dao = new IdeaDAO();
-		return dao.buscarNombre_Idea(codigo);
-	}
-
-	/**
-	 * @author Alex Valencia
-	 */
-	public Collection<Idea> buscarCadena_Idea(String cadena)
-			throws DAOExcepcion {
-
-		IdeaDAO dao = new IdeaDAO();
-		return dao.buscarCadena_Idea(cadena);
-	}
-	
-	/**
 	 * @author Lino Espinoza
 	 */
-
 	public Idea obtener(String codigo) throws DAOExcepcion, NegocioExcepcion {
 		IdeaDAO dao = new IdeaDAO();
 
@@ -114,5 +85,43 @@ public class GestionIdea {
 			throw new NegocioExcepcion(IdeaConstante.MSJ_VALID_NO_EXIST_IDEA);
 		}
 		return idea;
+	}
+
+	/**
+	 * @author Alex Valencia
+	 */
+	public List<Idea> listar_Idea() throws DAOExcepcion {
+
+		IdeaDAO dao = new IdeaDAO();
+		return dao.listar_Idea();
+	}
+
+	/**
+	 * @author Alex Valencia
+	 */
+	public List<Idea> buscarNombreIdea(int codigo) throws DAOExcepcion {
+
+		IdeaDAO dao = new IdeaDAO();
+		return dao.buscarNombreIdea(codigo);
+	}
+
+	/**
+	 * @author Alex Valencia
+	 */
+	public List<Idea> buscarCadenaIdea(String cadena, String estado,
+			String codigoCE) throws DAOExcepcion {
+
+		IdeaDAO dao = new IdeaDAO();
+		return dao.buscarCadenaIdea(cadena, estado, codigoCE);
+	}
+
+	/**
+	 * @author Alex Valencia
+	 */
+	public List<Idea> buscarParticipacionIdea(String cadena, String codigoCE)
+			throws DAOExcepcion {
+
+		IdeaDAO dao = new IdeaDAO();
+		return dao.buscarParticipacionIdea(cadena, codigoCE);
 	}
 }

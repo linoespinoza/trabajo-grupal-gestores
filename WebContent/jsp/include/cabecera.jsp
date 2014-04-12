@@ -49,7 +49,7 @@
 								<li><a href="#">Publicación de Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.estudiante or usuarioActual.docente}">
-								<li><a href="#">Participación de Ideas</a></li>
+								<li><a href="${contextPath}/InicioParticipacionIdeaServlet">Participación de Ideas</a></li>
 							</c:if>
 							<c:if test="${usuarioActual.evaluador}">
 								<li><a href="${contextPath}/InicioEvaluacionIdeaServlet">Evaluación
